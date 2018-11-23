@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <link rel="stylesheet" type="text/css" href="style.css">
+    </head>
+    
+	<body onload="kickUpFileSystem()">
+	<?php include 'test.php';?>
+	<?php
+echo "My first PHP script!";
+?>
+        <div id="top">
+            <input class="button-Off" type="button" id="submit" onmousedown= "addTable()" onmouseup="colorBack(this)" value="Submit">
+            <input class="button-Off" type="button" id="addFile" onmousedown="newFile()" onmouseup="colorBack(this)" value="Add New File">
+            <input class="button-Off" type="button" id="clear" onmousedown="clearData()" onmouseup="colorBack(this)" value="Clear">
+            
+            <div class="dropdown">
+            <button id="myBtn" class="dropbtn">Resources</button>
+              <div id="myDropdown" class="dropdown-content">
+                <a href="https://ichihtak000.github.io/mywebsite/test.html">Git page</a>
+                <a href="https://github.com/ichihtak000/mywebsite/blob/master/test.html">Source</a>
+                <a href="https://rover-ruckus-scorer.now.sh/">Idea</a>
+              </div>
+            </div>
+        </div>
+        <div id="red1score">
+            <input type="number" id="team" name="team" value="0"><br>
+            <div class="scores" id="auto">
+                Autonomous<br>
+                <input class="button-Off" type="button" id="landing" name="landing" value="30" onclick="chooseAuto(this)">Landing<br>
+                <input class="button-Off" type="button" id="sampling" name="sampling" value="25" onclick="chooseAuto(this)">Sampling<br>
+                <input class="button-Off" type="button" id="claiming" name="claiming" value="15" onclick="chooseAuto(this)">Claiming<br>
+                <input class="button-Off" type="button" id="parking" name="parking" value="10" onclick="chooseAuto(this)">Parking<br>
+            </div>
+            <div class="scores" id="tele">
+                TeleOp<br>
+                <input type ="number" id="depot" name="depot" value="0">Depot<br>
+                <input class="button-Off" type="button" id="addDepot" name="addDepot" value="+2" onmousedown="teleOp(this)" onmouseup="colorBack(this)">
+                <input class="button-Off" type="button" id="deleteDepot" name="deleteDepot" value="-2" onmousedown="teleOp(this)" onmouseup="colorBack(this)"><br>
+                <input type="number" id="cargo" name="cargo" value="0">Cargo Hold<br>
+                <input class="button-Off" type="button" id="addCargo" name="addCargo" value="+5" onmousedown="teleOp(this)" onmouseup="colorBack(this)">   
+                <input class="button-Off" type="button" id="deleteCargo" name="deleteCargo" value="-5" onmousedown="teleOp(this)" onmouseup="colorBack(this)">  
+            </div>
+            <div class="scores" id="end">
+                End-Game<br>
+                <input class="button-Off" type="button" id="partial" name="partial" value="15" onclick="chooseEnd(this)">Partially Parked<br>
+                <input class="button-Off" type="button" id="fully" name="fully" value="25" onclick="chooseEnd(this)">Fully Parked<br>
+                <input class="button-Off" type="button" id="latched" name="latched" value="50" onclick="chooseEnd(this)">Latched<br>
+            </div>
+        </div>    
+            <p id="demo"></p>
+            <p id="say"></p>
+        <div class="table">
+            <table id="scoreTable">
+              <tr>
+                <td>Match</td>
+                <td>Team</td>
+                <td>Total</td>
+                <td>Autonomous</td>
+                <td>TeleOp</td>
+                <td>End Game</td>
+              </tr>
+            </table>
+        </div>
+        <br>
+        <div id="myDIV">
+		<iframe id="theFrame"></iframe>
+        <script src="initial.js"></script> 
+        <script src="scoring.js"></script>
+        
+    </body>
+</html>
