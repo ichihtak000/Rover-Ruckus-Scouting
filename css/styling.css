@@ -1,0 +1,29 @@
+table, td {
+    border: 1px solid black;
+}
+
+.table{
+    clear:left;
+}
+
+.button-On {
+    background-color: #00FF00;
+    border: 5px;
+    color: blue;
+    padding: 7px 16px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 14px;
+}
+
+.button-Off{
+    background-color: #4CAF50; 
+    border: 5px;
+    color: white;
+    padding: 7px 16px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 14px;
+}
