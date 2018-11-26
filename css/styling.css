@@ -1,9 +1,21 @@
-table, td {
-    border: 1px solid black;
+html, body{
+	height:100%;
+	margin:0;
 }
 
-.table{
-    clear:left;
+#all{
+	width:100%;
+	height:100%;
+}
+
+.formating{
+	width:100%;
+	height:92%;
+}
+
+.formating form{
+	width:100%;
+	height:100%;
 }
 
 .button-On {
@@ -14,17 +26,16 @@ table, td {
     text-align: center;
     text-decoration: none;
     display: inline-block;
-    font-size: 14px;
+    font-size: 16px;
 }
 
-.button-Off{
-    background-color: #4CAF50; 
+.button-Off{ 
+	background-color:green;
     border: 5px;
     color: white;
     padding: 7px 16px;
     text-align: center;
     text-decoration: none;
     display: inline-block;
-    font-size: 14px;
-	height:30px;
+    font-size: 16px;
 }

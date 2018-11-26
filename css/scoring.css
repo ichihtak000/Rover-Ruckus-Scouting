@@ -1,7 +1,81 @@
-.teams{
-	height:80%;
+#red1Div{
+	background-color:#B22222;
+}
+
+#red2Div{
+	background-color:red;
+}
+
+#blue1Div{
 	background-color:blue;
 }
 
-#red1{
+#blue2Div{
+	background-color:#2E86C1;
+}
+
+.teams{
+	width:100%;
+	height:5%;
+}
+
+.teamName{
+	height:100%;
+	width:25%;
+	float:left;
+}
+
+.total{
+	width:100%;
+	height:5%;
+}
+
+.totalDiv{
+	height:100%;
+	width:25%;
+	text-align:center;
+	float:left;
+}
+
+.totalDiv p{
+	font-size: 20px;
+	float:left;
+	padding:0px;
+	position:relative;
+	left:50%;
+	transform: translate(-100%,-50%);
+}
+
+.auto{
+	width:100%;
+	height:25%;
+}
+
+.autoDiv{
+	height:100%;
+	width:25%;
+	text-align:center;
+	float:left;
+}
+
+
+.teleDiv{
+	height:25%;
+	width:25%;
+}
+
+.EndDiv{
+	height:20%;
+}
+
+.score-container {
+	position:relative;
+	left:50%;
+	transform: translate(-50%,-50%);
+}
+
+.score-container p{
+	float:left;
+	font-size: 16px;
+	padding:0;
 }
