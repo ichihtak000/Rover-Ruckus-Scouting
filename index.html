@@ -13,7 +13,6 @@
 	<link rel="stylesheet" type="text/css" href="css/top.css">
 	<link rel="stylesheet" type="text/css" href="css/scoring.css">
 	<link rel="stylesheet" type="text/css" href="css/styling.css">
-	<link rel="stylesheet" type="text/css" href="css/a.css">
 	
 	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 	<link rel="icon" href="visuals/icon2.png">
@@ -21,6 +20,13 @@
 
 <body>
 	<div id="all">
+	
+	<script src="js/scoringR1.js"></script>
+	<script src="js/scoringR2.js"></script>
+	<script src="js/scoringB1.js"></script>
+	<script src="js/scoringB2.js"></script>
+	<script src="js/scoringTotal.js"></script>
+	
 		<div class="navbar">
 			<div class="dropdown" style="float:left">
 				<button class="dropbtn">Files
@@ -57,10 +63,10 @@
 						<input type="submit" name="newFile" id="newFile" value="New File">
 					</div>
 					<div class="topDiv">
-						<input type="button" class="button-Off" style="background-color:green" value="Submit">
+						<input type="button" class="button-off-top" style="background-color:green" value="Submit">
 					</div>
 					<div class="topDiv">
-						<input type="button" class="button-Off" style="background-color:red" value="Clear">
+						<input type="button" class="button-off-top" style="background-color:red" value="Clear">
 					</div>
 				</div>
 			
@@ -90,52 +96,119 @@
 				</div>
 			
 				<div class="total">
-					<div class="totalDiv" name="red1t" id="red1Div">
-						<p>Total:</p>
-						<p>0</P>
+					<div class="totalDiv" id="red1Div">
+						<div class="score-container">
+							<span>Total:</span><span id="totalScoreR1">0</span>
+						</div>
 					</div>
-					<div class="totalDiv" name="red2t"id="red2Div">
-						<p>Total:</p>
-						<p>0</P>
+					<div class="totalDiv" id="red2Div">
+						<div class="score-container">
+							<span>Total:</span><span id="totalScoreR2">0</span>
+						</div>
 					</div>
-					<div class="totalDiv" name="blue1t" id="blue1Div">
-						<p>Total:</p>
-						<p>0</P>
+					<div class="totalDiv" id="blue1Div">
+						<div class="score-container">
+							<span>Total:</span><span id="totalScoreB1">0</span>
+						</div>
 					</div>
-					<div class="totalDiv" name="blue2t" id="blue2Div">
-						<p>Total:</p>
-						<p>0</P>
+					<div class="totalDiv" id="blue2Div">
+						<div class="score-container">
+							<span>Total:</span><span id="totalScoreB2">0</span>
+						</div>
 					</div>
 				</div>
 			
 				<div class="auto">
 					<div class="autoDiv" id="red1Div">
-						
-							<p>Autonomous:</p>
-							<p>0</P>
-						
+						<div class="score-container">
+							<span>Autonomous:</span><span id="autoScoreR1">0</span>
+						</div>
+						<div class="autoButton">
+							<p>Landing</p>
+							<input class="button-off-score" type="button" id="landingR1" name="landingR1" value="30" onclick="chooseAutoR1(this);updateTotalR1();">
+						</div>	
+						<div class="autoButton">
+							<p>Sampling</p>
+							<input class="button-off-score" type="button" id="samplingR1" name="samplingR1" value="25" onclick="chooseAutoR1(this);updateTotalR1();">
+						</div>
+						<div class="autoButton">
+							<p>Claiming</p>
+							<input class="button-off-score" type="button" id="claimingR1" name="claimingR1" value="15" onclick="chooseAutoR1(this);updateTotalR1();">
+						</div>
+						<div class="autoButton">
+							<p>Parking</p>
+							<input class="button-off-score" type="button" id="parkingR1" name="parkingR1" value="10" onclick="chooseAutoR1(this);updateTotalR1();">
+						</div>
 					</div>
+					
 					<div class="autoDiv" id="red2Div">
 						<div class="score-container">
-							<p>Autonomous:</p>
-							<p>0</P>
+							<span>Autonomous:</span><span id="autoScoreR2">0</span>
+						</div>
+						<div class="autoButton">
+							<p>Landing</p>
+							<input class="button-off-score" type="button" id="landingR2" name="landingR2" value="30" onclick="chooseAutoR2(this);updateTotalR2();">
+						</div>	
+						<div class="autoButton">
+							<p>Sampling</p>
+							<input class="button-off-score" type="button" id="samplingR2" name="samplingR2" value="25" onclick="chooseAutoR2(this);updateTotalR2();">
+						</div>
+						<div class="autoButton">
+							<p>Claiming</p>
+							<input class="button-off-score" type="button" id="claimingR2" name="claimingR2" value="15" onclick="chooseAutoR2(this);updateTotalR2();">
+						</div>
+						<div class="autoButton">
+							<p>Parking</p>
+							<input class="button-off-score" type="button" id="parkingR2" name="parkingR2" value="10" onclick="chooseAutoR2(this);updateTotalR2();">
 						</div>
 					</div>
+					
 					<div class="autoDiv" id="blue1Div">
 						<div class="score-container">
-							<p>Autonomous:</p>
-							<p>0</P>
+							<span>Autonomous:</span><span id="autoScoreB1">0</span>
+						</div>
+						<div class="autoButton">
+							<p>Landing</p>
+							<input class="button-off-score" type="button" id="landingB1" name="landingB1" value="30" onclick="chooseAutoB1(this);updateTotalB1();">
+						</div>	
+						<div class="autoButton">
+							<p>Sampling</p>
+							<input class="button-off-score" type="button" id="samplingB1" name="samplingB1" value="25" onclick="chooseAutoB1(this);updateTotalB1();">
+						</div>
+						<div class="autoButton">
+							<p>Claiming</p>
+							<input class="button-off-score" type="button" id="claimingB1" name="claimingB1" value="15" onclick="chooseAutoB1(this);updateTotalB1();">
+						</div>
+						<div class="autoButton">
+							<p>Parking</p>
+							<input class="button-off-score" type="button" id="parkingB1" name="parkingB1" value="10" onclick="chooseAutoB1(this);updateTotalB1();">
 						</div>
 					</div>
+					
 					<div class="autoDiv" id="blue2Div">
 						<div class="score-container">
-							<p>Autonomous:</p>
-							<p>0</P>
+							<span>Autonomous:</span><span id="autoScoreB2">0</span>
+						</div>
+						<div class="autoButton">
+							<p>Landing</p>
+							<input class="button-off-score" type="button" id="landingB2" name="landingB2" value="30" onclick="chooseAutoB2(this);updateTotalB2();">
+						</div>	
+						<div class="autoButton">
+							<p>Sampling</p>
+							<input class="button-off-score" type="button" id="samplingB2" name="samplingB2" value="25" onclick="chooseAutoB2(this);updateTotalB2();">
+						</div>
+						<div class="autoButton">
+							<p>Claiming</p>
+							<input class="button-off-score" type="button" id="claimingB2" name="claimingB2" value="15" onclick="chooseAutoB2(this);updateTotalB2();">
+						</div>
+						<div class="autoButton">
+							<p>Parking</p>
+							<input class="button-off-score" type="button" id="parkingB2" name="parkingB2" value="10" onclick="chooseAutoB2(this);updateTotalB2();">
 						</div>
 					</div>
 				</div>
 			
-				<div class="auto">
+				<div class="tele">
 					<div class="totalDiv" id="red1Div">
 						<p>TeleOP:</P>
 						<p>0</p>
@@ -151,22 +224,56 @@
 					</div>
 				</div>
 				
-				<div class="auto">
-					<div class="totalDiv" id="red1Div">
-						<p>End:</P>
-						<p>0</p>
+				<div class="end">
+					<div class="endDiv" id="red1Div">
+						<div class="score-container">
+							<span>End:</span><span id="endScoreR1">0</span>
+						</div>
+						<br>
+						<div class="autoButton">
+							
+							<input class="button-off-score" type="button" id="landingR1" name="landingR1" value="30" onclick="chooseAutoR1(this)">
+							<input class="button-off-score" type="button" id="samplingR1" name="samplingR1" value="25" onclick="chooseAutoR1(this)">
+							<input class="button-off-score" type="button" id="claimingR1" name="claimingR1" value="15" onclick="chooseAutoR1(this)">
+							<input class="button-off-score" type="button" id="parkingR1" name="parkingR1" value="10" onclick="chooseAutoR1(this)">
+						</div>	
 					</div>
-					<div class="totalDiv" id="red2Div">
-						<p>End:</P>
-						<p>0</p>
+					
+					<div class="endDiv" id="red2Div">
+						<div class="score-container">
+							<span>End:</span><span id="endScoreR2">0</span>
+						</div>
+						<br>
+						<div class="autoButton">		
+							<input class="button-off-score" type="button" id="landingR1" name="landingR1" value="30" onclick="chooseAutoR1(this)">
+							<input class="button-off-score" type="button" id="samplingR1" name="samplingR1" value="25" onclick="chooseAutoR1(this)">
+							<input class="button-off-score" type="button" id="claimingR1" name="claimingR1" value="15" onclick="chooseAutoR1(this)">
+							<input class="button-off-score" type="button" id="parkingR1" name="parkingR1" value="10" onclick="chooseAutoR1(this)">
+						</div>	
 					</div>
-					<div class="totalDiv" id="blue1Div">
-						<p>End:</P>
-						<p>0</p>
+					<div class="endDiv" id="blue1Div">
+						<div class="score-container">
+							<span>End:</span><span id="endScoreB1">0</span>
+						</div>
+						<br>
+						<div class="autoButton">		
+							<input class="button-off-score" type="button" id="landingR1" name="landingR1" value="30" onclick="chooseAutoR1(this)">
+							<input class="button-off-score" type="button" id="samplingR1" name="samplingR1" value="25" onclick="chooseAutoR1(this)">
+							<input class="button-off-score" type="button" id="claimingR1" name="claimingR1" value="15" onclick="chooseAutoR1(this)">
+							<input class="button-off-score" type="button" id="parkingR1" name="parkingR1" value="10" onclick="chooseAutoR1(this)">
+						</div>						
 					</div>
-					<div class="totalDiv" id="blue2Div">
-						<p>End:</P>
-						<p>0</p>
+					<div class="endDiv" id="blue2Div">
+						<div class="score-container">
+							<span>End:</span><span id="endScoreRB2"</span>
+						</div>
+						<br>
+						<div class="autoButton">		
+							<input class="button-off-score" type="button" id="landingR1" name="landingR1" value="30" onclick="chooseAutoR1(this)">
+							<input class="button-off-score" type="button" id="samplingR1" name="samplingR1" value="25" onclick="chooseAutoR1(this)">
+							<input class="button-off-score" type="button" id="claimingR1" name="claimingR1" value="15" onclick="chooseAutoR1(this)">
+							<input class="button-off-score" type="button" id="parkingR1" name="parkingR1" value="10" onclick="chooseAutoR1(this)">
+						</div>	
 					</div>
 				</div>
 			</form>

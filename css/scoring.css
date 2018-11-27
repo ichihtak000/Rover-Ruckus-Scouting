@@ -1,81 +1,134 @@
-#red1Div{
+#red1Div {
 	background-color:#B22222;
 }
 
-#red2Div{
+#red2Div {
 	background-color:red;
 }
 
-#blue1Div{
+#blue1Div {
 	background-color:blue;
 }
 
-#blue2Div{
+#blue2Div {
 	background-color:#2E86C1;
 }
 
-.teams{
+.teams {
 	width:100%;
 	height:5%;
 }
 
-.teamName{
+.teamName {
 	height:100%;
 	width:25%;
 	float:left;
 }
 
-.total{
+.total {
 	width:100%;
 	height:5%;
 }
 
-.totalDiv{
+.totalDiv {
 	height:100%;
 	width:25%;
 	text-align:center;
 	float:left;
 }
 
-.totalDiv p{
-	font-size: 20px;
+.totalDiv span{
+	background-color:#D3D3D3;
+	padding:3px 8px;
+}
+
+.auto {
+	width:100%;
+	height:25%;
+}
+
+.autoDiv {
+	height:100%;
+	width:25%;
+	text-align:center;
 	float:left;
-	padding:0px;
+}
+
+.autoButton {
+	height:70%;
+	width:25%;
+	float:left;
+}
+.autoButton p{
+	font-size:90%;
+	color:	#90EE90;
+}
+
+.autoButton .button-on-score {
+ 	background-color:#00FF00;
+	font-size:100%;
+    border: 5px;
+    color: blue;
+    padding: 5px 16px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
 	position:relative;
-	left:50%;
-	transform: translate(-100%,-50%);
+	top:50%;
+	transform: translate(0%,-50%);
 }
 
-.auto{
+.autoButton .button-off-score { 
+	background-color:green;
+	font-size:100%;
+    border: 5px;
+    color: white;
+    padding: 5px 16px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+	position:relative;
+	top:50%;
+	transform: translate(0%,-50%);
+}
+
+.tele {
 	width:100%;
 	height:25%;
 }
 
-.autoDiv{
+.teleDiv {
 	height:100%;
 	width:25%;
 	text-align:center;
 	float:left;
 }
 
-
-.teleDiv{
+.end {
+	width:100%;
 	height:25%;
-	width:25%;
 }
 
-.EndDiv{
-	height:20%;
+.endDiv {
+	height:100%;
+	width:25%;
+	text-align:center;
+	float:left;
 }
 
 .score-container {
+	height:30%;
+	width:100%;
+	text-align:center;
+	float:left;
+	font-size: 100%;
+	padding:0;
 	position:relative;
-	left:50%;
-	transform: translate(-50%,-50%);
 }
 
-.score-container p{
-	float:left;
-	font-size: 16px;
-	padding:0;
+.score-container span {
+	font-size:130%;
+	position:relative;
+	top:40%;
 }
+

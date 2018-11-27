@@ -3,39 +3,17 @@ html, body{
 	margin:0;
 }
 
-#all{
+#all {
 	width:100%;
 	height:100%;
 }
 
-.formating{
+.formating {
 	width:100%;
 	height:92%;
 }
 
-.formating form{
+.formating form {
 	width:100%;
 	height:100%;
-}
-
-.button-On {
-    background-color: #00FF00;
-    border: 5px;
-    color: blue;
-    padding: 7px 16px;
-    text-align: center;
-    text-decoration: none;
-    display: inline-block;
-    font-size: 16px;
-}
-
-.button-Off{ 
-	background-color:green;
-    border: 5px;
-    color: white;
-    padding: 7px 16px;
-    text-align: center;
-    text-decoration: none;
-    display: inline-block;
-    font-size: 16px;
 }
