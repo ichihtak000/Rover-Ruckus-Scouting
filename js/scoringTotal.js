@@ -1,13 +1,13 @@
 function updateTotalR1(){
-	var autoR1 = document.getElementById("autoScoreR1").innerHTML;
-	var endR1 = document.getElementById("endScoreR1").innerHTML;
-	document.getElementById("totalScoreR1").innerHTML = +autoR1 + +endR1;
+	var auto = document.getElementById("autoScoreR1").innerHTML;
+	var end = document.getElementById("endScoreR1").innerHTML;
+	document.getElementById("totalScoreR1").innerHTML = +auto + +end;
 }
 
 function updateTotalR2(){
-	var autoR2 = document.getElementById("autoScoreR2").innerHTML;
-	var endR2 = document.getElementById("endScoreR2").innerHTML;
-	document.getElementById("totalScoreR2").innerHTML = +autoR2 + +endR2;
+	var auto = document.getElementById("autoScoreR2").innerHTML;
+	var end = document.getElementById("endScoreR2").innerHTML;
+	document.getElementById("totalScoreR2").innerHTML = +auto + +end;
 }
 
 function updateTotalB1(){
