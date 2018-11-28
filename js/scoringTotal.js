@@ -1,19 +1,21 @@
-var autoR1 = "";
-var autoR2;
-var autoB1;
-var autoB2;
-var teleR1;
-var teleR2;
-var teleB1;
-var teleB2;
-var endR1;
-var endR2;
-var endB1;
-var endB2;
-var totalR1;
-var totalR2;
-var totalB1;
-var totalB2;
+var autoR1 = 0;
+var autoR2 = 0;
+var autoB1 = 0;
+var autoB2 = 0;
+var teleR1 = 0;
+var teleR2 = 0;
+var teleB1 = 0;
+var teleB2 = 0;
+var endR1 = 0;
+var endR2 = 0;
+var endB1 = 0;
+var endB2 = 0;
+var totalR1 = 0;
+var totalR2 = 0;
+var totalB1 = 0;
+var totalB2 = 0;
+
+var autoScores=[];
 
 function updateTotalR1(){
 	autoR1 = document.getElementById("autoScoreR1").innerHTML;
@@ -44,6 +46,14 @@ function updateTotalB2(){
 }
 
 function store() {
-   var getInput = prompt("Hey type something here: ");
-   localStorage.setItem("storageName",getInput);
+	alert("Submited");
+	autoScores[autoScores.length] = autoR1;
+	if (typeof(Storage) !== "undefined") {
+		for(var i=1; i<autoScores.length; i++){
+            localStorage.setItem("autoScore" + i, autoScores[i]);
+        }
+		localStorage.setItem("tableLength",autoScores.length);
+	} else {
+		alert("Sorry, your browser does not support Web Storage...");
+	}
 }

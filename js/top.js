@@ -1,3 +1,7 @@
+function reload(){
+	location.reload();
+}
+
 function clearAll(){
 	confirm("Clear?");
 	landR1 = false;
