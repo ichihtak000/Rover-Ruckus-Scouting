@@ -1,114 +1,157 @@
-var land = false;
-var sample = false;
-var claim = false;
-var park = false;
+var landR1 = false;
+var sampleR1 = false;
+var claimR1 = false;
+var parkR1 = false;
 
-var partial = false;
-var fully = false;
-var latched = false;
+var partialR1 = false;
+var fullyR1 = false;
+var latchedR1 = false;
 
-var landS = 0;
-var sampleS = 0;
-var claimS = 0;
-var parkS = 0;
+var landSR1 = 0;
+var sampleSR1 = 0;
+var claimSR1 = 0;
+var parkSR1 = 0;
+
+var depotR1 = 0;
+var cargoR1 = 0;
 
 function chooseAutoR1(object){
 	var objectId = object.getAttribute("id");
 	if(objectId == "landingR1"){
-	    if(!land){
+	    if(!landR1){
 	        document.getElementById(objectId).className = "button-on-score";
-	        land = true;
-			landS = 30;
+	        landR1 = true;
+			landSR1 = 30;
 	    }else{
 	        document.getElementById(objectId).className = "button-off-score";
-	        land = false;
-			landS = 0;
+	        landR1 = false;
+			landSR1 = 0;
 	    }
 	}
 	if(objectId == "samplingR1"){
-	    if(!sample){
+	    if(!sampleR1){
 	        document.getElementById(objectId).className = "button-on-score";
-	        sample = true;
-			sampleS = 25;
+	        sampleR1 = true;
+			sampleSR1 = 25;
 	    }else{
 	        document.getElementById(objectId).className = "button-off-score";
-	        sample = false;
-			sampleS = 0;
+	        sampleR1 = false;
+			sampleSR1 = 0;
 	    }
 	}
 	if(objectId == "claimingR1"){
-	    if(!claim){
+	    if(!claimR1){
 	        document.getElementById(objectId).className = "button-on-score";
-	        claim = true;
-			claimS = 15;
+	        claimR1 = true;
+			claimSR1 = 15;
 	    }else{
 	        document.getElementById(objectId).className = "button-off-score";
-	        claim = false;
-			claimS = 0;
+	        claimR1 = false;
+			claimSR1 = 0;
 	    }
 	}
 	if(objectId == "parkingR1"){
-	    if(!park){
+	    if(!parkR1){
 	        document.getElementById(objectId).className = "button-on-score";
-	        park = true;
-			parkS = 10;
+	        parkR1 = true;
+			parkSR1 = 10;
 	    }else{
 	        document.getElementById(objectId).className = "button-off-score";
-	        park = false;
-			parkS = 0;
+	        parkR1 = false;
+			parkSR1 = 0;
 	    }
 	}
-	document.getElementById("autoScoreR1").innerHTML = (landS + sampleS + claimS + parkS);
+	document.getElementById("autoScoreR1").innerHTML = (landSR1 + sampleSR1 + claimSR1 + parkSR1);
 }
 
+function countTeleR1(object){
+	var objectId = object.getAttribute("id");
+	document.getElementById(objectId).className = "button-on-score"
+	if(objectId == "depotR1+"){
+		depotR1++;
+		document.getElementById("depotR1Num").value = depotR1;
+	}
+	if(objectId == "depotR1-"){
+		if(depotR1 > 0){
+			depotR1--;
+		}
+		document.getElementById("depotR1Num").value = depotR1;
+	}
+	if(objectId == "cargoR1+"){
+		cargoR1++;
+		document.getElementById("cargoR1Num").value = cargoR1;
+	}
+	if(objectId == "cargoR1-"){
+		if(cargoR1 > 0){
+			cargoR1--;
+		}
+		document.getElementById("cargoR1Num").value = cargoR1;
+	}
+	var teleTotal = (depotR1 * 2) + (cargoR1 * 5);
+	document.getElementById("teleScoreR1").innerHTML = teleTotal;
+}
 
 function chooseEndR1(object){
     var objectId = object.getAttribute("id");
 	if(objectId == "partialR1"){
-	    if(!partial){
-	        partial = true;
-	        fully = false;
-	        latched = false;
+	    if(!partialR1){
+	        partialR1 = true;
+	        fullyR1 = false;
+	        latchedR1 = false;
 	    }else{
-	        partial = false;
+	        partialR1 = false;
 	    }
 	}
 	if(objectId == "fullyR1"){
-	    if(!fully){
-	        partial = false;
-	        fully = true;
-	        latched = false;
+	    if(!fullyR1){
+	        partialR1 = false;
+	        fullyR1 = true;
+	        latchedR1 = false;
 	    }else{
-	        fully = false;
+	        fullyR1 = false;
 	    }
 	}
 	if(objectId == "latchedR1"){
-	    if(!latched){
-	        partial = false;
-	        fully = false;
-	        latched = true;
+	    if(!latchedR1){
+	        partialR1 = false;
+	        fullyR1 = false;
+	        latchedR1 = true;
 	    }else{
-	        latched = false;
+	        latchedR1 = false;
 	    }
 	}
-	if(!partial){
+	if(!partialR1){
 	    document.getElementById("partialR1").className = "button-off-score";
 	}else{
 	    document.getElementById("partialR1").className = "button-on-score";
 		document.getElementById("endScoreR1").innerHTML = 15;
 	}
-	if(!fully){
+	if(!fullyR1){
 	    document.getElementById("fullyR1").className = "button-off-score";
 	}else{
 	    document.getElementById("fullyR1").className = "button-on-score";
 		document.getElementById("endScoreR1").innerHTML = 25;	
 	}
-	if(!latched){
+	if(!latchedR1){
 	    document.getElementById("latchedR1").className = "button-off-score";
 	}else{
 	    document.getElementById("latchedR1").className = "button-on-score";
 		document.getElementById("endScoreR1").innerHTML = 50;	
 	}
+}
+
+function updateTeleR1(){
+	var depotNum = document.getElementById("depotR1Num").value;
+	var cargoNum = document.getElementById("cargoR1Num").value;
+	depotR1 = depotNum;
+	cargoR1 = cargoNum;
+	var teleTotal = (depotR1 * 2) + (cargoR1 * 5);
+	document.getElementById("teleScoreR1").innerHTML = teleTotal;
+}
+
+function colorBack(object){
+	var objectId = object.getAttribute("id");
+	document.getElementById(objectId).className = "button-off-score";
 }
 /*
 function addTable(){

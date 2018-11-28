@@ -17,6 +17,7 @@
 .teams {
 	width:100%;
 	height:5%;
+	text-align:center;
 }
 
 .teamName {
@@ -64,7 +65,7 @@
 	color:	#90EE90;
 }
 
-.autoButton .button-on-score {
+.button-on-score {
  	background-color:#00FF00;
 	font-size:100%;
     border: 5px;
@@ -78,7 +79,7 @@
 	transform: translate(0%,-50%);
 }
 
-.autoButton .button-off-score { 
+.button-off-score { 
 	background-color:green;
 	font-size:100%;
     border: 5px;
@@ -104,6 +105,21 @@
 	float:left;
 }
 
+.teleInputs{
+	height:35%;
+	width:100%;
+	float:left;
+}
+
+.teleInputs input[type="button"]{ 
+	top:25%;
+}
+
+.teleInputs span{ 
+	font-size:100%;
+	color:	#90EE90;
+}
+
 .end {
 	width:100%;
 	height:25%;
@@ -114,6 +130,16 @@
 	width:25%;
 	text-align:center;
 	float:left;
+}
+
+.endButton {
+	height:70%;
+	width:33.33%;
+	float:left;
+}
+.endButton p{
+	font-size:90%;
+	color:	#90EE90;
 }
 
 .score-container {
@@ -127,8 +153,9 @@
 }
 
 .score-container span {
-	font-size:130%;
+	font-size:120%;
 	position:relative;
-	top:40%;
+	top:30%;
+	padding:3px;
 }
 

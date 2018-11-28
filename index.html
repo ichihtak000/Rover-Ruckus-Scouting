@@ -19,14 +19,14 @@
 </head>
 
 <body>
-	<div id="all">
-	
+	<script src="js/top.js"></script>
 	<script src="js/scoringR1.js"></script>
 	<script src="js/scoringR2.js"></script>
 	<script src="js/scoringB1.js"></script>
 	<script src="js/scoringB2.js"></script>
 	<script src="js/scoringTotal.js"></script>
 	
+	<div id="all">
 		<div class="navbar">
 			<div class="dropdown" style="float:left">
 				<button class="dropbtn">Files
@@ -56,21 +56,21 @@
 		</div>
 		
 		<div class="formating">
-			<form action="test.php" target="_blank">
+	
+			<form action="test.php">
 				<div class="top">
 					<div class="topDiv">
 						<input type="text" name="fileName" id="fileName" placeholder="file name">
 						<input type="submit" name="newFile" id="newFile" value="New File">
 					</div>
 					<div class="topDiv">
-						<input type="button" class="button-off-top" style="background-color:green" value="Submit">
+						<input type="button" class="button-off-top" style="background-color:green" value="Submit" onclick="store()">
 					</div>
 					<div class="topDiv">
-						<input type="button" class="button-off-top" style="background-color:red" value="Clear">
+						<input type="button" class="button-off-top" style="background-color:red" value="Clear" onclick="clearAll()"></input>
 					</div>
 				</div>
-			
-			
+		
 				<div class="teams">	
 					
 					<div class="teamName" id="red1Div">
@@ -121,7 +121,7 @@
 				<div class="auto">
 					<div class="autoDiv" id="red1Div">
 						<div class="score-container">
-							<span>Autonomous:</span><span id="autoScoreR1">0</span>
+							<span>Autonomous:  </span><span id="autoScoreR1">0</span>
 						</div>
 						<div class="autoButton">
 							<p>Landing</p>
@@ -143,7 +143,7 @@
 					
 					<div class="autoDiv" id="red2Div">
 						<div class="score-container">
-							<span>Autonomous:</span><span id="autoScoreR2">0</span>
+							<span>Autonomous:  </span><span id="autoScoreR2">0</span>
 						</div>
 						<div class="autoButton">
 							<p>Landing</p>
@@ -165,7 +165,7 @@
 					
 					<div class="autoDiv" id="blue1Div">
 						<div class="score-container">
-							<span>Autonomous:</span><span id="autoScoreB1">0</span>
+							<span>Autonomous:  </span><span id="autoScoreB1">0</span>
 						</div>
 						<div class="autoButton">
 							<p>Landing</p>
@@ -187,7 +187,7 @@
 					
 					<div class="autoDiv" id="blue2Div">
 						<div class="score-container">
-							<span>Autonomous:</span><span id="autoScoreB2">0</span>
+							<span>Autonomous:  </span><span id="autoScoreB2">0</span>
 						</div>
 						<div class="autoButton">
 							<p>Landing</p>
@@ -209,71 +209,147 @@
 				</div>
 			
 				<div class="tele">
-					<div class="totalDiv" id="red1Div">
-						<p>TeleOP:</P>
-						<p>0</p>
+					<div class="teleDiv" id="red1Div">
+						<div class="score-container">
+							<span>TeleOP:  </span><span id="teleScoreR1">0</span>
+						</div>
+						<div class="teleInputs">
+							<span>Depot</span><br>
+							<input type="number" id="depotR1Num" onchange="updateTeleR1();updateTotalR1();"></input>
+							<input type="button" class="button-off-score" id="depotR1+" value="+1" onmousedown="countTeleR1(this);updateTotalR1();" onmouseup="colorBack(this)"></input>
+							<input type="button" class="button-off-score" id="depotR1-" value="-1" onmousedown="countTeleR1(this);updateTotalR1();" onmouseup="colorBack(this)"></input>
+						</div>	
+						<div class="teleInputs">
+							<span>Cargo Hold</span><br>
+							<input type="number" id="cargoR1Num" onchange="updateTeleR1();updateTotalR1();"></input>
+							<input type="button" class="button-off-score" id="cargoR1+" value="+1" onmousedown="countTeleR1(this);updateTotalR1();" onmouseup="colorBack(this)"></input>
+							<input type="button" class="button-off-score" id="cargoR1-" value="-1" onmousedown="countTeleR1(this);updateTotalR1();" onmouseup="colorBack(this)"></input>
+						</div>
 					</div>
-					<div class="totalDiv" id="red2Div">
-						<p>TeleOP:</P>
+					<div class="teleDiv" id="red2Div">
+						<div class="score-container">
+							<span>TeleOP:  </span><span id="teleScoreR2">0</span>
+						</div>
+						<div class="teleInputs">
+							<span>Depot</span><br>
+							<input type="number" id="depotR2Num" onchange="updateTeleR2();updateTotalR2();"></input>
+							<input type="button" class="button-off-score" id="depotR2+" value="+1" onmousedown="countTeleR2(this);updateTotalR2();" onmouseup="colorBack(this)"></input>
+							<input type="button" class="button-off-score" id="depotR2-" value="-1" onmousedown="countTeleR2(this);updateTotalR2();" onmouseup="colorBack(this)"></input>
+						</div>	
+						<div class="teleInputs">
+							<span>Cargo Hold</span><br>
+							<input type="number" id="cargoR2Num" onchange="updateTeleR2();updateTotalR2();"></input>
+							<input type="button" class="button-off-score" id="cargoR2+" value="+1" onmousedown="countTeleR2(this);updateTotalR2();" onmouseup="colorBack(this)"></input>
+							<input type="button" class="button-off-score" id="cargoR2-" value="-1" onmousedown="countTeleR2(this);updateTotalR2();" onmouseup="colorBack(this)"></input>
+						</div>
 					</div>
-					<div class="totalDiv" id="blue1Div">
-						<p>TeleOP:</P>
+					<div class="teleDiv" id="blue1Div">
+						<div class="score-container">
+							<span>TeleOP:  </span><span id="teleScoreB1">0</span>
+						</div>
+						<div class="teleInputs">
+							<span>Depot</span><br>
+							<input type="number" id="depotB1Num" onchange="updateTeleB1();updateTotalB1();"></input>
+							<input type="button" class="button-off-score" id="depotB1+" value="+1" onmousedown="countTeleB1(this);updateTotalB1();" onmouseup="colorBack(this)"></input>
+							<input type="button" class="button-off-score" id="depotB1-" value="-1" onmousedown="countTeleB1(this);updateTotalB1();" onmouseup="colorBack(this)"></input>
+						</div>	
+						<div class="teleInputs">
+							<span>Cargo Hold</span><br>
+							<input type="number" id="cargoB1Num" onchange="updateTeleB1();updateTotalB1();"></input>
+							<input type="button" class="button-off-score" id="cargoB1+" value="+1" onmousedown="countTeleB1(this);updateTotalB1();" onmouseup="colorBack(this)"></input>
+							<input type="button" class="button-off-score" id="cargoB1-" value="-1" onmousedown="countTeleB1(this);updateTotalB1();" onmouseup="colorBack(this)"></input>
+						</div>
 					</div>
-					<div class="totalDiv" id="blue2Div">
-						<p>TeleOP:</P>
+					<div class="teleDiv" id="blue2Div">
+						<div class="score-container">
+							<span>TeleOP:  </span><span id="teleScoreB2">0</span>
+						</div>
+						<div class="teleInputs">
+							<span>Depot</span><br>
+							<input type="number" id="depotB2Num" onchange="updateTeleB2();updateTotalB2();"></input>
+							<input type="button" class="button-off-score" id="depotB2+" value="+1" onmousedown="countTeleB2(this);updateTotalB2();" onmouseup="colorBack(this)"></input>
+							<input type="button" class="button-off-score" id="depotB2-" value="-1" onmousedown="countTeleB2(this);updateTotalB2();" onmouseup="colorBack(this)"></input>
+						</div>	
+						<div class="teleInputs">
+							<span>Cargo Hold</span><br>
+							<input type="number" id="cargoB2Num" onchange="updateTeleB2();updateTotalB2();"></input>
+							<input type="button" class="button-off-score" id="cargoB2+" value="+1" onmousedown="countTeleB2(this);updateTotalB2();" onmouseup="colorBack(this)"></input>
+							<input type="button" class="button-off-score" id="cargoB2-" value="-1" onmousedown="countTeleB2(this);updateTotalB2();" onmouseup="colorBack(this)"></input>
+						</div>
 					</div>
 				</div>
 				
 				<div class="end">
 					<div class="endDiv" id="red1Div">
 						<div class="score-container">
-							<span>End:</span><span id="endScoreR1">0</span>
+							<span>End:  </span><span id="endScoreR1">0</span>
 						</div>
-						<br>
-						<div class="autoButton">
-							
-							<input class="button-off-score" type="button" id="landingR1" name="landingR1" value="30" onclick="chooseAutoR1(this)">
-							<input class="button-off-score" type="button" id="samplingR1" name="samplingR1" value="25" onclick="chooseAutoR1(this)">
-							<input class="button-off-score" type="button" id="claimingR1" name="claimingR1" value="15" onclick="chooseAutoR1(this)">
-							<input class="button-off-score" type="button" id="parkingR1" name="parkingR1" value="10" onclick="chooseAutoR1(this)">
+						<div class="endButton">
+							<p>Partial Parked</p>
+							<input class="button-off-score" type="button" id="partialR1" name="partialR1" value="15" onclick="chooseEndR1(this);updateTotalR1();">
 						</div>	
+						<div class="endButton">
+							<p>Fully Parked</p>
+							<input class="button-off-score" type="button" id="fullyR1" name="fullyR1" value="25" onclick="chooseEndR1(this);updateTotalR1();">
+						</div>
+						<div class="endButton">
+							<p>Latched</p>
+							<input class="button-off-score" type="button" id="latchedR1" name="latchedR1" value="50" onclick="chooseEndR1(this);updateTotalR1();">
+						</div>
 					</div>
 					
 					<div class="endDiv" id="red2Div">
 						<div class="score-container">
-							<span>End:</span><span id="endScoreR2">0</span>
+							<span>End:  </span><span id="endScoreR2">0</span>
 						</div>
-						<br>
-						<div class="autoButton">		
-							<input class="button-off-score" type="button" id="landingR1" name="landingR1" value="30" onclick="chooseAutoR1(this)">
-							<input class="button-off-score" type="button" id="samplingR1" name="samplingR1" value="25" onclick="chooseAutoR1(this)">
-							<input class="button-off-score" type="button" id="claimingR1" name="claimingR1" value="15" onclick="chooseAutoR1(this)">
-							<input class="button-off-score" type="button" id="parkingR1" name="parkingR1" value="10" onclick="chooseAutoR1(this)">
+						<div class="endButton">
+							<p>Partial Parked</p>
+							<input class="button-off-score" type="button" id="partialR2" name="partialR2" value="15" onclick="chooseEndR2(this);updateTotalR2();">
 						</div>	
+						<div class="endButton">
+							<p>Fully Parked</p>
+							<input class="button-off-score" type="button" id="fullyR2" name="fullyR2" value="25" onclick="chooseEndR2(this);updateTotalR2();">
+						</div>
+						<div class="endButton">
+							<p>Latched</p>
+							<input class="button-off-score" type="button" id="latchedR2" name="latchedR2" value="50" onclick="chooseEndR2(this);updateTotalR2();">
+						</div>
 					</div>
+					
 					<div class="endDiv" id="blue1Div">
 						<div class="score-container">
-							<span>End:</span><span id="endScoreB1">0</span>
+							<span>End:  </span><span id="endScoreB1">0</span>
 						</div>
-						<br>
-						<div class="autoButton">		
-							<input class="button-off-score" type="button" id="landingR1" name="landingR1" value="30" onclick="chooseAutoR1(this)">
-							<input class="button-off-score" type="button" id="samplingR1" name="samplingR1" value="25" onclick="chooseAutoR1(this)">
-							<input class="button-off-score" type="button" id="claimingR1" name="claimingR1" value="15" onclick="chooseAutoR1(this)">
-							<input class="button-off-score" type="button" id="parkingR1" name="parkingR1" value="10" onclick="chooseAutoR1(this)">
-						</div>						
+						<div class="endButton">
+							<p>Partial Parked</p>
+							<input class="button-off-score" type="button" id="partialB1" name="partialB1" value="15" onclick="chooseEndB1(this);updateTotalB1();">
+						</div>	
+						<div class="endButton">
+							<p>Fully Parked</p>
+							<input class="button-off-score" type="button" id="fullyB1" name="fullyB1" value="25" onclick="chooseEndB1(this);updateTotalB1();">
+						</div>
+						<div class="endButton">
+							<p>Latched</p>
+							<input class="button-off-score" type="button" id="latchedB1" name="latchedB1" value="50" onclick="chooseEndB1(this);updateTotalB1();">
+						</div>
 					</div>
+					
 					<div class="endDiv" id="blue2Div">
 						<div class="score-container">
-							<span>End:</span><span id="endScoreB2"</span>
+							<span>End:  </span><span id="endScoreB2">0</span>
 						</div>
-						<br>
-						<div class="autoButton">		
-							<input class="button-off-score" type="button" id="landingR1" name="landingR1" value="30" onclick="chooseAutoR1(this)">
-							<input class="button-off-score" type="button" id="samplingR1" name="samplingR1" value="25" onclick="chooseAutoR1(this)">
-							<input class="button-off-score" type="button" id="claimingR1" name="claimingR1" value="15" onclick="chooseAutoR1(this)">
-							<input class="button-off-score" type="button" id="parkingR1" name="parkingR1" value="10" onclick="chooseAutoR1(this)">
+						<div class="endButton">
+							<p>Partial Parked</p>
+							<input class="button-off-score" type="button" id="partialB2" name="partialB2" value="15" onclick="chooseEndB2(this);updateTotalB2();">
 						</div>	
+						<div class="endButton">
+							<p>Fully Parked</p>
+							<input class="button-off-score" type="button" id="fullyB2" name="fullyB2" value="25" onclick="chooseEndB2(this);updateTotalB2();">
+						</div>
+						<div class="endButton">
+							<p>Latched</p>
+							<input class="button-off-score" type="button" id="latchedB2" name="latchedB2" value="50" onclick="chooseEndB2(this);updateTotalB2();">
+						</div>
 					</div>
 				</div>
 			</form>

@@ -12,6 +12,9 @@ var sampleSB1 = 0;
 var claimSB1 = 0;
 var parkSB1 = 0;
 
+var depotB1 = 0;
+var cargoB1 = 0;
+
 function chooseAutoB1(object){
 	var objectId = object.getAttribute("id");
 	if(objectId == "landingB1"){
@@ -61,52 +64,92 @@ function chooseAutoB1(object){
 	document.getElementById("autoScoreB1").innerHTML = (landSB1 + sampleSB1 + claimSB1 + parkSB1);
 }
 
+function countTeleB1(object){
+	var objectId = object.getAttribute("id");
+	document.getElementById(objectId).className = "button-on-score"
+	if(objectId == "depotB1+"){
+		depotB1++;
+		document.getElementById("depotB1Num").value = depotB1;
+	}
+	if(objectId == "depotB1-"){
+		if(depotB1 > 0){
+			depotB1--;
+		}
+		document.getElementById("depotB1Num").value = depotB1;
+	}
+	if(objectId == "cargoB1+"){
+		cargoB1++;
+		document.getElementById("cargoB1Num").value = cargoB1;
+	}
+	if(objectId == "cargoB1-"){
+		if(cargoB1 > 0){
+			cargoB1--;
+		}
+		document.getElementById("cargoB1Num").value = cargoB1;
+	}
+	var teleTotal = (depotB1 * 2) + (cargoB1 * 5);
+	document.getElementById("teleScoreB1").innerHTML = teleTotal;
+}
 
 function chooseEndB1(object){
     var objectId = object.getAttribute("id");
 	if(objectId == "partialB1"){
-	    if(!partial){
-	        partial = true;
-	        fully = false;
-	        latched = false;
+	    if(!partialB1){
+	        partialB1 = true;
+	        fullyB1 = false;
+	        latchedB1 = false;
 	    }else{
-	        partial = false;
+	        partialB1 = false;
 	    }
 	}
 	if(objectId == "fullyB1"){
-	    if(!fully){
-	        partial = false;
-	        fully = true;
-	        latched = false;
+	    if(!fullyB1){
+	        partialB1 = false;
+	        fullyB1 = true;
+	        latchedB1 = false;
 	    }else{
-	        fully = false;
+	        fullyB1 = false;
 	    }
 	}
 	if(objectId == "latchedB1"){
-	    if(!latched){
-	        partial = false;
-	        fully = false;
-	        latched = true;
+	    if(!latchedB1){
+	        partialB1 = false;
+	        fullyB1 = false;
+	        latchedB1 = true;
 	    }else{
-	        latched = false;
+	        latchedB1 = false;
 	    }
 	}
-	if(!partial){
+	if(!partialB1){
 	    document.getElementById("partialB1").className = "button-off-score";
 	}else{
 	    document.getElementById("partialB1").className = "button-on-score";
 		document.getElementById("endScoreB1").innerHTML = 15;
 	}
-	if(!fully){
+	if(!fullyB1){
 	    document.getElementById("fullyB1").className = "button-off-score";
 	}else{
 	    document.getElementById("fullyB1").className = "button-on-score";
 		document.getElementById("endScoreB1").innerHTML = 25;	
 	}
-	if(!latched){
+	if(!latchedB1){
 	    document.getElementById("latchedB1").className = "button-off-score";
 	}else{
 	    document.getElementById("latchedB1").className = "button-on-score";
 		document.getElementById("endScoreB1").innerHTML = 50;	
 	}
+}
+
+function updateTeleB1(){
+	var depotNum = document.getElementById("depotB1Num").value;
+	var cargoNum = document.getElementById("cargoB1Num").value;
+	depotB1 = depotNum;
+	cargoB1 = cargoNum;
+	var teleTotal = (depotB1 * 2) + (cargoB1 * 5);
+	document.getElementById("teleScoreB1").innerHTML = teleTotal;
+}
+
+function colorBack(object){
+	var objectId = object.getAttribute("id");
+	document.getElementById(objectId).className = "button-off-score";
 }
