@@ -1,17 +1,21 @@
 #red1Div {
 	background-color:#B22222;
+	border: 0.5px solid black;	
 }
 
 #red2Div {
 	background-color:red;
+	border: 0.5px solid black;	
 }
 
 #blue1Div {
 	background-color:blue;
+	border: 0.5px solid black;	
 }
 
 #blue2Div {
 	background-color:#2E86C1;
+	border: 0.5px solid black;
 }
 
 .teams {
@@ -40,7 +44,7 @@
 
 .totalDiv span{
 	background-color:#D3D3D3;
-	padding:3px 8px;
+	padding:2px 8px;
 }
 
 .auto {

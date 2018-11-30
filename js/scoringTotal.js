@@ -25,21 +25,21 @@ function updateTotalR1(){
 }
 
 function updateTotalR2(){
-	var auto = document.getElementById("autoScoreR2").innerHTML;
+	autoR2 = document.getElementById("autoScoreR2").innerHTML;
 	var tele = document.getElementById("teleScoreR2").innerHTML;
 	var end = document.getElementById("endScoreR2").innerHTML;
 	document.getElementById("totalScoreR2").innerHTML = (+auto + +tele + +end);
 }
 
 function updateTotalB1(){
-	var auto = document.getElementById("autoScoreB1").innerHTML;
+	autoB1 = document.getElementById("autoScoreB1").innerHTML;
 	var tele = document.getElementById("teleScoreB1").innerHTML;
 	var end = document.getElementById("endScoreB1").innerHTML;
 	document.getElementById("totalScoreB1").innerHTML = (+auto + +tele + +end);
 }
 
 function updateTotalB2(){
-	var auto = document.getElementById("autoScoreB2").innerHTML;
+	autoB2 = document.getElementById("autoScoreB2").innerHTML;
 	var tele = document.getElementById("teleScoreB2").innerHTML;
 	var end = document.getElementById("endScoreB2").innerHTML;
 	document.getElementById("totalScoreB2").innerHTML = (+auto + +tele + +end);
@@ -48,8 +48,11 @@ function updateTotalB2(){
 function store() {
 	alert("Submited");
 	autoScores[autoScores.length] = autoR1;
+	autoScores[autoScores.length] = autoR2;
+	autoScores[autoScores.length] = autoB1;
+	autoScores[autoScores.length] = autoB2;
 	if (typeof(Storage) !== "undefined") {
-		for(var i=1; i<autoScores.length; i++){
+		for(var i=0; i<autoScores.length; i++){
             localStorage.setItem("autoScore" + i, autoScores[i]);
         }
 		localStorage.setItem("tableLength",autoScores.length);

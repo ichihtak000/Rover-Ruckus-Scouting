@@ -2,6 +2,9 @@ html, body{
 	height:100%;
 	margin:0;
 }
+* {
+    box-sizing: border-box;
+}
 
 #all {
 	width:100%;
@@ -16,4 +19,8 @@ html, body{
 .formating form {
 	width:100%;
 	height:100%;
+}
+
+input[type="number"]:focus {
+    background-color:gray;
 }

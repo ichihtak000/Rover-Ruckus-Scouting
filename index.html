@@ -19,6 +19,7 @@
 </head>
 
 <body>
+	<script src="js/navigation.js"></script>
 	<script src="js/top.js"></script>
 	<script src="js/scoringR1.js"></script>
 	<script src="js/scoringR2.js"></script>
@@ -29,7 +30,7 @@
 	<div id="all">
 		<div class="navbar">
 			<div class="dropdown" style="float:left">
-				<button class="dropbtn">Files
+				<button class="dropbtn" onclick="dropLeft()">Files
 					<i class="fa fa-caret-down"></i>
 				</button>
 				<div class="dropdown-content" id="left-dropdown">
@@ -43,7 +44,7 @@
 			</div>
 			
 			<div class="dropdown" style="float:right">
-				<button class="dropbtn">Resources
+				<button class="dropbtn" onclick="dropRight()">Resources
 					<i class="fa fa-caret-down"></i>
 				</button>
 				<div class="dropdown-content" id="right-dropdown">
@@ -54,7 +55,7 @@
 				</div>
 			</div> 
 		</div>
-		
+
 		<div class="formating">
 	
 			<form action="test.php">
@@ -353,6 +354,7 @@
 					</div>
 				</div>
 			</form>
+			
 		</div>
 	</div>
 </body>
