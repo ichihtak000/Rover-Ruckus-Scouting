@@ -17,15 +17,20 @@
 <body>
 	<script src="js/scoringTotal.js"></script>
 	<script src="js/match.js"></script>
-	<input type="button" onclick="show()" value="Update">
-	<table id="scoreTable">
+	<script src="https://www.w3schools.com/lib/w3.js"></script>
+	
+	<input type="button" onclick="updateTable()" value="Update">
+	<input type="button" style="float:right" onclick="clearStorage()" value="ClearStorage">
+	<input type="button" onclick="sortTable()" value="Sort">
+	<table id="matchTable">
 	  <tr>
-		<td>Match</td>
-		<td>Team</td>
-		<td>Total</td>
-		<td>Autonomous</td>
-		<td>TeleOp</td>
-		<td>End Game</td>
+		<th>Match</th>
+		<th>Alliance</th>
+		<th>Team</th>
+		<th onclick="sortTotal()" style="cursor:pointer">Total</th>
+		<th>Autonomous</th>
+		<th>TeleOp</th>
+		<th>End Game</th>
 	  </tr>
 	</table>	
 </body>

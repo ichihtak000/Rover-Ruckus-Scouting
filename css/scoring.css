@@ -30,6 +30,12 @@
 	float:left;
 }
 
+.teamName input[type="text"] {
+	text-align:center;
+    
+}
+
+
 .total {
 	width:100%;
 	height:5%;
@@ -44,7 +50,6 @@
 
 .totalDiv span{
 	background-color:#D3D3D3;
-	padding:2px 8px;
 }
 
 .auto {
@@ -119,6 +124,11 @@
 	top:25%;
 }
 
+.teleInputs input[type="text"] {
+	text-align:center;
+    height:50%;
+}
+
 .teleInputs span{ 
 	font-size:100%;
 	color:	#90EE90;
@@ -162,4 +172,3 @@
 	top:30%;
 	padding:3px;
 }
-

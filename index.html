@@ -18,7 +18,7 @@
 	<link rel="icon" href="visuals/icon2.png">
 </head>
 
-<body>
+<body onload="getPreviousDatas()">
 	<script src="js/navigation.js"></script>
 	<script src="js/top.js"></script>
 	<script src="js/scoringR1.js"></script>
@@ -58,7 +58,7 @@
 
 		<div class="formating">
 	
-			<form action="test.php">
+			<form>
 				<div class="top">
 					<div class="topDiv">
 						<input type="text" name="fileName" id="fileName" placeholder="file name">
@@ -73,27 +73,18 @@
 				</div>
 		
 				<div class="teams">	
-					
 					<div class="teamName" id="red1Div">
-							
-						<input name="red1" type="number" placeholder="red 1">
-							
+						<input name="red1" type="text" id="teamNameR1" placeholder="red 1" maxlength="5" size="10">	
 					</div>
-					
 					<div class="teamName" id="red2Div">
-						
-						<input name="red2" type="number" placeholder="red 2">
-						
+						<input name="red2" type="text" id="teamNameR2" placeholder="red 2" maxlength="5" size="10">
 					</div>
-					
 					<div class="teamName" id="blue1Div">
-						<input name="blue1" type="number" placeholder="blue 1">
+						<input name="blue1" type="text" id="teamNameB1" placeholder="blue 1" maxlength="5" size="10">
 					</div>
-					
 					<div class="teamName" id="blue2Div">
-						<input name="blue2" type="number" placeholder="blue 2">
+						<input name="blue2" type="text" id="teamNameB2" placeholder="blue 2" maxlength="5" size="10">
 					</div>
-				
 				</div>
 			
 				<div class="total">
@@ -216,13 +207,13 @@
 						</div>
 						<div class="teleInputs">
 							<span>Depot</span><br>
-							<input type="number" id="depotR1Num" onchange="updateTeleR1();updateTotalR1();"></input>
+							<input type="text" id="depotR1Num" maxlength="2" size="4" onchange="updateTeleR1();updateTotalR1();"></input>
 							<input type="button" class="button-off-score" id="depotR1+" value="+1" onmousedown="countTeleR1(this);updateTotalR1();" onmouseup="colorBack(this)"></input>
 							<input type="button" class="button-off-score" id="depotR1-" value="-1" onmousedown="countTeleR1(this);updateTotalR1();" onmouseup="colorBack(this)"></input>
 						</div>	
 						<div class="teleInputs">
 							<span>Cargo Hold</span><br>
-							<input type="number" id="cargoR1Num" onchange="updateTeleR1();updateTotalR1();"></input>
+							<input type="text" id="cargoR1Num" maxlength="2" size="4" onchange="updateTeleR1();updateTotalR1();"></input>
 							<input type="button" class="button-off-score" id="cargoR1+" value="+1" onmousedown="countTeleR1(this);updateTotalR1();" onmouseup="colorBack(this)"></input>
 							<input type="button" class="button-off-score" id="cargoR1-" value="-1" onmousedown="countTeleR1(this);updateTotalR1();" onmouseup="colorBack(this)"></input>
 						</div>
@@ -233,13 +224,13 @@
 						</div>
 						<div class="teleInputs">
 							<span>Depot</span><br>
-							<input type="number" id="depotR2Num" onchange="updateTeleR2();updateTotalR2();"></input>
+							<input type="text" id="depotR2Num" maxlength="2" size="4" onchange="updateTeleR2();updateTotalR2();"></input>
 							<input type="button" class="button-off-score" id="depotR2+" value="+1" onmousedown="countTeleR2(this);updateTotalR2();" onmouseup="colorBack(this)"></input>
 							<input type="button" class="button-off-score" id="depotR2-" value="-1" onmousedown="countTeleR2(this);updateTotalR2();" onmouseup="colorBack(this)"></input>
 						</div>	
 						<div class="teleInputs">
 							<span>Cargo Hold</span><br>
-							<input type="number" id="cargoR2Num" onchange="updateTeleR2();updateTotalR2();"></input>
+							<input type="text" id="cargoR2Num" maxlength="2" size="4" onchange="updateTeleR2();updateTotalR2();"></input>
 							<input type="button" class="button-off-score" id="cargoR2+" value="+1" onmousedown="countTeleR2(this);updateTotalR2();" onmouseup="colorBack(this)"></input>
 							<input type="button" class="button-off-score" id="cargoR2-" value="-1" onmousedown="countTeleR2(this);updateTotalR2();" onmouseup="colorBack(this)"></input>
 						</div>
@@ -250,13 +241,13 @@
 						</div>
 						<div class="teleInputs">
 							<span>Depot</span><br>
-							<input type="number" id="depotB1Num" onchange="updateTeleB1();updateTotalB1();"></input>
+							<input type="text" id="depotB1Num" maxlength="2" size="4" onchange="updateTeleB1();updateTotalB1();"></input>
 							<input type="button" class="button-off-score" id="depotB1+" value="+1" onmousedown="countTeleB1(this);updateTotalB1();" onmouseup="colorBack(this)"></input>
 							<input type="button" class="button-off-score" id="depotB1-" value="-1" onmousedown="countTeleB1(this);updateTotalB1();" onmouseup="colorBack(this)"></input>
 						</div>	
 						<div class="teleInputs">
 							<span>Cargo Hold</span><br>
-							<input type="number" id="cargoB1Num" onchange="updateTeleB1();updateTotalB1();"></input>
+							<input type="text" id="cargoB1Num" maxlength="2" size="4" onchange="updateTeleB1();updateTotalB1();"></input>
 							<input type="button" class="button-off-score" id="cargoB1+" value="+1" onmousedown="countTeleB1(this);updateTotalB1();" onmouseup="colorBack(this)"></input>
 							<input type="button" class="button-off-score" id="cargoB1-" value="-1" onmousedown="countTeleB1(this);updateTotalB1();" onmouseup="colorBack(this)"></input>
 						</div>
@@ -267,13 +258,13 @@
 						</div>
 						<div class="teleInputs">
 							<span>Depot</span><br>
-							<input type="number" id="depotB2Num" onchange="updateTeleB2();updateTotalB2();"></input>
+							<input type="text" id="depotB2Num" maxlength="2" size="4" onchange="updateTeleB2();updateTotalB2();"></input>
 							<input type="button" class="button-off-score" id="depotB2+" value="+1" onmousedown="countTeleB2(this);updateTotalB2();" onmouseup="colorBack(this)"></input>
 							<input type="button" class="button-off-score" id="depotB2-" value="-1" onmousedown="countTeleB2(this);updateTotalB2();" onmouseup="colorBack(this)"></input>
 						</div>	
 						<div class="teleInputs">
 							<span>Cargo Hold</span><br>
-							<input type="number" id="cargoB2Num" onchange="updateTeleB2();updateTotalB2();"></input>
+							<input type="text" id="cargoB2Num" maxlength="2" size="4" onchange="updateTeleB2();updateTotalB2();"></input>
 							<input type="button" class="button-off-score" id="cargoB2+" value="+1" onmousedown="countTeleB2(this);updateTotalB2();" onmouseup="colorBack(this)"></input>
 							<input type="button" class="button-off-score" id="cargoB2-" value="-1" onmousedown="countTeleB2(this);updateTotalB2();" onmouseup="colorBack(this)"></input>
 						</div>

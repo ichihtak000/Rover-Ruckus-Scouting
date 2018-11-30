@@ -120,6 +120,9 @@ function chooseEndR2(object){
 	        latchedR2 = false;
 	    }
 	}
+	if(!partialR2 && !fullyR2 && !latchedR2){
+		document.getElementById("endScoreR2").innerHTML = 0;
+	}
 	if(!partialR2){
 	    document.getElementById("partialR2").className = "button-off-score";
 	}else{

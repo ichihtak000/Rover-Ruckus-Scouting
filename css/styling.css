@@ -21,6 +21,7 @@ html, body{
 	height:100%;
 }
 
-input[type="number"]:focus {
+input[type="text"]:focus {
     background-color:gray;
 }
+

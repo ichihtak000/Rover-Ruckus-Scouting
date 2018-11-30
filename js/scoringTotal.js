@@ -14,6 +14,10 @@ var totalR1 = 0;
 var totalR2 = 0;
 var totalB1 = 0;
 var totalB2 = 0;
+var teamR1 = '0';
+var teamR2 = '0';
+var teamB1 = '0';
+var teamB2 = '0';
 
 var teams=[];
 var totalScores=[];
@@ -22,6 +26,7 @@ var teleScores=[];
 var endScores=[];
 
 function updateTotalR1(){
+	teamR1 = document.getElementById("teamNameR1").value;
 	autoR1 = document.getElementById("autoScoreR1").innerHTML;
 	teleR1 = document.getElementById("teleScoreR1").innerHTML;
 	endR1 = document.getElementById("endScoreR1").innerHTML;
@@ -30,6 +35,7 @@ function updateTotalR1(){
 }
 
 function updateTotalR2(){
+	teamR2 = document.getElementById("teamNameR2").value;
 	autoR2 = document.getElementById("autoScoreR2").innerHTML;
 	teleR2 = document.getElementById("teleScoreR2").innerHTML;
 	endR2 = document.getElementById("endScoreR2").innerHTML;
@@ -38,6 +44,7 @@ function updateTotalR2(){
 }
 
 function updateTotalB1(){
+	teamB1 = document.getElementById("teamNameB1").value;
 	autoB1 = document.getElementById("autoScoreB1").innerHTML;
 	teleB1 = document.getElementById("teleScoreB1").innerHTML;
 	endB1 = document.getElementById("endScoreB1").innerHTML;
@@ -46,6 +53,7 @@ function updateTotalB1(){
 }
 
 function updateTotalB2(){
+	teamB2 = document.getElementById("teamNameB2").value;
 	autoB2 = document.getElementById("autoScoreB2").innerHTML;
 	teleB2 = document.getElementById("teleScoreB2").innerHTML;
 	endB2 = document.getElementById("endScoreB2").innerHTML;
@@ -53,34 +61,61 @@ function updateTotalB2(){
 	document.getElementById("totalScoreB2").innerHTML = totalB2;
 }
 
-function store() {
-	alert("Submited");
-	autoScores[autoScores.length] = autoR1;
-	autoScores[autoScores.length] = autoR2;
-	autoScores[autoScores.length] = autoB1;
-	autoScores[autoScores.length] = autoB2;
-	/*
-	autoScores[autoScores.length] = autoR1;
-	autoScores[autoScores.length] = autoR2;
-	autoScores[autoScores.length] = autoB1;
-	autoScores[autoScores.length] = autoB2;
-	
-	autoScores[autoScores.length] = autoR1;
-	autoScores[autoScores.length] = autoR2;
-	autoScores[autoScores.length] = autoB1;
-	autoScores[autoScores.length] = autoB2;
-	
-	autoScores[autoScores.length] = autoR1;
-	autoScores[autoScores.length] = autoR2;
-	autoScores[autoScores.length] = autoB1;
-	autoScores[autoScores.length] = autoB2;*/
-	
+function getPreviousDatas(){
 	if (typeof(Storage) !== "undefined") {
-		for(var i=0; i<autoScores.length; i++){
-            localStorage.setItem("autoScore" + i, autoScores[i]);
-        }
-		localStorage.setItem("tableLength",autoScores.length);
+		var tLength = localStorage.getItem("tableLength");
+		for(var i=0; i<tLength; i++){
+			teams[i] = localStorage.getItem("team" +i);
+			totalScores[i] = localStorage.getItem("totalScore" +i);
+			autoScores[i] = localStorage.getItem("autoScore" +i);
+			teleScores[i] = localStorage.getItem("teleScore" +i);
+			endScores[i] = localStorage.getItem("endScore" +i);
+		}
+		localStorage.setItem("tableLength",teams.length);
 	} else {
 		alert("Sorry, your browser does not support Web Storage...");
+	}
+}
+
+function store() {
+	var check = confirm("Submit?");
+	if(check){
+		teams[teams.length] = teamR1
+		teams[teams.length] = teamR2;
+		teams[teams.length] = teamB1;
+		teams[teams.length] = teamB2;
+		
+		totalScores[totalScores.length] = totalR1;
+		totalScores[totalScores.length] = totalR2;
+		totalScores[totalScores.length] = totalB1;
+		totalScores[totalScores.length] = totalB2;
+		
+		autoScores[autoScores.length] = autoR1;
+		autoScores[autoScores.length] = autoR2;
+		autoScores[autoScores.length] = autoB1;
+		autoScores[autoScores.length] = autoB2;
+		
+		teleScores[teleScores.length] = teleR1;
+		teleScores[teleScores.length] = teleR2;
+		teleScores[teleScores.length] = teleB1;
+		teleScores[teleScores.length] = teleB2;
+		
+		endScores[endScores.length] = endR1;
+		endScores[endScores.length] = endR2;
+		endScores[endScores.length] = endB1;
+		endScores[endScores.length] = endB2;
+		
+		if (typeof(Storage) !== "undefined") {
+			for(var i=0; i<autoScores.length; i++){
+				localStorage.setItem("team" + i, teams[i]);
+				localStorage.setItem("totalScore" + i, totalScores[i]);
+				localStorage.setItem("autoScore" + i, autoScores[i]);
+				localStorage.setItem("teleScore" + i, teleScores[i]);
+				localStorage.setItem("endScore" + i, endScores[i]);
+			}
+			localStorage.setItem("tableLength",teams.length);
+		} else {
+			alert("Sorry, your browser does not support Web Storage...");
+		}
 	}
 }

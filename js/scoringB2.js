@@ -121,6 +121,9 @@ function chooseEndB2(object){
 	        latchedB2 = false;
 	    }
 	}
+	if(!partialB2 && !fullyB2 && !latchedB2){
+		document.getElementById("endScoreB2").innerHTML = 0;
+	}
 	if(!partialB2){
 	    document.getElementById("partialB2").className = "button-off-score";
 	}else{

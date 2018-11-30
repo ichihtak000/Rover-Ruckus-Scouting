@@ -120,6 +120,9 @@ function chooseEndR1(object){
 	        latchedR1 = false;
 	    }
 	}
+	if(!partialR1 && !fullyR1 && !latchedR1){
+		document.getElementById("endScoreR1").innerHTML = 0;
+	}
 	if(!partialR1){
 	    document.getElementById("partialR1").className = "button-off-score";
 	}else{
@@ -153,86 +156,3 @@ function colorBack(object){
 	var objectId = object.getAttribute("id");
 	document.getElementById(objectId).className = "button-off-score";
 }
-/*
-function addTable(){
-    var button = document.getElementById("submit");
-    button.style.backgroundColor = "lightblue";
-    addAutoTable();
-    addEndTable();
-    var scoreLength = document.getElementById("scoreTable").rows.length -1;
-    localStorage.setItem("rowNum",scoreLength);
-}
-
-function addAutoTable() {
-    var table = document.getElementById("scoreTable");
-    var tableLength = table.rows.length;
-    var row = table.insertRow(tableLength);
-    var row1 = row.insertCell(0);
-    var row2 = row.insertCell(1);
-    
-    var landScore = 0;
-    var sampleScore = 0;
-    var claimScore = 0;
-    var parkScore = 0;
-    var score = 0;
-    if(land){
-        landScore = 30;
-    }
-    if(sample){
-        sampleScore = 25;
-    }
-    if(claim){
-        claimScore = 15;
-    }
-    if(park){
-        parkScore = 10;
-    }
-    score = landScore + sampleScore + claimScore + parkScore;
-    
-    row2.innerHTML = score;
-    autoScores[tableLength] = score;
-    
-    if (typeof(Storage) !== "undefined") {
-		for(var i=1; i<autoScores.length; i++){
-            localStorage.setItem("autoScore" + i, autoScores[i]);
-        }
-	} else {
-		document.getElementById("demo").innerHTML = "Sorry, your browser does not support Web Storage...";
-	}
-}
-
-function addEndTable() {
-    var table = document.getElementById("scoreTable");
-    var tableLength = (table.rows.length)-1;
-    var row = table.rows[tableLength]
-    var row3 = row.insertCell(2);
-    var row4 = row.insertCell(3);
-    
-    var score = 0;
-    if(partial){
-        score = 15;
-    }else if(fully){
-        score = 25;
-    }else if(latched){
-        score = 50;
-    }
-    row3.innerHTML = 0;
-    row4.innerHTML = score;
-    endGameScores[tableLength] = score;
-    document.getElementById("demo").innerHTML = score;
-    if (typeof(Storage) !== "undefined") {
-		for(var i=1; i<endGameScores.length; i++){
-            localStorage.setItem("endGame" + i, endGameScores[i]);
-        }
-	} else {
-		document.getElementById("demo").innerHTML = "Sorry, your browser does not support Web Storage...";
-	}
-}
-
-
-
-function colorBack(object){
-    object.style.backgroundColor = '#4CAF50';
-}
-        
-*/
