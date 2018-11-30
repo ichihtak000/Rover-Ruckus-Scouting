@@ -15,34 +15,42 @@ var totalR2 = 0;
 var totalB1 = 0;
 var totalB2 = 0;
 
+var teams=[];
+var totalScores=[];
 var autoScores=[];
+var teleScores=[];
+var endScores=[];
 
 function updateTotalR1(){
 	autoR1 = document.getElementById("autoScoreR1").innerHTML;
 	teleR1 = document.getElementById("teleScoreR1").innerHTML;
 	endR1 = document.getElementById("endScoreR1").innerHTML;
-	document.getElementById("totalScoreR1").innerHTML = (+autoR1 + +teleR1 + +endR1);
+	totalR1 = (+autoR1 + +teleR1 + +endR1);
+	document.getElementById("totalScoreR1").innerHTML = totalR1;
 }
 
 function updateTotalR2(){
 	autoR2 = document.getElementById("autoScoreR2").innerHTML;
-	var tele = document.getElementById("teleScoreR2").innerHTML;
-	var end = document.getElementById("endScoreR2").innerHTML;
-	document.getElementById("totalScoreR2").innerHTML = (+auto + +tele + +end);
+	teleR2 = document.getElementById("teleScoreR2").innerHTML;
+	endR2 = document.getElementById("endScoreR2").innerHTML;
+	totalR2 = (+autoR2 + +teleR2 + +endR2);
+	document.getElementById("totalScoreR2").innerHTML = totalR2;
 }
 
 function updateTotalB1(){
 	autoB1 = document.getElementById("autoScoreB1").innerHTML;
-	var tele = document.getElementById("teleScoreB1").innerHTML;
-	var end = document.getElementById("endScoreB1").innerHTML;
-	document.getElementById("totalScoreB1").innerHTML = (+auto + +tele + +end);
+	teleB1 = document.getElementById("teleScoreB1").innerHTML;
+	endB1 = document.getElementById("endScoreB1").innerHTML;
+	totalB1 = (+autoB1 + +teleB1 + +endB1);
+	document.getElementById("totalScoreB1").innerHTML = totalB1;
 }
 
 function updateTotalB2(){
 	autoB2 = document.getElementById("autoScoreB2").innerHTML;
-	var tele = document.getElementById("teleScoreB2").innerHTML;
-	var end = document.getElementById("endScoreB2").innerHTML;
-	document.getElementById("totalScoreB2").innerHTML = (+auto + +tele + +end);
+	teleB2 = document.getElementById("teleScoreB2").innerHTML;
+	endB2 = document.getElementById("endScoreB2").innerHTML;
+	totalB2 = (+autoB2 + +teleB2 + +endB2);
+	document.getElementById("totalScoreB2").innerHTML = totalB2;
 }
 
 function store() {
@@ -51,6 +59,22 @@ function store() {
 	autoScores[autoScores.length] = autoR2;
 	autoScores[autoScores.length] = autoB1;
 	autoScores[autoScores.length] = autoB2;
+	/*
+	autoScores[autoScores.length] = autoR1;
+	autoScores[autoScores.length] = autoR2;
+	autoScores[autoScores.length] = autoB1;
+	autoScores[autoScores.length] = autoB2;
+	
+	autoScores[autoScores.length] = autoR1;
+	autoScores[autoScores.length] = autoR2;
+	autoScores[autoScores.length] = autoB1;
+	autoScores[autoScores.length] = autoB2;
+	
+	autoScores[autoScores.length] = autoR1;
+	autoScores[autoScores.length] = autoR2;
+	autoScores[autoScores.length] = autoB1;
+	autoScores[autoScores.length] = autoB2;*/
+	
 	if (typeof(Storage) !== "undefined") {
 		for(var i=0; i<autoScores.length; i++){
             localStorage.setItem("autoScore" + i, autoScores[i]);
