@@ -10,9 +10,24 @@
 	<title>Rover-Ruckus-Scouting</title>
 	
 	<link rel="icon" href="visuals/icon2.png">
+	
+	<link rel="stylesheet" type="text/css" href="css/match.css">
 </head>
 
 <body>
+	<script src="js/scoringTotal.js"></script>
+	<script src="js/analysis.js"></script>
 	
+	<input type="button" onclick="updateTable()" value="Update">
+	<input type="button" style="float:right" onclick="clearStorage()" value="ClearStorage">
+	<table id="matchTable">
+	  <tr>
+		<th onclick="sortTable(0)" style="cursor:pointer">Team</th>
+		<th onclick="sortTable(1)" style="cursor:pointer">Total</th>
+		<th onclick="sortTable(2)" style="cursor:pointer">Autonomous</th>
+		<th onclick="sortTable(3)" style="cursor:pointer">TeleOp</th>
+		<th onclick="sortTable(4)" style="cursor:pointer">End Game</th>
+	  </tr>
+	</table>	
 </body>
 </html>

@@ -8,7 +8,6 @@ var color;
 
 function updateTable(){
 	var table = document.getElementById("matchTable");
-	var matchNum = 0;
 	
 	var tableLength = table.rows.length;
 	for(var i = (tableLength-1); i>0; i--){
@@ -25,57 +24,12 @@ function updateTable(){
 	}
 	for(var i=0; i<tLength; i++){
         var row = table.insertRow(i+1);
-		row.className = "item";
-        var match = row.insertCell(0);
-		var winner = row.insertCell(1);
-		var team = row.insertCell(2);
-        var total = row.insertCell(3);
-        var auto = row.insertCell(4);
-        var tele = row.insertCell(5);
-        var end = row.insertCell(6);/*
-		if(i%4==1 || i%4==3){
-			table.rows[i-1].cells[1].rowSpan = "2";
-			if(i!=0){
-				table.rows[i].cells[1].style.backgroundColor="green";
-			}
-		}*/
-		if(i%4==0){
-			matchNum++;
-			color = getRandomColor();
-			match.innerHTML = matchNum;
-		}else if(i%4==3){
-			match.innerHTML = matchNum;
-			table.rows[i-2].cells[0].style.backgroundColor="green";
-			table.rows[i-2].cells[0].rowSpan = "4"
-			table.rows[i-1].deleteCell(0);
-			table.rows[i].deleteCell(0);
-			table.rows[i+1].deleteCell(0);
-			//match.rowSpan = "4";
-			var redSum = (parseInt(totalTable[i-3], 10) + parseInt(totalTable[i-2], 10));
-			var blueSum = (parseInt(totalTable[i-1], 10) + parseInt(totalTable[i], 10));
-			if(redSum > blueSum){
-				table.rows[i-1].style.backgroundColor = "red";
-				table.rows[i-2].style.backgroundColor = "red";
-				table.rows[i].style.backgroundColor = "#ADD8E6";
-				table.rows[i+1].style.backgroundColor = "#ADD8E6";
-			}else if(redSum < blueSum){
-				table.rows[i-1].style.backgroundColor = "#FA8072";
-				table.rows[i-2].style.backgroundColor = "#FA8072";
-				table.rows[i].style.backgroundColor = "#4169e1";
-				table.rows[i+1].style.backgroundColor = "#4169e1";
-			}else{
-				table.rows[i-1].style.backgroundColor = "#FA8072";
-				table.rows[i-2].style.backgroundColor = "#FA8072";
-				table.rows[i].style.backgroundColor = "#ADD8E6";
-				table.rows[i+1].style.backgroundColor = "#ADD8E6";
-			}
-			table.rows[i-1].cells[1].innerHTML = redSum;
-			table.rows[i+1].cells[1].innerHTML = blueSum;		
-		}else{
-			
-		}
-		
-		match.style.backgroundColor = color;
+		var team = row.insertCell(0);
+        var total = row.insertCell(1);
+        var auto = row.insertCell(2);
+        var tele = row.insertCell(3);
+        var end = row.insertCell(4);
+
 		team.innerHTML = teamTable[i];
 	    total.innerHTML = totalTable[i];
 		auto.innerHTML = autoTable[i];
@@ -123,13 +77,13 @@ function sortTable(n) {
       y = rows[i + 1].getElementsByTagName("TD")[n];
       /*check if the two rows should switch place,
       based on the direction, asc or desc:*/
-      if (dir == "asc") {
+      if (dir == "desc") {
         if (+(x.innerHTML) > +(y.innerHTML)) {
           //if so, mark as a switch and break the loop:
           shouldSwitch= true;
           break;
         }
-      } else if (dir == "desc") {
+      } else if (dir == "asc") {
         if (+(x.innerHTML) < +(y.innerHTML)) {
           //if so, mark as a switch and break the loop:
           shouldSwitch = true;
