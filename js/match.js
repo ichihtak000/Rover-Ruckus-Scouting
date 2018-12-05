@@ -32,25 +32,17 @@ function updateTable(){
         var total = row.insertCell(3);
         var auto = row.insertCell(4);
         var tele = row.insertCell(5);
-        var end = row.insertCell(6);/*
-		if(i%4==1 || i%4==3){
-			table.rows[i-1].cells[1].rowSpan = "2";
-			if(i!=0){
-				table.rows[i].cells[1].style.backgroundColor="green";
-			}
-		}*/
+        var end = row.insertCell(6);
 		if(i%4==0){
 			matchNum++;
 			color = getRandomColor();
 			match.innerHTML = matchNum;
 		}else if(i%4==3){
 			match.innerHTML = matchNum;
-			table.rows[i-2].cells[0].style.backgroundColor="green";
 			table.rows[i-2].cells[0].rowSpan = "4"
 			table.rows[i-1].deleteCell(0);
 			table.rows[i].deleteCell(0);
 			table.rows[i+1].deleteCell(0);
-			//match.rowSpan = "4";
 			var redSum = (parseInt(totalTable[i-3], 10) + parseInt(totalTable[i-2], 10));
 			var blueSum = (parseInt(totalTable[i-1], 10) + parseInt(totalTable[i], 10));
 			if(redSum > blueSum){
@@ -98,60 +90,5 @@ function clearStorage(){
 	if(check){
 		localStorage.clear();
 	}
-}
-
-function sortTable(n) {
-  var table, rows, switching, i, x, y, shouldSwitch, dir, switchcount = 0;
-  table = document.getElementById("matchTable");
-  switching = true;
-  //Set the sorting direction to ascending:
-  dir = "asc"; 
-  /*Make a loop that will continue until
-  no switching has been done:*/
-  while (switching) {
-    //start by saying: no switching is done:
-    switching = false;
-    rows = table.rows;
-    /*Loop through all table rows (except the
-    first, which contains table headers):*/
-    for (i = 1; i < (rows.length - 1); i++) {
-      //start by saying there should be no switching:
-      shouldSwitch = false;
-      /*Get the two elements you want to compare,
-      one from current row and one from the next:*/
-      x = rows[i].getElementsByTagName("TD")[n];
-      y = rows[i + 1].getElementsByTagName("TD")[n];
-      /*check if the two rows should switch place,
-      based on the direction, asc or desc:*/
-      if (dir == "asc") {
-        if (+(x.innerHTML) > +(y.innerHTML)) {
-          //if so, mark as a switch and break the loop:
-          shouldSwitch= true;
-          break;
-        }
-      } else if (dir == "desc") {
-        if (+(x.innerHTML) < +(y.innerHTML)) {
-          //if so, mark as a switch and break the loop:
-          shouldSwitch = true;
-          break;
-        }
-      }
-    }
-    if (shouldSwitch) {
-      /*If a switch has been marked, make the switch
-      and mark that a switch has been done:*/
-      rows[i].parentNode.insertBefore(rows[i + 1], rows[i]);
-      switching = true;
-      //Each time a switch is done, increase this count by 1:
-      switchcount ++;      
-    } else {
-      /*If no switching has been done AND the direction is "asc",
-      set the direction to "desc" and run the while loop again.*/
-      if (switchcount == 0 && dir == "asc") {
-        dir = "desc";
-        switching = true;
-      }
-    }
-  }
 }
 
