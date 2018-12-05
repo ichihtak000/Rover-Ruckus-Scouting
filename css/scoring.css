@@ -1,33 +1,88 @@
-#red1Div {
+.red1Div {
 	background-color:#B22222;
-	border: 0.5px solid black;	
+	height:80%;
+	position:relative;
+	top:20%;
+	width:25%;
+	float:left;
+	z-index:0;
 }
 
-#red2Div {
+.red2Div {
 	background-color:red;
-	border: 0.5px solid black;	
+	height:80%;
+	position:relative;
+	top:20%;
+	width:25%;
+	float:left;
+	z-index:0;
 }
 
-#blue1Div {
+.blue1Div {
 	background-color:blue;
-	border: 0.5px solid black;	
+	height:80%;
+	position:relative;
+	top:20%;
+	width:25%;
+	float:left;
+	z-index:0;
 }
 
-#blue2Div {
+.blue2Div {
 	background-color:#2E86C1;
-	border: 0.5px solid black;
+	height:80%;
+	position:relative;
+	top:20%;
+	width:25%;
+	float:left;
+	z-index:0;
 }
 
-.teams {
-	width:100%;
-	height:5%;
-	text-align:center;
+
+@media only screen and (max-width: 600px) {
+	.red1Div {
+		background-color:#B22222;
+		border: 0.5px solid black;	
+		height:80%;
+		width:100%;
+		float:left;
+		top:20%;
+	}
+
+	.red2Div {
+		background-color:red;
+		border: 0.5px solid black;
+		height:80%;
+		width:100%;	
+		float:left;
+		top:20%;
+	}
+
+	.blue1Div {
+		background-color:blue;
+		border: 0.5px solid black;	
+		height:80%;
+		width:100%;
+		float:left;
+		top:20%;
+	}
+
+	.blue2Div {
+		background-color:#2E86C1;
+		border: 0.5px solid black;
+		height:80%;
+		width:100%;
+		float:left;
+		top:20%;
+	}
 }
 
 .teamName {
-	height:100%;
-	width:25%;
+	height:7.5%;
+	width:100%;
+	text-align:center;
 	float:left;
+	border: 0.5px solid black;	
 }
 
 .teamName input[type="text"] {
@@ -35,43 +90,107 @@
     
 }
 
-
-.total {
-	width:100%;
-	height:5%;
-}
-
 .totalDiv {
-	height:100%;
-	width:25%;
+	width:100%;
+	height:7.5%;
 	text-align:center;
 	float:left;
+	border: 0.5px solid black;	
 }
 
 .totalDiv span{
 	background-color:#D3D3D3;
 }
 
-.auto {
+.autoDiv {
 	width:100%;
 	height:25%;
-}
-
-.autoDiv {
-	height:100%;
-	width:25%;
 	text-align:center;
 	float:left;
+	border: 0.5px solid black;	
 }
 
 .autoButton {
-	height:70%;
+	height:35%;
 	width:25%;
 	float:left;
 }
-.autoButton p{
+
+
+.autoButton .autoLabel{
+	position:relative;
+	top:50%;
+	font-size:0.9vm;
+	color:	#90EE90;
+	transform:translate(0%,-50%);
+}
+
+.autoButton input{
+	top:0%;
+	transform: translate(0%,0%);
+}
+
+.teleDiv {
+	width:100%;
+	height:35%;
+	text-align:center;
+	float:left;
+	border: 0.5px solid black;	
+}
+
+.teleInputs{
+	height:35%;
+	width:100%;
+	float:left;
+}
+
+.teleInputs input[type="button"]{ 
+	top:25%;
+}
+
+.teleInputs input[type="text"] {
+	text-align:center;
+    height:50%;
+}
+
+.teleInputs span{ 
+	font-size:100%;
+	color:	#90EE90;
+}
+
+.endDiv {
+	width:100%;
+	height:25%;
+	text-align:center;
+	float:left;
+	border: 0.5px solid black;	
+}
+
+.endButton {
+	height:70%;
+	width:33.33%;
+	float:left;
+}
+.endButton p{
 	font-size:90%;
 	color:	#90EE90;
+}
+
+.score-container {
+	height:30%;
+	width:100%;
+	text-align:center;
+	float:left;
+	font-size: 100%;
+	padding:0;
+	position:relative;
+}
+
+.score-container span {
+	font-size:120%;
+	position:relative;
+	top:30%;
+	padding:3px;
 }
 
 .button-on-score {
@@ -100,75 +219,4 @@
 	position:relative;
 	top:50%;
 	transform: translate(0%,-50%);
-}
-
-.tele {
-	width:100%;
-	height:25%;
-}
-
-.teleDiv {
-	height:100%;
-	width:25%;
-	text-align:center;
-	float:left;
-}
-
-.teleInputs{
-	height:35%;
-	width:100%;
-	float:left;
-}
-
-.teleInputs input[type="button"]{ 
-	top:25%;
-}
-
-.teleInputs input[type="text"] {
-	text-align:center;
-    height:50%;
-}
-
-.teleInputs span{ 
-	font-size:100%;
-	color:	#90EE90;
-}
-
-.end {
-	width:100%;
-	height:25%;
-}
-
-.endDiv {
-	height:100%;
-	width:25%;
-	text-align:center;
-	float:left;
-}
-
-.endButton {
-	height:70%;
-	width:33.33%;
-	float:left;
-}
-.endButton p{
-	font-size:90%;
-	color:	#90EE90;
-}
-
-.score-container {
-	height:30%;
-	width:100%;
-	text-align:center;
-	float:left;
-	font-size: 100%;
-	padding:0;
-	position:relative;
-}
-
-.score-container span {
-	font-size:120%;
-	position:relative;
-	top:30%;
-	padding:3px;
 }

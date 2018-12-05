@@ -8,11 +8,13 @@ function dropRight() {
 
 // Close the dropdown if the user clicks outside of it
 window.onclick = function(e) {
-	if (!e.target.matches('.dropbtn')) {
+	if (!e.target.matches('.dropbtnLeft')) {
 		var leftDropdown = document.getElementById("left-dropdown");
 		if (leftDropdown.classList.contains('show')) {
 			leftDropdown.classList.remove('show');
 		}
+	}
+	if (!e.target.matches('.dropbtnRight')) {
 		var rightDropdown = document.getElementById("right-dropdown");
 		if (rightDropdown.classList.contains('show')) {
 			rightDropdown.classList.remove('show');
