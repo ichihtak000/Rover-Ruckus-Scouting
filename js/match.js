@@ -38,31 +38,35 @@ function updateTable(){
 			color = getRandomColor();
 			match.innerHTML = matchNum;
 		}else if(i%4==3){
+			var blueSum = (parseInt(totalTable[i-3], 10) + parseInt(totalTable[i-2], 10));
+			var redSum = (parseInt(totalTable[i-1], 10) + parseInt(totalTable[i], 10));
+			if(blueSum > redSum){
+				table.rows[i-1].style.backgroundColor = "#1F45FC";
+				table.rows[i-2].style.backgroundColor = "#1F45FC";
+				table.rows[i].style.backgroundColor = "#F08080";
+				table.rows[i+1].style.backgroundColor = "#F08080";
+			}else if(blueSum < redSum){
+				table.rows[i-1].style.backgroundColor = "#ADD8E6";
+				table.rows[i-2].style.backgroundColor = "#ADD8E6";
+				table.rows[i].style.backgroundColor = "red";
+				table.rows[i+1].style.backgroundColor = "red";
+			}else{
+				table.rows[i-1].style.backgroundColor = "#ADD8E6";
+				table.rows[i-2].style.backgroundColor = "#ADD8E6";
+				table.rows[i].style.backgroundColor = "#F08080";
+				table.rows[i+1].style.backgroundColor = "#F08080";
+			}	
 			match.innerHTML = matchNum;
-			table.rows[i-2].cells[0].rowSpan = "4"
+			table.rows[i-2].cells[0].rowSpan = "4";
 			table.rows[i-1].deleteCell(0);
 			table.rows[i].deleteCell(0);
 			table.rows[i+1].deleteCell(0);
-			var redSum = (parseInt(totalTable[i-3], 10) + parseInt(totalTable[i-2], 10));
-			var blueSum = (parseInt(totalTable[i-1], 10) + parseInt(totalTable[i], 10));
-			/*if(redSum > blueSum){
-				table.rows[i-1].style.backgroundColor = "red";
-				table.rows[i-2].style.backgroundColor = "red";
-				table.rows[i].style.backgroundColor = "#ADD8E6";
-				table.rows[i+1].style.backgroundColor = "#ADD8E6";
-			}else if(redSum < blueSum){
-				table.rows[i-1].style.backgroundColor = "#FA8072";
-				table.rows[i-2].style.backgroundColor = "#FA8072";
-				table.rows[i].style.backgroundColor = "#4169e1";
-				table.rows[i+1].style.backgroundColor = "#4169e1";
-			}else{
-				table.rows[i-1].style.backgroundColor = "#FA8072";
-				table.rows[i-2].style.backgroundColor = "#FA8072";
-				table.rows[i].style.backgroundColor = "#ADD8E6";
-				table.rows[i+1].style.backgroundColor = "#ADD8E6";
-			}*/
-			table.rows[i-1].cells[0].innerHTML = redSum;
-			table.rows[i+1].cells[0].innerHTML = blueSum;		
+			table.rows[i-2].cells[1].innerHTML = blueSum;
+			table.rows[i].cells[0].innerHTML = redSum;
+			table.rows[i-2].cells[1].rowSpan = "2";
+			table.rows[i-1].deleteCell(0);
+			table.rows[i].cells[0].rowSpan = "2";
+			table.rows[i+1].deleteCell(0);
 		}else{
 			
 		}

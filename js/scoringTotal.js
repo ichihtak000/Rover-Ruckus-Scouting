@@ -80,30 +80,31 @@ function getPreviousDatas(){
 function store() {
 	var check = confirm("Submit?");
 	if(check){
-		teams[teams.length] = teamR1
-		teams[teams.length] = teamR2;
 		teams[teams.length] = teamB1;
 		teams[teams.length] = teamB2;
+		teams[teams.length] = teamR1
+		teams[teams.length] = teamR2;
 		
-		totalScores[totalScores.length] = totalR1;
-		totalScores[totalScores.length] = totalR2;
 		totalScores[totalScores.length] = totalB1;
 		totalScores[totalScores.length] = totalB2;
+		totalScores[totalScores.length] = totalR1;
+		totalScores[totalScores.length] = totalR2;
 		
-		autoScores[autoScores.length] = autoR1;
-		autoScores[autoScores.length] = autoR2;
 		autoScores[autoScores.length] = autoB1;
 		autoScores[autoScores.length] = autoB2;
+		autoScores[autoScores.length] = autoR1;
+		autoScores[autoScores.length] = autoR2;
 		
-		teleScores[teleScores.length] = teleR1;
-		teleScores[teleScores.length] = teleR2;
 		teleScores[teleScores.length] = teleB1;
 		teleScores[teleScores.length] = teleB2;
+		teleScores[teleScores.length] = teleR1;
+		teleScores[teleScores.length] = teleR2;
 		
-		endScores[endScores.length] = endR1;
-		endScores[endScores.length] = endR2;
 		endScores[endScores.length] = endB1;
 		endScores[endScores.length] = endB2;
+		endScores[endScores.length] = endR1;
+		endScores[endScores.length] = endR2;
+		
 		
 		if (typeof(Storage) !== "undefined") {
 			for(var i=0; i<autoScores.length; i++){

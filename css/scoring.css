@@ -1,34 +1,4 @@
-.red1Div {
-	background-color:#B22222;
-	height:80%;
-	position:relative;
-	top:20%;
-	width:25%;
-	float:left;
-	z-index:0;
-}
-
-.red2Div {
-	background-color:red;
-	height:80%;
-	position:relative;
-	top:20%;
-	width:25%;
-	float:left;
-	z-index:0;
-}
-
 .blue1Div {
-	background-color:blue;
-	height:80%;
-	position:relative;
-	top:20%;
-	width:25%;
-	float:left;
-	z-index:0;
-}
-
-.blue2Div {
 	background-color:#2E86C1;
 	height:80%;
 	position:relative;
@@ -38,30 +8,40 @@
 	z-index:0;
 }
 
+.blue2Div {
+	background-color:blue;
+	height:80%;
+	position:relative;
+	top:20%;
+	width:25%;
+	float:left;
+	z-index:0;
+}
+
+.red1Div {
+	background-color:red;
+	height:80%;
+	position:relative;
+	top:20%;
+	width:25%;
+	float:left;
+	z-index:0;
+}
+
+.red2Div {
+	background-color:#B22222;
+	height:80%;
+	position:relative;
+	top:20%;
+	width:25%;
+	float:left;
+	z-index:0;
+}
 
 @media only screen and (max-width: 600px) {
-	.red1Div {
-		background-color:#B22222;
-		border: 0.5px solid black;	
-		height:80%;
-		width:100%;
-		float:left;
-		top:20%;
-		z-index:0;
-	}
-
-	.red2Div {
-		background-color:red;
-		border: 0.5px solid black;
-		height:80%;
-		width:100%;	
-		float:left;
-		top:20%;
-		z-index:0;
-	}
 
 	.blue1Div {
-		background-color:blue;
+		background-color:#2E86C1;
 		border: 0.5px solid black;	
 		height:80%;
 		width:100%;
@@ -71,10 +51,30 @@
 	}
 
 	.blue2Div {
-		background-color:#2E86C1;
+		background-color:blue;
 		border: 0.5px solid black;
 		height:80%;
 		width:100%;
+		float:left;
+		top:20%;
+		z-index:0;
+	}
+	
+	.red1Div {
+		background-color:red;
+		border: 0.5px solid black;	
+		height:80%;
+		width:100%;
+		float:left;
+		top:20%;
+		z-index:0;
+	}
+
+	.red2Div {
+		background-color:#B22222;
+		border: 0.5px solid black;
+		height:80%;
+		width:100%;	
 		float:left;
 		top:20%;
 		z-index:0;

@@ -12,7 +12,11 @@ table, td,th {
     border: 1px solid black;
 	text-align:center;
 }
+#match {
+	width:10%;
+}
 
-th,td{
-	width:8%;
+th {
+	position:relative;
+	width:15%;
 }
