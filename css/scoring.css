@@ -176,7 +176,7 @@
 	float:left;
 }
 .endButton p{
-	font-size:90%;
+	font-size:0.9vm;
 	color:	#90EE90;
 }
 
@@ -191,7 +191,7 @@
 }
 
 .score-container span {
-	font-size:120%;
+	font-size:1.2vm;
 	position:relative;
 	top:30%;
 	padding:3px;

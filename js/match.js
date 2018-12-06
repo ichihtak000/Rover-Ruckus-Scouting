@@ -45,7 +45,7 @@ function updateTable(){
 			table.rows[i+1].deleteCell(0);
 			var redSum = (parseInt(totalTable[i-3], 10) + parseInt(totalTable[i-2], 10));
 			var blueSum = (parseInt(totalTable[i-1], 10) + parseInt(totalTable[i], 10));
-			if(redSum > blueSum){
+			/*if(redSum > blueSum){
 				table.rows[i-1].style.backgroundColor = "red";
 				table.rows[i-2].style.backgroundColor = "red";
 				table.rows[i].style.backgroundColor = "#ADD8E6";
@@ -60,9 +60,9 @@ function updateTable(){
 				table.rows[i-2].style.backgroundColor = "#FA8072";
 				table.rows[i].style.backgroundColor = "#ADD8E6";
 				table.rows[i+1].style.backgroundColor = "#ADD8E6";
-			}
-			table.rows[i-1].cells[1].innerHTML = redSum;
-			table.rows[i+1].cells[1].innerHTML = blueSum;		
+			}*/
+			table.rows[i-1].cells[0].innerHTML = redSum;
+			table.rows[i+1].cells[0].innerHTML = blueSum;		
 		}else{
 			
 		}
@@ -91,4 +91,3 @@ function clearStorage(){
 		localStorage.clear();
 	}
 }
-
