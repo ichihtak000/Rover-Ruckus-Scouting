@@ -38,7 +38,7 @@
 			</div>
 		</div> 
 	  
-		<button class="centertext" onclick="reload()">Rover-Ruckus-Scouting</button>
+		<button class="navText" onclick="reload()">Rover-Ruckus-Scouting</button>
 		
 		<div class="dropdown" style="float:right">
 			<button class="dropbtnRight" onclick="dropRight()">Resources
@@ -71,8 +71,10 @@
 			<input name="blue1" type="text" id="teamNameB1" placeholder="blue 1" maxlength="5" size="10">
 		</div>
 		<div class="totalDiv">
-			<div class="score-container">
-				<span>Total:</span><span id="totalScoreB1">0</span>
+			<div class="score-container" style="height:100%;">
+				<div class="spanDiv">
+					<span>Total:</span><span id="totalScoreB1">0</span>
+				</div>
 			</div>
 		</div>
 		<div class="autoDiv">
@@ -126,15 +128,21 @@
 				<span>End:  </span><span id="endScoreB1">0</span>
 			</div>
 			<div class="endButton">
-				<p>Partial Parked</p>
+				<div class="endLabel">Partially Parked</div>
+			</div>
+			<div class="endButton">
+				<div class="endLabel">Fully Parked</div>
+			</div>
+			<div class="endButton">
+				<div class="endLabel">Latched</div>
+			</div>
+			<div class="endButton">
 				<input class="button-off-score" type="button" id="partialB1" name="partialB1" value="15" onclick="chooseEndB1(this);updateTotalB1();">
 			</div>	
 			<div class="endButton">
-				<p>Fully Parked</p>
 				<input class="button-off-score" type="button" id="fullyB1" name="fullyB1" value="25" onclick="chooseEndB1(this);updateTotalB1();">
 			</div>
 			<div class="endButton">
-				<p>Latched</p>
 				<input class="button-off-score" type="button" id="latchedB1" name="latchedB1" value="50" onclick="chooseEndB1(this);updateTotalB1();">
 			</div>
 		</div>
@@ -145,8 +153,10 @@
 			<input name="blue2" type="text" id="teamNameB2" placeholder="blue 2" maxlength="5" size="10">
 		</div>
 		<div class="totalDiv">
-			<div class="score-container">
-				<span>Total:</span><span id="totalScoreB2">0</span>
+			<div class="score-container" style="height:100%;">
+				<div class="spanDiv">
+					<span>Total:</span><span id="totalScoreB2">0</span>
+				</div>
 			</div>
 		</div>
 		<div class="autoDiv" id="blue2Div">
@@ -200,15 +210,21 @@
 				<span>End:  </span><span id="endScoreB2">0</span>
 			</div>
 			<div class="endButton">
-				<p>Partial Parked</p>
+				<div class="endLabel">Partially Parked</div>
+			</div>
+			<div class="endButton">
+				<div class="endLabel">Fully Parked</div>
+			</div>
+			<div class="endButton">
+				<div class="endLabel">Latched</div>
+			</div>
+			<div class="endButton">
 				<input class="button-off-score" type="button" id="partialB2" name="partialB2" value="15" onclick="chooseEndB2(this);updateTotalB2();">
 			</div>	
 			<div class="endButton">
-				<p>Fully Parked</p>
 				<input class="button-off-score" type="button" id="fullyB2" name="fullyB2" value="25" onclick="chooseEndB2(this);updateTotalB2();">
 			</div>
 			<div class="endButton">
-				<p>Latched</p>
 				<input class="button-off-score" type="button" id="latchedB2" name="latchedB2" value="50" onclick="chooseEndB2(this);updateTotalB2();">
 			</div>
 		</div>
@@ -219,8 +235,10 @@
 			<input name="red1" type="text" id="teamNameR1" placeholder="red 1" maxlength="5" size="10">	
 		</div>
 		<div class="totalDiv">
-			<div class="score-container">
-				<span>Total:</span><span id="totalScoreR1">0</span>
+			<div class="score-container" style="height:100%;">
+				<div class="spanDiv">
+					<span>Total:</span><span id="totalScoreR1">0</span>
+				</div>
 			</div>
 		</div>
 		<div class="autoDiv" id="red1Div">
@@ -274,15 +292,21 @@
 				<span>End:  </span><span id="endScoreR1">0</span>
 			</div>
 			<div class="endButton">
-				<p>Partial Parked</p>
+				<div class="endLabel">Partially Parked</div>
+			</div>
+			<div class="endButton">
+				<div class="endLabel">Fully Parked</div>
+			</div>
+			<div class="endButton">
+				<div class="endLabel">Latched</div>
+			</div>
+			<div class="endButton">
 				<input class="button-off-score" type="button" id="partialR1" name="partialR1" value="15" onclick="chooseEndR1(this);updateTotalR1();">
 			</div>	
 			<div class="endButton">
-				<p>Fully Parked</p>
 				<input class="button-off-score" type="button" id="fullyR1" name="fullyR1" value="25" onclick="chooseEndR1(this);updateTotalR1();">
 			</div>
 			<div class="endButton">
-				<p>Latched</p>
 				<input class="button-off-score" type="button" id="latchedR1" name="latchedR1" value="50" onclick="chooseEndR1(this);updateTotalR1();">
 			</div>
 		</div>
@@ -293,8 +317,10 @@
 			<input name="red2" type="text" id="teamNameR2" placeholder="red 2" maxlength="5" size="10">
 		</div>
 		<div class="totalDiv">
-			<div class="score-container">
-				<span>Total:</span><span id="totalScoreR2">0</span>
+			<div class="score-container" style="height:100%;">
+				<div class="spanDiv">
+					<span>Total: </span><span id="totalScoreR2">0</span>
+				</div>
 			</div>
 		</div>
 		<div class="autoDiv" id="red2Div">
@@ -348,15 +374,21 @@
 				<span>End:  </span><span id="endScoreR2">0</span>
 			</div>
 			<div class="endButton">
-				<p>Partial Parked</p>
+				<div class="endLabel">Partially Parked</div>
+			</div>
+			<div class="endButton">
+				<div class="endLabel">Fully Parked</div>
+			</div>
+			<div class="endButton">
+				<div class="endLabel">Latched</div>
+			</div>
+			<div class="endButton">
 				<input class="button-off-score" type="button" id="partialR2" name="partialR2" value="15" onclick="chooseEndR2(this);updateTotalR2();">
 			</div>	
 			<div class="endButton">
-				<p>Fully Parked</p>
 				<input class="button-off-score" type="button" id="fullyR2" name="fullyR2" value="25" onclick="chooseEndR2(this);updateTotalR2();">
 			</div>
 			<div class="endButton">
-				<p>Latched</p>
 				<input class="button-off-score" type="button" id="latchedR2" name="latchedR2" value="50" onclick="chooseEndR2(this);updateTotalR2();">
 			</div>
 		</div>

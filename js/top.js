@@ -1,7 +1,3 @@
-function reload(){
-	location.reload();
-}
-
 function clearAll(){
 	var check = confirm("Clear?");
 	if(check){

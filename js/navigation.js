@@ -21,3 +21,7 @@ window.onclick = function(e) {
 		}
 	}
 }
+
+function reload(){
+	location.reload();
+}
