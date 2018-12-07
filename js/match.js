@@ -33,6 +33,9 @@ function updateTable(){
         var auto = row.insertCell(4);
         var tele = row.insertCell(5);
         var end = row.insertCell(6);
+		var comment = row.insertCell(7);
+		winner.className = "class";
+		team.className = "class";
 		if(i%4==0){
 			matchNum++;
 			color = getRandomColor();
@@ -77,6 +80,7 @@ function updateTable(){
 		auto.innerHTML = autoTable[i];
 		tele.innerHTML = teleTable[i];
 		end.innerHTML = endTable[i];
+		comment.innerHTML = "hello";
 	}
 }
 
