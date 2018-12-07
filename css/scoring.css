@@ -42,49 +42,6 @@
 	z-index:0;
 }
 
-@media only screen and (max-width: 1000px) {
-
-	.blue1Div {
-		background-color:#2E86C1;
-		border: 0.5px solid black;	
-		height:80%;
-		width:100%;
-		float:left;
-		top:20%;
-		z-index:0;
-	}
-
-	.blue2Div {
-		background-color:blue;
-		border: 0.5px solid black;
-		height:80%;
-		width:100%;
-		float:left;
-		top:20%;
-		z-index:0;
-	}
-	
-	.red1Div {
-		background-color:red;
-		border: 0.5px solid black;	
-		height:80%;
-		width:100%;
-		float:left;
-		top:20%;
-		z-index:0;
-	}
-
-	.red2Div {
-		background-color:#B22222;
-		border: 0.5px solid black;
-		height:80%;
-		width:100%;	
-		float:left;
-		top:20%;
-		z-index:0;
-	}
-}
-
 .teamName {
 	height:7.5%;
 	width:100%;
@@ -236,4 +193,53 @@
 	position:relative;
 	top:50%;
 	transform: translate(0%,-50%);
+}
+
+
+@media only screen and (max-width: 1000px) {
+
+	.blue1Div {
+		background-color:#2E86C1;
+		border: 0.5px solid black;	
+		height:80%;
+		width:100%;
+		float:left;
+		top:20%;
+		z-index:0;
+	}
+
+	.blue2Div {
+		background-color:blue;
+		border: 0.5px solid black;
+		height:80%;
+		width:100%;
+		float:left;
+		top:20%;
+		z-index:0;
+	}
+	
+	.red1Div {
+		background-color:red;
+		border: 0.5px solid black;	
+		height:80%;
+		width:100%;
+		float:left;
+		top:20%;
+		z-index:0;
+	}
+
+	.red2Div {
+		background-color:#B22222;
+		border: 0.5px solid black;
+		height:80%;
+		width:100%;	
+		float:left;
+		top:20%;
+		z-index:0;
+	}
+	
+	.button-off-score,.button-on-score {
+		font-size: 30px;
+		padding:5px 18px;
+	}
 }

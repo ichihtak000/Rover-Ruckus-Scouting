@@ -25,3 +25,21 @@
     display: inline-block;
     font-size: 16px;
 }
+
+.button-on-top {
+	border: 5px;
+    color: white;
+    padding: 7px 16px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 16px;
+}
+
+@media only screen and (max-width: 1000px) {
+	
+	.button-off-top{
+		font-size: 45px;
+		padding:5px 15px;
+	}
+}
