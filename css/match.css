@@ -28,7 +28,7 @@ td,th {
 
 #space {
 	width:100%;
-	height:50%;
+	height:8%;
 }
 
 #matchTable {
@@ -38,16 +38,12 @@ td,th {
 }
 
 th {
-	width:15%;
+	width:13%;
 	padding-top: 12px;
 	padding-bottom: 12px;
 	text-align: center;
 	background-color: #4CAF50;
 	color: white;
-}
-
-.class {
-	width:15%;
 }
 
 .navbar {

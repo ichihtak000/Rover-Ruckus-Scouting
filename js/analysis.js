@@ -7,7 +7,7 @@ var endTable = [];
 var color;
 
 function updateTable(){
-	var table = document.getElementById("matchTable");
+	var table = document.getElementById("analysisTable");
 	
 	var tableLength = table.rows.length;
 	for(var i = (tableLength-1); i>0; i--){
@@ -56,7 +56,7 @@ function clearStorage(){
 
 function sortTable(n) {
   var table, rows, switching, i, x, y, shouldSwitch, dir, switchcount = 0;
-  table = document.getElementById("matchTable");
+  table = document.getElementById("analysisTable");
   switching = true;
   dir = "asc"; 
   while (switching) {

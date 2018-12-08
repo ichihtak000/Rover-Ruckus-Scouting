@@ -25,7 +25,6 @@ function updateTable(){
 	}
 	for(var i=0; i<tLength; i++){
         var row = table.insertRow(i+1);
-		row.className = "item";
         var match = row.insertCell(0);
 		var winner = row.insertCell(1);
 		var team = row.insertCell(2);
