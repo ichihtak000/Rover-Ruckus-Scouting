@@ -1,0 +1,523 @@
+## Copyright (c) 2018 FIRST, Thomas Barnette, George Marchant, and Trey Woodlief. All rights reserved.
+##
+## Redistribution and use in source and binary forms, with or without modification,
+## are permitted (subject to the limitations in the disclaimer below) provided that
+## the following conditions are met:
+##
+## Redistributions of source code must retain the above copyright notice, this list
+## of conditions and the following disclaimer.
+##
+## Redistributions in binary form must reproduce the above copyright notice, this
+## list of conditions and the following disclaimer in the documentation and/or
+## other materials provided with the distribution.
+##
+## Neither the name of FIRST nor the names of its contributors may be used to endorse or
+## promote products derived from this software without specific prior written permission.
+##
+## NO EXPRESS OR IMPLIED LICENSES TO ANY PARTY'S PATENT RIGHTS ARE GRANTED BY THIS
+## LICENSE. THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
+## "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO,
+## THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE
+## ARE DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT OWNER OR CONTRIBUTORS BE LIABLE
+## FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL
+## DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR
+## SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER
+## CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY,
+## OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE
+## OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
+##
+
+#parse("/velocity/layout.vm")
+#parse("/velocity/event/counter_macro.vm")
+#parse("/velocity/utils/spaces.vm")
+#@mainLayout()
+<link rel="stylesheet" href="/event/ref.css?v=$!random">
+<style>
+div.form-group > label,
+div.form-group > button,
+div.form-group > input,
+div.form-group > div {
+	margin-top:10px;
+}
+button {
+    touch-action: manipulation;
+}
+img {
+	max-width:100%;
+	margin:0px;
+}
+.red.alliance {
+	background: #ED1C24;
+}
+.blue.alliance {
+	background: #0066B3;
+}
+.alliance {
+	color:white;
+}
+.gold.cargo-hold {
+	background: gold;
+	color:black;
+}
+
+.silver.cargo-hold {
+	background: silver;
+	color: white;
+}
+.button-group-toggle > label {
+	display: inline-block;
+}
+</style>
+<script>
+
+var rand = $rand; //the randomization filled in by velocity. Refresh if re-rand.
+var yesGold = "/img/block_yellow.png";
+var noGold = "/img/block_black.png";
+var yesSilver = "/img/ball_white.png";
+var noSilver = "/img/ball_black.png";
+$( document ).ready(function() {
+	document.getElementById("sf_1,1").src = (rand == 1 || rand == 6) ? yesGold : yesSilver;
+	document.getElementById("sf_1,2").src = (rand == 2 || rand == 5) ? yesGold : yesSilver;
+	document.getElementById("sf_1,3").src = (rand == 3 || rand == 4) ? yesGold : yesSilver;
+	document.getElementById("sf_2,1").src = (rand == 1 || rand == 6) ? yesGold : yesSilver;
+	document.getElementById("sf_2,2").src = (rand == 2 || rand == 5) ? yesGold : yesSilver;
+	document.getElementById("sf_2,3").src = (rand == 3 || rand == 4) ? yesGold : yesSilver;
+	var sampleFieldState = $sampleFieldState;
+	var i;
+	var j;
+	for (i = 2; i > 0; i--) {
+		for (j = 3; j > 0; j--) {
+			if ((sampleFieldState & 1) == 0) {
+				sfToggle(i, j); //this one has already been toggled off.
+				//Since we just loaded the page we know that it is currently on, so toggling it will take it off
+			}	
+			sampleFieldState = sampleFieldState >> 1;
+		}
+	}
+	$('input[type=radio]').change( function() {
+		scoreUpdate($(this)); 
+		});
+	$(".disabled input").prop("disabled", true);
+	validateLatch();
+});
+function isGold(r, id) {
+	if ((rand == 1 || rand == 6) && id == 1) {
+		return true;
+	}
+	if ((rand == 2 || rand == 5) && id == 2) {
+		return true;
+	}
+	if ((rand == 3 || rand == 4) && id == 3) {
+		return true;
+	}
+}
+function sfToggle(set, id, update=true) {
+	var item = document.getElementById("sf_" + set + ","+id);
+	if (isGold(rand, id)) { //this is gold
+		if (item.src.endsWith(yesGold)) {
+			item.src = noGold;
+		} else {
+			item.src = yesGold;
+		}
+	} else { //this is silver
+		if (item.src.endsWith(yesSilver)) {
+			item.src = noSilver;
+		} else {
+			item.src = yesSilver;
+		}
+	}
+	if (update) {
+		scoreUpdate();
+	}
+}
+
+function onUpSilver() {
+	var cur = document.getElementById('silver').value;
+	var prevCur = parseInt(cur);
+	if (cur == '') {
+		cur = 0;
+	} else {
+		cur = parseInt(cur) + 1;
+	}
+	document.getElementById('silver').value = cur;
+	if (cur != prevCur) {
+		scoreUpdate();
+	}
+}
+function onUpGold() {
+	var cur = document.getElementById('gold').value;
+	var prevCur = parseInt(cur);
+	if (cur == '') {
+		cur = 0;
+	} else {
+		cur = parseInt(cur) + 1;
+	}
+	document.getElementById('gold').value = cur;
+	if (cur != prevCur) {
+		scoreUpdate();
+	}
+}
+function onDownSilver() {
+	var cur = document.getElementById('silver').value;
+	var prevCur = parseInt(cur);
+	if (cur == '') {
+		cur = 0;
+	} else {
+		cur = parseInt(cur) - 1;
+	}
+	if (cur < 0) {
+		cur = 0;
+	}
+	document.getElementById('silver').value = cur;
+	if (cur != prevCur) {
+		scoreUpdate();
+	}
+}
+function onDownGold() {
+	var cur = document.getElementById('gold').value;
+	var prevCur = parseInt(cur);
+	if (cur == '') {
+		cur = 0;
+	} else {
+		cur = parseInt(cur) - 1;
+	}
+	if (cur < 0) {
+		cur = 0;
+	}
+	document.getElementById('gold').value = cur;
+	if (cur != prevCur) {
+		scoreUpdate();
+	}
+}
+function getScoreObj() {
+	obj = {};
+	
+	obj.initLatched1 = $initLatched1;
+	obj.initLatched2 = $initLatched2;
+	
+	obj.noshow1 = $noshow1;
+	obj.noshow2 = $noshow2;
+	obj.noshow3 = $noshow3;
+	
+	obj.landed;// = parseInt(document.getElementById('landed').value);
+	obj.landed1 = $('#landed1 label input:radio:checked').val();
+	obj.landed2 = $('#landed2 label input:radio:checked').val();
+	
+	obj.claimed;// = parseInt(document.getElementById('claimed').value);
+	obj.claimed1 = $('#claimed1 label input:radio:checked').val();
+	obj.claimed2 = $('#claimed2 label input:radio:checked').val();	
+	
+	obj.autoParking;// = parseInt(document.getElementById('autoParking').value);
+	obj.autoParking1 = $('#autoParking1 label input:radio:checked').val();
+	obj.autoParking2 = $('#autoParking2 label input:radio:checked').val();
+	
+	//calculate binary for sampleFieldState
+	var sampleFieldState = 0;
+	var i;
+	var j;
+	for (i = 1; i <= 2; i++) {
+		for (j = 1; j <= 3; j++) {
+			var src = document.getElementById('sf_'+i+','+j).src;
+			sampleFieldState = (sampleFieldState << 1) + ((src.endsWith(yesGold) || src.endsWith(yesSilver))? 1 : 0); 
+		}
+	}
+	obj.sampleFieldState = sampleFieldState;
+	
+	obj.depot = parseInt(document.getElementById('depot').value);
+	
+	obj.latched1 = $('#latched1 label input:radio:checked').val();
+	obj.latched2 = $('#latched2 label input:radio:checked').val();
+	
+	obj.endParked1 = $('#endPark1 label input:radio:checked').val();
+	obj.endParked2 = $('#endPark2 label input:radio:checked').val();
+	obj.gold = parseInt(document.getElementById('gold').value);
+	obj.silver = parseInt(document.getElementById('silver').value);
+	obj.major = parseInt(document.getElementById('major').value);
+	obj.minor = parseInt(document.getElementById('minor').value);
+	return obj;
+}
+function scoreUpdate(target) {
+	var id = $(target).attr('id');
+	if ((id && id.startsWith('latched')) || (id && id.startsWith('endPark'))) {
+		validateLatch();
+	}
+	obj = getScoreObj();
+	$.ajax({
+        url: "./updateQuiet/",
+        type: "PUT",
+        data: JSON.stringify(obj),
+        success: function (data) {
+            //we good
+            console.log("we good");
+        },
+        error: function (xhr, textStatus, errorThrown) {
+        	if(xhr.responseText == "LOCKOUT")window.location.reload(true);
+            //ERROR HANDLING
+            console.log("Error");
+        }});
+}
+function validateLatch() {
+	console.log('validating latch');
+	var latched1 = $('#latched1 label input:radio:checked').val();
+	var latched2 = $('#latched2 label input:radio:checked').val();
+	
+	var endParked1 = $('#endPark1 label input:radio:checked').val();
+	var endParked2 = $('#endPark2 label input:radio:checked').val();
+	
+	if (latched1 > 0 && endParked1 > 0) {
+		$("#latched1 label").addClass("badinput");
+		$("#endPark1 label").addClass("badinput");
+	} else {
+		$("#latched1 label").removeClass("badinput");
+		$("#endPark1 label").removeClass("badinput");
+	}
+	if (latched2 > 0 && endParked2 > 0) {
+		$("#latched2 label").addClass("badinput");
+		$("#endPark2 label").addClass("badinput");
+	} else {
+		$("#latched2 label").removeClass("badinput");
+		$("#endPark2 label").removeClass("badinput");
+	}
+	
+}
+var hideTimer;
+function submitReview() {
+	obj = getScoreObj();
+	$.ajax({
+        url: "./review/",
+        type: "POST",
+        data: JSON.stringify(obj),
+        success: function (data) {
+            //we good
+            console.log("we good");
+            window.location.href = '../../$alliance/';
+        },
+        error: function (xhr, textStatus, errorThrown) {
+        	if(xhr.responseText == "LOCKOUT")window.location.reload(true);
+        	if (xhr.status == 409) {
+        		$("#submitWarn").html("Cannot submit until end of Driver-Controlled!")
+        		if (hideTimer) {
+        			clearTimeout(hideTimer);
+        		}
+        		hideTimer = setTimeout(function() {
+        			$("#submitWarn").html("&nbsp;");
+        			hideTimer = null;
+        		}, 3000);
+        	}
+        }});
+}
+</script>
+<div class="row justify-content-center">
+	<div class="col-10 alert alliance $alliance text-center">
+	$matchObj.getShortName() Score Tracker Review
+	</div>
+</div>
+<div class="form-group row justify-content-center">
+	<div class="col-4 col-lg-2 vertical-center">
+		Robot 1 Landed ($robot1):
+	</div>
+	<div class="btn-group btn-group-toggle col-6 col-lg-3 justify-content-center" data-toggle="buttons" id="landed1">
+	  	<label class="btn btn-outline-info #if($landed1==0)active#end #if($initLatched1==0 || $robot1 == "No Show")disabled#end">
+		    <input type="radio" name="landed1" id="landed1,0" value="0" autocomplete="off" #if($landed1==0)checked#end>#spaces(4)No#spaces(4)
+  		</label>
+		<label class="btn btn-outline-info #if($landed1==1)active#end #if($initLatched1==0 || $robot1 == "No Show")disabled#end">
+		    <input type="radio" name="landed1" id="landed1,1" value="1" autocomplete="off" #if($landed1==1)checked#end>#spaces(4)Yes#spaces(4)
+  		</label>
+	</div>
+		<div class="col-4 col-lg-2 vertical-center">
+		Robot 2 Landed ($robot2):
+	</div>
+	<div class="btn-group btn-group-toggle col-6 col-lg-3 justify-content-center" data-toggle="buttons" id="landed2">
+		<label class="btn btn-outline-info #if($landed2==0)active#end #if($initLatched2==0 || $robot2 == "No Show")disabled#end">
+		    <input type="radio" name="landed2" id="landed2,0" value="0" autocomplete="off" #if($landed2==0)checked#end>#spaces(4)No#spaces(4)
+  		</label>
+		<label class="btn btn-outline-info #if($landed2==1)active#end #if($initLatched2==0 || $robot2 == "No Show")disabled#end">
+		    <input type="radio" name="landed2" id="landed2,1" value="1" autocomplete="off" #if($landed2==1)checked#end>#spaces(4)Yes#spaces(4)
+  		</label>
+	</div>
+</div>
+<div class="form-group row justify-content-center">
+	<div class="col-4 col-lg-2 vertical-center">
+		Robot 1 Claimed ($robot1):
+	</div>
+	<div class="btn-group btn-group-toggle col-6 col-lg-3 justify-content-center" data-toggle="buttons" id="claimed1">
+	  	<label class="btn btn-outline-info #if($claimed1==0)active#end #if($robot1 == "No Show")disabled#end">
+		    <input type="radio" name="claimed1" id="claimed1,0" value="0" autocomplete="off" #if($claimed1==0)checked#end>#spaces(4)No#spaces(4)
+  		</label>
+		<label class="btn btn-outline-info #if($claimed1==1)active#end #if($robot1 == "No Show")disabled#end">
+		    <input type="radio" name="claimed1" id="claimed1,1" value="1" autocomplete="off" #if($claimed1==1)checked#end>#spaces(4)Yes#spaces(4)
+  		</label>
+	</div>
+		<div class="col-4 col-lg-2 vertical-center">
+		Robot 2 Claimed ($robot2):
+	</div>
+	<div class="btn-group btn-group-toggle col-6 col-lg-3 justify-content-center" data-toggle="buttons" id="claimed2">
+		<label class="btn btn-outline-info #if($claimed2==0)active#end #if($robot2 == "No Show")disabled#end">
+		    <input type="radio" name="claimed2" id="claimed2,0" value="0" autocomplete="off" #if($claimed2==0)checked#end>#spaces(4)No#spaces(4)
+  		</label>
+		<label class="btn btn-outline-info #if($claimed2==1)active#end #if($robot2 == "No Show")disabled#end">
+		    <input type="radio" name="claimed2" id="claimed2,1" value="1" autocomplete="off" #if($claimed2==1)checked#end>#spaces(4)Yes#spaces(4)
+  		</label>
+	</div>
+</div>
+<div class="form-group row justify-content-center">
+	<div class="col-4 col-lg-2 vertical-center">
+		Robot 1 Parked ($robot1):
+	</div>
+	<div class="btn-group btn-group-toggle col-6 col-lg-3 justify-content-center" data-toggle="buttons" id="autoParking1">
+	  	<label class="btn btn-outline-info #if($autoParking1==0)active#end #if($robot1 == "No Show")disabled#end">
+		    <input type="radio" name="autoParking1" id="autoParking1,0" value="0" autocomplete="off" #if($autoParking1==0)checked#end>#spaces(4)No#spaces(4)
+  		</label>
+		<label class="btn btn-outline-info #if($autoParking1==1)active#end #if($robot1 == "No Show")disabled#end">
+		    <input type="radio" name="autoParking1" id="autoParking1,1" value="1" autocomplete="off" #if($autoParking1==1)checked#end>#spaces(4)Yes#spaces(4)
+  		</label>
+	</div>
+		<div class="col-4 col-lg-2 vertical-center">
+		Robot 2 Parked ($robot2):
+	</div>
+	<div class="btn-group btn-group-toggle col-6 col-lg-3 justify-content-center" data-toggle="buttons" id="autoParking2">
+		<label class="btn btn-outline-info #if($autoParking2==0)active#end #if($robot2 == "No Show")disabled#end">
+		    <input type="radio" name="autoParking2" id="autoParking2,0" value="0" autocomplete="off" #if($autoParking2==0)checked#end>#spaces(4)No#spaces(4)
+  		</label>
+		<label class="btn btn-outline-info #if($autoParking2==1)active#end #if($robot2 == "No Show")disabled#end">
+		    <input type="radio" name="autoParking2" id="autoParking2,1" value="1" autocomplete="off" #if($autoParking2==1)checked#end>#spaces(4)Yes#spaces(4)
+  		</label>
+	</div>
+</div>
+<div class="form-group row justify-content-center">
+<div class="col-6 border-right">
+	<div class="form-group row justify-content-center">
+		<label class="col-10 col-form-label text-center vertical-center">Left Sample Field:</label>
+	</div>
+	<div class="form-group row justify-content-center">
+		<div class="col-4">
+			<img src="/img/block_yellow.png" class="img-responsive" onclick="sfToggle(1,1)" id="sf_1,1">
+		</div>
+		<div class="col-4">
+			<img src="/img/ball_white.png" class="img-responsive" onclick="sfToggle(1,2)" id="sf_1,2">
+		</div>
+		<div class="col-4">
+			<img src="/img/ball_white.png" class="img-responsive" onclick="sfToggle(1,3)" id="sf_1,3">
+		</div>
+	</div>
+	<div class="form-group row justify-content-center">
+		<label for="silver" class="col-10 col-form-label text-center"><img src="/img/ball_white_plain.png" class="img-responsive ch_image"> Left Cargo Hold:</label>
+	</div>
+	<div class="form-group row justify-content-center">
+		<button class="btn col-6" onClick="onUpSilver()">
+	    	<i class="fa fa-plus-square fa-2x" aria-hidden="true"></i>
+    	</button>
+	</div>
+	<div class="form-group row justify-content-center">
+		<input class="col-6 form-control text-center counter" id="silver" #if($silver)value="$silver"#else value="0" #end readonly/>
+	</div>
+	<div class="form-group row justify-content-center">
+		<button class="btn col-6" onClick="onDownSilver()">
+    		<i class="fa fa-minus-square fa-2x" aria-hidden="true"></i>
+    	</button>
+	</div>
+</div>
+<div class="col-6 border-left">
+	<div class="form-group row justify-content-center">
+		<label class="col-10 col-form-label text-center vertical-center">Right Sample Field:</label>
+	</div>
+	<div class="form-group row justify-content-center">
+		<div class="col-4">
+			<img src="/img/block_yellow.png" class="img-responsive" onclick="sfToggle(2,1)" id="sf_2,1">
+		</div>
+		<div class="col-4">
+			<img src="/img/ball_white.png" class="img-responsive" onclick="sfToggle(2,2)" id="sf_2,2">
+		</div>
+		<div class="col-4">
+			<img src="/img/ball_white.png" class="img-responsive" onclick="sfToggle(2,3)" id="sf_2,3">
+		</div>
+	</div>
+	<div class="form-group row justify-content-center">
+		<label for="gold" class="col-10 col-form-label text-center"><img src="/img/block_yellow.png" class="img-responsive ch_image"> Right Cargo Hold:</label>
+	</div>
+	<div class="form-group row justify-content-center">
+	    <button class="btn col-6" onClick="onUpGold()">
+	    	<i class="fa fa-plus-square fa-2x" aria-hidden="true"></i>
+    	</button>
+	</div>
+	<div class="form-group row justify-content-center">
+		<input class="col-6 form-control text-center counter" id="gold" #if($gold)value="$gold"#else value="0" #end readonly/>
+	</div>
+	<div class="form-group row justify-content-center">
+	    <button class="btn col-6" onClick="onDownGold()">
+	    	<i class="fa fa-minus-square fa-2x" aria-hidden="true"></i>
+    	</button>
+	</div>
+</div>
+</div>
+<div class="form-group row justify-content-center">
+	#@counterMacro("Minerals in Depot:" $depot)depot#end
+	<div class="col-lg-5 no-height"></div>
+</div>
+<div class="form-group row justify-content-center">
+	<div class="col-4 col-lg-2 vertical-center">
+		Robot 1 Latched ($robot1):
+	</div>
+	<div class="btn-group btn-group-toggle col-6 col-lg-3 justify-content-center" data-toggle="buttons" id="latched1">
+	  	<label class="btn btn-outline-info #if($latched1==0)active#end #if($robot1 == "No Show")disabled#end">
+		    <input type="radio" name="latched1" id="latched1,0" value="0" autocomplete="off" #if($latched1==0)checked#end>#spaces(4)No#spaces(4)
+  		</label>
+		<label class="btn btn-outline-info #if($latched1==1)active#end #if($robot1 == "No Show")disabled#end">
+		    <input type="radio" name="latched1" id="latched1,1" value="1" autocomplete="off" #if($latched1==1)checked#end>#spaces(4)Yes#spaces(4)
+  		</label>
+	</div>
+		<div class="col-4 col-lg-2 vertical-center">
+		Robot 2 Latched ($robot2):
+	</div>
+	<div class="btn-group btn-group-toggle col-6 col-lg-3 justify-content-center" data-toggle="buttons" id="latched2">
+		<label class="btn btn-outline-info #if($latched2==0)active#end #if($robot2 == "No Show")disabled#end">
+		    <input type="radio" name="latched2" id="latched2,0" value="0" autocomplete="off" #if($latched2==0)checked#end>#spaces(4)No#spaces(4)
+  		</label>
+		<label class="btn btn-outline-info #if($latched2==1)active#end #if($robot2 == "No Show")disabled#end">
+		    <input type="radio" name="latched2" id="latched2,1" value="1" autocomplete="off" #if($latched2==1)checked#end>#spaces(4)Yes#spaces(4)
+  		</label>
+	</div>
+</div>
+<div class="form-group row justify-content-center">
+	<div class="col-4 col-lg-2 vertical-center">
+		Robot 1 In Crater:
+	</div>
+	<div class="btn-group btn-group-toggle col-6 col-lg-3 justify-content-center" data-toggle="buttons" id="endPark1">
+	  	<label class="btn btn-outline-info #if($endParked1==0)active#end #if($robot1 == "No Show")disabled#end">
+		    <input type="radio" name="endPark1" id="endPark1,0" value="0" autocomplete="off" #if($endParked1==0)checked#end> Out
+  		</label>
+		<label class="btn btn-outline-info #if($endParked1==1)active#end #if($robot1 == "No Show")disabled#end">
+		    <input type="radio" name="endPark1" id="endPark1,1" value="1" autocomplete="off" #if($endParked1==1)checked#end> Partially In
+  		</label>
+  		<label class="btn btn-outline-info #if($endParked1==2)active#end #if($robot1 == "No Show")disabled#end">
+	    	<input type="radio" name="endPark1" id="endPark1,2" value="2" autocomplete="off" #if($endParked1==2)checked#end> Completely In
+	  	</label>
+	</div>
+		<div class="col-4 col-lg-2 vertical-center">
+		Robot 2 In Crater:
+	</div>
+	<div class="btn-group btn-group-toggle col-6 col-lg-3 justify-content-center" data-toggle="buttons" id="endPark2">
+		<label class="btn btn-outline-info #if($endParked2==0)active#end #if($robot2 == "No Show")disabled#end">
+		    <input type="radio" name="endPark2" id="endPark2,0" value="0" autocomplete="off" #if($endParked2==0)checked#end> Out
+  		</label>
+		<label class="btn btn-outline-info #if($endParked2==1)active#end #if($robot2 == "No Show")disabled#end">
+		    <input type="radio" name="endPark2" id="endPark2,1" value="1" autocomplete="off" #if($endParked2==1)checked#end> Partially In
+  		</label>
+  		<label class="btn btn-outline-info #if($endParked2==2)active#end #if($robot2 == "No Show")disabled#end">
+	    	<input type="radio" name="endPark2" id="endPark3,2" value="2" autocomplete="off" #if($endParked2==2)checked#end> Completely In
+	  	</label>
+	</div>
+</div>
+<div class="form-group row justify-content-center">
+	#@counterMacro("Minor Penalties:" $minor)minor#end
+	#@counterMacro("Major Penalties:" $major)major#end
+</div>
+<hr class="col-10">
+<div class="row justify-content-center">
+	<button class="btn col-10 text-center btn-secondary" onClick="submitReview()">
+	Submit Final Scores
+	</button>
+	<div class="col-10 text-center" id="submitWarn">&nbsp;</div>
+</div>
+  
+#end

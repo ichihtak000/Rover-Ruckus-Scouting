@@ -1,0 +1,284 @@
+/* Copyright (c) 2018 FIRST, Thomas Barnette, George Marchant, and Trey Woodlief. All rights reserved.
+ *
+ * Redistribution and use in source and binary forms, with or without modification,
+ * are permitted (subject to the limitations in the disclaimer below) provided that
+ * the following conditions are met:
+ *
+ * Redistributions of source code must retain the above copyright notice, this list
+ * of conditions and the following disclaimer.
+ *
+ * Redistributions in binary form must reproduce the above copyright notice, this
+ * list of conditions and the following disclaimer in the documentation and/or
+ * other materials provided with the distribution.
+ *
+ * Neither the name of FIRST nor the names of its contributors may be used to endorse or
+ * promote products derived from this software without specific prior written permission.
+ *
+ * NO EXPRESS OR IMPLIED LICENSES TO ANY PARTY'S PATENT RIGHTS ARE GRANTED BY THIS
+ * LICENSE. THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
+ * "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO,
+ * THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE
+ * ARE DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT OWNER OR CONTRIBUTORS BE LIABLE
+ * FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL
+ * DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR
+ * SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER
+ * CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY,
+ * OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE
+ * OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
+ */
+
+#progressBar{display:none;}
+
+.bgMatch{
+	background-image:url("/img/bg/RoverRuckusFieldDisplayHD_NoTop_darker.png");
+}
+#digits:not(.to){
+	position:absolute;
+	width:262px;
+	height:180px;
+	background-color: black;
+	left:829px;
+	top:900;	
+}
+#digits:not(.to) .timerImage{
+	position:absolute;
+	height:180px;
+}
+#digits:not(.to) #minDigit{
+	left:0px;
+}
+#digits:not(.to) #colon{
+	left: 81px;
+}
+#digits:not(.to) #tensDigit{
+	left: 100px;
+}
+#digits:not(.to) #onesDigit{
+	left:181px;
+}
+.scoreTotal{
+	height:176px;
+	top:0px;
+	line-height:176px;
+}
+#blueTotal{
+	left:600px;
+}
+#redTotal{
+	left:1095px;
+}
+
+#blueNumbers{
+	left:450px;
+}
+/*scoretotal width = 221, 225 with border*/
+#redNumbers{
+	left:1320px;
+}
+#scores {
+	top:53px;
+	left:86px;
+	width:1748px; 
+	height:689px;
+	position:absolute;
+}
+.scores{
+	position:absolute;
+	height:689px;
+	top:0px;
+	width:874px;
+}
+#blueScores {
+	left:0px;
+}
+#redScores {
+	left:874px;
+}
+.lander{
+	position:absolute;
+	top:-5px;
+	height:180px;
+}
+.autoLander {
+	left:129;
+}
+.phaseLabel {
+	position:absolute;
+	font-weight:bold;
+	color:#9DF8EA;
+	font-size:45px;
+}
+.landerLabel {
+	top:-10px;
+}
+.autoLanderLabel {
+	left:120;
+}
+.endLanderLabel {
+	left:493;
+}
+.endLander {
+	left: 502;
+}
+.sf {
+	position:absolute;
+	top: 180px;
+	height:60px;
+}
+.claimed {
+	position:absolute;
+	top: 240px;
+	height:180px;
+}
+.crater {
+	position:absolute;
+	top: 420px;
+	height: 180px;
+}
+.craterPhaseLabel {
+	top: 140px;
+}
+.craterPhaseLabelAuto {
+	left:208px;
+}
+.craterPhaseLabelEnd {
+	left:636px;
+}
+.minerals {
+	position:absolute;
+	top:620px;
+	height:60px;
+}
+.scores img {
+	height:100%;
+}
+.sf1 {
+	position:absolute;
+	left:171px;
+	width:189px;
+}
+.sf2 {
+	position:absolute;
+	left:523px;
+	width:189px;
+}
+.flag {
+	color:white;
+	position:absolute;
+	top:126px;
+	height:40px;
+	min-width:100px;
+	font-size:26pt;
+	font-weight:900;
+	text-align:center;
+}
+.landerRobot {
+	position:absolute;
+	/* 57 for attatchd to lander*/
+	top: 110px;
+	height:60px !important;
+}
+.ineligibleRobot {
+    -webkit-filter: grayscale(100%) invert(20%);
+    filter: grayscale(100%) invert(20%);
+}
+.autoRobot1 {
+	left:165px;
+}
+.autoRobot2 {
+	left:260px;
+}
+.endRobot1 {
+	left:539px;
+}
+.endRobot2 {
+	left:634px;
+}
+.redFlag {
+	background: #ED1C24;
+}
+.blueFlag {
+	background: #0066B3;
+}
+.flagPole1 {
+	position:absolute;
+	left:158px;
+}
+.flag1 {
+	left:268px;
+}
+.flagPole2 {
+	position:absolute;
+	left:516px;
+}
+.flag2 {
+	left:626px;
+}
+.crater1Image {
+	position:absolute;
+	left:14;
+}
+.crater2Image {
+	position:absolute;
+	left:228;
+}
+.crater3Image {
+	position:absolute;
+	left:442;
+}
+.crater4Image {
+	position:absolute;
+	left:656;
+}
+.craterLabel {
+	position:absolute;
+	text-align:center;
+	width:200;
+	top:140;
+	font-size:26pt;
+	font-weight:900;
+	color:#9DF8EA;
+}
+.crater1Label {
+	left:14;
+}
+.crater2Label {
+	left:228;
+}
+.crater3Label {
+	left:442;
+}
+.crater4Label {
+	left:656;
+}
+.silverImage {
+	position:absolute;
+	left:100;
+}
+.silver {
+	position:absolute;
+	left:160;
+}
+.mineralAmount {
+	font-size:40pt;
+	font-weight:900;
+	width:164px;
+	text-align:left;
+	color:#9DF8EA;
+}
+.goldImage {
+	position:absolute;
+	left:324;
+}
+.gold {
+	position:absolute;
+	left:384;
+}
+.depotImage {
+	position:absolute;
+	left:548;
+}
+.depot {
+	position:absolute;
+	left:608;
+}

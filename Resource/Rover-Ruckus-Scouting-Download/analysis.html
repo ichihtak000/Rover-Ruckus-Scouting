@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<meta charset="utf-8">
+	<meta name="description" content="FTC Scouting Tool for 2018-2019" />
+	<meta name="keywords" content="html, css, javascript" />
+	<meta name="author" content="Takumi Ichihashi" />
+
+	<title>Rover-Ruckus-Analysis</title>
+	
+	<link rel="icon" href="visuals/icon2.png">
+	
+	<link rel="stylesheet" type="text/css" href="css/analysis.css">
+</head>
+
+<body>
+	<script src="js/scoringTotal.js"></script>
+	<script src="js/analysis.js"></script>
+	
+	<div class="navbar">
+		<div class="dropdown">
+			<button class="dropbtnLeft" onclick="dropLeft()" >Files
+				<i class="fa fa-caret-down"></i>
+			</button>
+			<div class="dropdown-content" id="left-dropdown">
+				<a href="index.html" target="_blank">Scouting Sheet</a>
+				<a href="analysis.html" target="_blank">Analysis</a>
+			</div>
+		</div> 
+		<button class="navText" style="position:absolute;left:25%;transform: translate(-50%);color:#40e0d0;" onclick="updateTable()">Update</button>
+		<button class="navText" style="position:absolute;left:50%;transform: translate(-50%);" onclick="reload()">Rover-Ruckus-Analysis</button>
+		<button class="navText" style="position:absolute;right:25%;transform: translate(50%);color:#d74338;" onclick="clearStorage()">ClearStorage</button>
+		<div class="dropdown">
+			<button class="dropbtnRight" onclick="dropRight()">Resources
+				<i class="fa fa-caret-down"></i>
+			</button>
+			<div class="dropdown-content" id="right-dropdown">
+				<a href="https://www.w3schools.com/" target="_blank">W3School</a>
+				<a href="https://gearedreaction.org/" target="_blank">Geared Reaction Website</a>
+				<a href="https://projects.gearedreaction.org" target="_blank">Open Project</a>
+				<a href="https://rover-ruckus-scorer.now.sh/" target="_blank">Rover Ruckus Scorer</a>
+			</div>
+		</div> 
+	</div>	
+
+	<div id="space"></div>
+	<table class="table" id="analysisTable">
+	  <tr>
+		<th onclick="sortTable(0)" style="cursor:pointer">Team</th>
+		<th onclick="sortTable(1)" style="cursor:pointer">Total</th>
+		<th onclick="sortTable(2)" style="cursor:pointer">Autonomous</th>
+		<th onclick="sortTable(3)" style="cursor:pointer">TeleOp</th>
+		<th onclick="sortTable(4)" style="cursor:pointer">End Game</th>
+	  </tr>
+	</table>
+	<div class="centerDiv"></div>
+	<table class="table" id="analysisTable2">
+	  <tr>
+		<th onclick="sortTable(0)" style="cursor:pointer">Team</th>
+		<th onclick="sortTable(1)" style="cursor:pointer">Total</th>
+		<th onclick="sortTable(2)" style="cursor:pointer">Autonomous</th>
+		<th onclick="sortTable(3)" style="cursor:pointer">TeleOp</th>
+		<th onclick="sortTable(4)" style="cursor:pointer">End Game</th>
+	  </tr>
+	</table>
+</body>
+</html>

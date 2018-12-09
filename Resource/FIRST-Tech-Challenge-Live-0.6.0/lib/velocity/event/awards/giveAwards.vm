@@ -1,0 +1,110 @@
+## Copyright (c) 2018 FIRST, Thomas Barnette, George Marchant, and Trey Woodlief. All rights reserved.
+##
+## Redistribution and use in source and binary forms, with or without modification,
+## are permitted (subject to the limitations in the disclaimer below) provided that
+## the following conditions are met:
+##
+## Redistributions of source code must retain the above copyright notice, this list
+## of conditions and the following disclaimer.
+##
+## Redistributions in binary form must reproduce the above copyright notice, this
+## list of conditions and the following disclaimer in the documentation and/or
+## other materials provided with the distribution.
+##
+## Neither the name of FIRST nor the names of its contributors may be used to endorse or
+## promote products derived from this software without specific prior written permission.
+##
+## NO EXPRESS OR IMPLIED LICENSES TO ANY PARTY'S PATENT RIGHTS ARE GRANTED BY THIS
+## LICENSE. THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
+## "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO,
+## THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE
+## ARE DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT OWNER OR CONTRIBUTORS BE LIABLE
+## FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL
+## DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR
+## SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER
+## CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY,
+## OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE
+## OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
+##
+
+#parse("/velocity/layout.vm")
+#@mainLayout()
+
+## Import Awards Manager Header
+#parse("/velocity/event/awards/awards.vm")
+
+<div class="text-left" id="give-awards">
+    <div class="row mb-2">
+        <h4 class="col-6 font-weight-bold">Give Awards</h4>
+        <div class="col"><span class="color-sample giv"></span>Already given</div>
+        <div class="col"><span class="color-sample req"></span>Must be given</div>
+        <div class="col"><span class="color-sample"></span>Optional</div>
+    </div>
+
+    <div class="row">
+        ## Awards Selector
+        <div class="col-4">
+            <div class="header-row">
+                Award
+            </div>
+            <div id="give-awards-list-container"></div>
+        </div>
+
+        ## View Award & Assign Winner
+        <div class="col">
+            <div class="header-row">Award Description</div>
+            <div class="edit-off toolbar mt-2">
+                <button type="button" id="give-awards-viewer-edit" class="btn">Edit</button>
+            </div>
+            <div class="edit-on toolbar mt-2">
+                <button type="button" id="give-awards-viewer-cancel" class="btn">Cancel</button><button
+                type="button" id="give-awards-viewer-save" class="btn">Save</button>
+            </div>
+            <div id="give-awards-viewer">
+                <h4 id="give-awards-viewer-name">(please choose an award)</h4>
+                <p id="give-awards-viewer-desc">(none)</p>
+                <div id="give-awards-viewer-status">
+                    <b class="mr-2">Status</b><span>(none)</span>
+                </div>
+                <br>
+                <div id="give-awards-viewer-winners-container"></div>
+                <div class="form-group">
+                    <label for="give-awards-viewer-justification">Winner Justification</label>
+                    <textarea class="form-control" id="give-awards-viewer-justification" rows="3" disabled>(none)</textarea>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    ## Templates for HTML objects
+    <div id="give-awards-templates">
+        <div class="award-item mt-2" id="give-awards-award-item">
+            <div class="award-item-content">
+                <div class="award-name">(Award Title)</div>
+                <div class="award-winner">(Award Winner)</div>
+                <div class="active"></div>
+            </div>
+        </div>
+
+        <div class="d-inline-block winner-input" id="give-awards-viewer-winner-team">
+            <label for="give-awards-viewer-winner-team-input" class="mr-2 d-inline-block">(Award Winner Place)</label>
+            <select class="form-control form-control-sm d-inline-block" id="give-awards-viewer-winner-team-input" disabled>
+                <option value="-1">(none)</option>
+                #foreach($team in $teams)
+                    <option value="$team.getData().getNumber()">$team.getData().getNumber() - $team.getData().getName()</option>
+                #end
+            </select>
+        </div>
+
+        <div class="d-inline-block winner-input" id="give-awards-viewer-winner-individual">
+            <label for="give-awards-viewer-winner-individual-input" class="mr-2 d-inline-block">(Award Winner Place)</label>
+            <input type="text" class="form-control form-control-sm d-inline-block" id="give-awards-viewer-winner-individual-input" disabled>
+        </div>
+    </div>
+
+</div>
+
+#end
+
+<link href="/css/awards/giveAwards.css?v=$!random" rel="stylesheet">
+<script src="/js/awards/giveAwards.js"></script>

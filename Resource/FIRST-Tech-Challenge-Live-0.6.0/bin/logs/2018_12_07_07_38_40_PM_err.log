@@ -1,0 +1,27 @@
+[main] INFO org.usfirst.ftc.server.Server - External Static Files
+[main] INFO spark.staticfiles.StaticFilesConfiguration - External StaticResourceHandler configured with folder = ../lib/public
+[main] WARN spark.staticfiles.StaticFilesFolder - Registering external static files folder [../lib/public] as [C:/Users/Takumi/Robotics/Rover-Ruckus-Scouting/Resource/FIRST-Tech-Challenge-Live-0.6.0/bin/../lib/public].
+[main] INFO org.usfirst.ftc.server.Server - Attempting to start server on port 80
+[Thread-0] INFO org.eclipse.jetty.util.log - Logging initialized @738ms
+[Thread-0] INFO spark.embeddedserver.jetty.EmbeddedJettyServer - == Spark has ignited ...
+[Thread-0] INFO spark.embeddedserver.jetty.EmbeddedJettyServer - >> Listening on 0.0.0.0:80
+[Thread-0] INFO org.eclipse.jetty.server.Server - jetty-9.3.z-SNAPSHOT
+[Thread-0] ERROR org.usfirst.ftc.server.Server - Could not bind to port 80
+java.io.FileNotFoundException: http://localhost:80/whoami/
+	at sun.net.www.protocol.http.HttpURLConnection.getInputStream0(HttpURLConnection.java:1890)
+	at sun.net.www.protocol.http.HttpURLConnection.getInputStream(HttpURLConnection.java:1492)
+	at java.net.URL.openStream(URL.java:1045)
+	at org.usfirst.ftc.server.Server.lambda$main$0(Server.java:254)
+	at spark.Service.lambda$init$2(Service.java:504)
+	at java.lang.Thread.run(Thread.java:748)
+[main] INFO org.usfirst.ftc.server.Server - Attempting to start server on port 8080
+[Thread-10] INFO spark.embeddedserver.jetty.EmbeddedJettyServer - >>> Spark shutting down ...
+[Thread-10] INFO org.eclipse.jetty.server.ServerConnector - Stopped ServerConnector@162eb10{HTTP/1.1,[http/1.1]}{0.0.0.0:80}
+[Thread-10] INFO spark.embeddedserver.jetty.EmbeddedJettyServer - done
+[Thread-11] INFO spark.embeddedserver.jetty.EmbeddedJettyServer - == Spark has ignited ...
+[Thread-11] INFO spark.embeddedserver.jetty.EmbeddedJettyServer - >> Listening on 0.0.0.0:8080
+[Thread-11] INFO org.eclipse.jetty.server.Server - jetty-9.3.z-SNAPSHOT
+[Thread-11] INFO org.eclipse.jetty.server.ServerConnector - Started ServerConnector@a90177{HTTP/1.1,[http/1.1]}{0.0.0.0:8080}
+[Thread-11] INFO org.eclipse.jetty.server.Server - Started @1287ms
+[main] INFO org.usfirst.ftc.server.Server - Server started on port 8080
+[main] INFO org.usfirst.ftc.server.Server - Launching browser for OS: Windows 10

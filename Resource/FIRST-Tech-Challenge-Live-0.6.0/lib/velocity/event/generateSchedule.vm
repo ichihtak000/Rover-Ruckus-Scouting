@@ -1,0 +1,529 @@
+## Copyright (c) 2018 FIRST, Thomas Barnette, George Marchant, and Trey Woodlief. All rights reserved.
+##
+## Redistribution and use in source and binary forms, with or without modification,
+## are permitted (subject to the limitations in the disclaimer below) provided that
+## the following conditions are met:
+##
+## Redistributions of source code must retain the above copyright notice, this list
+## of conditions and the following disclaimer.
+##
+## Redistributions in binary form must reproduce the above copyright notice, this
+## list of conditions and the following disclaimer in the documentation and/or
+## other materials provided with the distribution.
+##
+## Neither the name of FIRST nor the names of its contributors may be used to endorse or
+## promote products derived from this software without specific prior written permission.
+##
+## NO EXPRESS OR IMPLIED LICENSES TO ANY PARTY'S PATENT RIGHTS ARE GRANTED BY THIS
+## LICENSE. THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
+## "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO,
+## THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE
+## ARE DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT OWNER OR CONTRIBUTORS BE LIABLE
+## FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL
+## DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR
+## SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER
+## CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY,
+## OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE
+## OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
+##
+
+#parse("/velocity/layout.vm")
+#@mainLayout()
+
+<style>
+	#schedule{
+		background-color:#dcdcdc;
+		
+		padding-top: 5px;
+		padding-bottom: 5px;
+		padding-left: 5px;
+		padding-right:5px;
+		
+	}
+	input[type="number"]{
+		width:50px;
+	}
+	.scheduleItem{
+		padding-top: 5px;
+		padding-bottom: 5px;
+		padding-left: 5px;
+		padding-right:5px;
+		margin-left:5px;
+		margin-top:5px;
+		margin-right:5px;
+		margin-bottom:5px;
+		background-color:#ffffff;
+	}
+	.genDefault{
+		float:right;
+	}
+	.delBtn{
+		float:right;
+	}
+</style>
+
+
+<div class="row">
+	<div class="col-12">
+		<a href=".."><< Back to Dashboard</a>
+	</div>
+	<div class="col-lg-12">
+		<label>Matches per Team:</label>
+    	<input type="number" id="matchCountInput" value="5" oninput="perTeamIn(this)"></input>
+    	<label>Cycle Time (min):</label>
+    	<input type="number" id="cycleTimeInput" value="7" oninput="cycleTimeIn(this)"></input>
+    	<button class="btn" id="genDefault" class="genDefault" onclick="generateDefault()">Default</button>
+    	<br>
+    	<div id="totalMatches">Total Matches = 0</div><br>
+    	<div>Schedule:</div>
+    	<div id="schedule" >
+    		<div id="addOptions" class="scheduleItem">
+    			<button class="btn" onclick="addMatchBlock()">Add Match Block</button>
+    			<button class="btn" onclick="addBreak()">Add Break</button>
+    		</div>
+    	</div>
+    	<br>
+    	<div id="total">
+    		Total Matches Scheduled: <font color="red">0</font> / $totalMatchesRequired
+    	</div>
+    	<div id="ops">
+    		<button class="btn" onclick="save()">Save</button>
+    		<button class="btn" onclick="preview()">Preview</button>
+    		<button class="btn" onclick="runMatchMaker(false)" id="matchMaker">Run Matchmaker</button>
+    	</div>
+    	<div id="matchMakerStatus" class="text-center">
+    	</div>
+    	<div class="progress" id="progress">
+  			<div class="progress-bar" role="progressbar" id="progress_bar" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100"></div>
+		</div>
+	</div>
+</div>	
+<br>
+<hr>
+<br>
+<div class="row">
+	<div class="col-12">
+		<div class="pre-scrollable" id="previewPanel" style="max-height:150%"></div>
+	</div>
+</div>
+
+<script>
+
+	//initialize to any current values in velocity
+	var teamCount = $teamCount;
+	var perTeam = $matchesPerTeam;
+	var cycleTime = $cycleTime;
+	var current = JSON.parse('$current');
+	var scheduled = 0;
+	var totalRequired = 0;
+
+	
+
+	//ISO-8601 YYYY-MM-DD for date
+	function getDateString(date){
+		var yr = date.getFullYear();
+		var mo = date.getMonth() + 1;
+		mo = "" + (mo < 10 ? ("0" + mo) : mo);
+		var dat = date.getDate();
+		dat = "" + (dat < 10 ? ("0" + dat) : dat);
+		var hr = date.getHours();
+		hr = "" + (hr < 10 ?  ("0" + hr) : hr);
+		var mn = date.getMinutes();
+		mn = "" + (mn < 10 ? ("0"+mn) : mn);
+		
+		return yr+"/"+mo+"/"+dat+" "+hr+":"+mn;
+	}
+	
+	function cycleTimeIn(src){
+		cycleTime = parseInt(src.value);
+		//TODO recalulate the end time of all match blocks
+		var items = document.getElementsByClassName("matchBlock");
+		for(var x = 0; x < items.length; x++){
+			calculateEnd(items[x]);
+		}
+		
+	}
+	
+	function perTeamIn(src){
+		perTeam = parseInt(src.value);
+		if ($maxMatches > 0 && perTeam > $maxMatches) {
+			perTeam = $maxMatches;
+		}
+		if (perTeam < $minMatches) {
+			perTeam = $minMatches;
+		}
+		src.value = perTeam;
+		totalRequired = Math.ceil(perTeam * teamCount / 4);
+		updateTotal();
+	}
+
+	function updateTotal(){
+		var met = scheduled == totalRequired;
+		$("#totalMatches").text("Total Matches Required: "+totalRequired);
+		document.getElementById("total").innerHTML = "Total Matches Scheduled: <font color=" +(met ? 'black' : 'red') + '>'+ scheduled + "</font> / "+totalRequired;
+		document.getElementById("matchMaker").disabled = !met;
+	}
+
+	$( document ).ready(function(){
+		//initialize the UI to the current values
+		console.log(current);
+		console.log(teamCount);
+		console.log(perTeam);
+		console.log(cycleTime);
+		totalRequired = Math.ceil(teamCount * perTeam / 4);
+		$("#matchCountInput").val(perTeam);
+		$("#cycleTimeInput").val(cycleTime);
+		$("#totalMatches").text("Total Matches Required: "+totalRequired);
+		$("#progress").hide();
+		recalculateTotalScheduled();
+		
+		updateTotal();
+		for(var i = 0; i < current.length; i++){
+			if(current[i].type == "MATCH"){
+				addMatchBlock(current[i].start, current[i].matchCount);
+			} else if(current[i].type == "BREAK"){
+				addBreak(current[i].label, current[i].start, current[i].duration);
+			} else{
+				console.log("Invalid schedule block");
+				return;
+			}
+		}
+		
+		if (scheduled == 0) {
+			generateDefault();
+		}
+		$.ajax({
+		    url: '../../plainSchedule/',
+		    type: 'GET',
+		    success: function (data,textStatus, xhr) {
+		    	$("#progress_bar").removeClass('progress-bar-animated');
+		    	$("#progress_bar").text('');
+		    	$("#progress").hide();
+		    	$("#previewPanel").html(data);
+		    	$("#matchMakerStatus").text('Schedule has been generated, see below');
+		    },
+		    error: function(xhr, status, error){
+		    
+		    }
+		});
+		
+		
+	});
+	
+	function getLastEnd(){
+		var items = document.getElementById("schedule").children;
+		if(items.length == 1){
+			return new Date().getTime();//return current time if no existing item.
+		}
+		return new Date(items[items.length-2].getElementsByClassName("endField")[0].value).getTime();
+	}
+	function remove(src){
+		var item = document.getElementById(src.getAttribute("pid"));
+		console.log(item);
+		if(item.className.indexOf("matchBlock") >= 0){
+			scheduled -= parseInt(item.getElementsByClassName("countField")[0].value);
+			updateTotal();
+		} else if(item.className.indexOf("break") >=0){
+		}
+		item.remove();		
+	}
+	
+	function recalculateTotalScheduled(){
+		var items = document.getElementsByClassName("countField");
+		scheduled = 0;
+		for(var x = 0; x < items.length; x++){
+			scheduled += parseInt(items[x].value);
+		}	
+		updateTotal();
+	}
+	
+	function generateDefault(){
+		//delete all there
+		var items = document.getElementsByClassName("matchBlock");
+		for(var x = 0; x < items.length; ){
+			items[0].remove();
+		}
+		var items = document.getElementsByClassName("break");
+		for(var x = 0; x < items.length; ){
+			items[0].remove();
+		}
+		recalculateTotalScheduled(); //set to 0
+		addMatchBlock();
+		recalculateTotalScheduled();
+	}
+	
+	function calculateEnd(src){
+		var item = document.getElementById(src.getAttribute("pid"));
+		var end = item.getElementsByClassName("endField")[0];
+		var start = new Date(item.getElementsByClassName("startField")[0].value).getTime();
+		if(item.className.indexOf("matchBlock") >= 0){
+			var count = item.getElementsByClassName("countField")[0].value; 
+			end.value = getDateString(new Date(start + (60000 * cycleTime * count)));
+		} else if(item.className.indexOf("break") >= 0){
+			var duration = item.getElementsByClassName("durationField")[0].value; 
+			end.value = getDateString(new Date(start + (60000 * duration)));
+		}
+	}
+	
+	function calculateDuration(src){
+	}
+	function calculateMatchCount(src){
+	}
+	
+	function inputStart(src){
+		console.log(src);
+		calculateEnd(src);
+	}
+	function inputMatchCount(src){
+		recalculateTotalScheduled();
+		calculateEnd(src)
+	}
+	function inputDuration(src){
+		calculateEnd(src);
+	}
+	function inputEnd(src){
+		console.log(src);
+	}
+	
+	var idCount =  1;
+
+	function addMatchBlock(start, count){
+		if(start === undefined){
+			start = new Date(getLastEnd()).getTime();
+		}
+		if(count == undefined){
+			count = totalRequired - scheduled;
+		}
+		var end = start + (count * cycleTime * 60000);		
+		scheduled += count;
+		updateTotal();
+		console.log(count+","+start+","+end);
+		var id = "item"+idCount++
+		var d = $("<div/>").addClass("scheduleItem matchBlock").attr("id", id).attr("pid",id);
+		d.append($("<label/>").text("Start Time"));
+		d.append($("<input oninput='inputStart(this)'/>").addClass("startField").attr("pid",id).val(getDateString(new Date(start))));
+		d.append($("<button class='btn' onclick='remove(this)'/>").addClass("delBtn").text("Remove").attr("pid",id));
+		d.append("<br/>");
+		d.append($("<label/>").text("# Matches:"));
+		d.append($("<input type='number' oninput='inputMatchCount(this)'/>").attr("pid",id).addClass("countField").val(count));
+		d.append("<br/>");
+		d.append($("<label/>").text("End Time"));
+		d.append($("<input oninput='inputEnd(this)'/>").addClass("endField").attr("pid",id).val(getDateString(new Date(end))));
+		d.insertBefore("#addOptions");
+	}
+	function addBreak(label, start, duration){
+		if(label === undefined){
+			label = ""
+		}
+		if(start === undefined){
+			start = new Date(getLastEnd()).getTime();
+		}
+		if(duration === undefined){
+			duration = 60;
+		}
+		var end = start + duration * 60000;
+		var id = "item"+idCount++;
+		var d = $("<div/>").addClass("scheduleItem break").attr("id",id).attr("pid",id);		
+		d.append($("<label/>").text("Label"));
+		d.append($("<input/>").val(label))
+		d.append($("<button onclick='remove(this)'/>").addClass("delBtn").text("Remove").attr("pid",id));
+		d.append("<br/>");
+		d.append($("<label/>").text("Start Time"));
+		d.append($("<input oninput='inputStart(this)'/>").addClass("startField").attr("pid",id).val(getDateString(new Date(start))));
+		d.append("<br/>");
+		d.append($("<label/>").text("Duration (min):"));
+		d.append($("<input type='number' oninput='inputDuration(this)'/>").addClass("durationField").attr("pid",id).val(duration));
+		d.append("<br/>");
+		d.append($("<label/>").text("End Time"));
+		d.append($("<input oninput='inputEnd(this)'/>").addClass("endField").attr("pid",id).val(getDateString(new Date(end))));
+		d.insertBefore("#addOptions");
+	}
+	
+	function save(){
+		console.log("hi");
+		var sched = [];
+		var items = document.getElementById("schedule").children;
+		for(var i = 0; i < items.length-1; i++){ //last element is controls
+			var block = {};
+			var sub = items[i].getElementsByTagName("input");
+			if(items[i].className.indexOf("break") >= 0){
+				block["label"]=sub[0].value;
+				block["start"]=new Date(sub[1].value).getTime();
+				block["duration"] = sub[2].value;
+				block["type"]="BREAK";
+			} else if(items[i].className.indexOf("matchBlock") >= 0){
+				block["start"]=new Date(sub[0].value).getTime();
+				block["matchCount"] = sub[1].value;
+				block["type"]="MATCH";
+			} else{
+				console.log("Illegal Schedule Element");
+				return;
+			}
+			sched.push(block);
+		}
+		
+		var o = {
+			mpt: document.getElementById("matchCountInput").value,
+			cycleTime: parseInt(document.getElementById("cycleTimeInput").value) * 60000,
+			schedule: JSON.stringify(sched)
+		};
+		console.log(o);
+		$.ajax({
+		    url: '',
+		    type: 'POST',
+		    data: o,
+		    success: function (data,textStatus, xhr) {
+		    	
+		    },
+		    error: function(xhr, status, error){
+		    
+		    }
+		});
+	}
+	
+	function preview(){
+		console.log("preview hi");
+		var sched = [];
+		var items = document.getElementById("schedule").children;
+		for(var i = 0; i < items.length-1; i++){ //last element is controls
+			var block = {};
+			var sub = items[i].getElementsByTagName("input");
+			if(items[i].className.indexOf("break") >= 0){
+				block["label"]=sub[0].value;
+				block["start"]=new Date(sub[1].value).getTime();
+				block["duration"] = sub[2].value;
+				block["type"]="BREAK";
+			} else if(items[i].className.indexOf("matchBlock") >= 0){
+				block["start"]=new Date(sub[0].value).getTime();
+				block["matchCount"] = sub[1].value;
+				block["type"]="MATCH";
+			} else{
+				console.log("Illegal Schedule Element");
+				return;
+			}
+			sched.push(block);
+		}
+		
+		var o = {
+			mpt: document.getElementById("matchCountInput").value,
+			cycleTime: parseInt(document.getElementById("cycleTimeInput").value) * 60000,
+			schedule: JSON.stringify(sched)
+		};
+		console.log(o);
+		$.ajax({
+		    url: 'preview/',
+		    type: 'POST',
+		    data: o,
+		    success: function (data,textStatus, xhr) {
+		    	$("#previewPanel").html(data);
+		    },
+		    error: function(xhr, status, error){
+		    
+		    }
+		});
+	}
+	function runMatchMaker(areYouSure){
+		
+		console.log("hi");
+		var sched = [];
+		var items = document.getElementById("schedule").children;
+		for(var i = 0; i < items.length-1; i++){ //last element is controls
+			var block = {};
+			var sub = items[i].getElementsByTagName("input");
+			if(items[i].className.indexOf("break") >= 0){
+				block["label"]=sub[0].value;
+				block["start"]=new Date(sub[1].value).getTime();
+				block["duration"] = sub[2].value;
+				block["type"]="BREAK";
+			} else if(items[i].className.indexOf("matchBlock") >= 0){
+				block["start"]=new Date(sub[0].value).getTime();
+				block["matchCount"] = sub[1].value;
+				block["type"]="MATCH";
+			} else{
+				console.log("Illegal Schedule Element");
+				return;
+			}
+			sched.push(block);
+		}
+		
+		var o = {
+			mpt: document.getElementById("matchCountInput").value,
+			cycleTime: parseInt(document.getElementById("cycleTimeInput").value) * 60000,
+			schedule: JSON.stringify(sched),
+			rerun: areYouSure
+		};
+		console.log(o);
+		$("#matchMakerStatus").text('Estimating time to generate matches...');
+		function beginLoadAnimation(data) {
+			var start = new Date().getTime();
+	    	//data is the time remaining on matchmaker
+	    	$("#progress").show();
+	    	$("#progress_bar").width('0%');
+	    	var animInterval = setInterval(function() {
+	    		var left = (new Date().getTime() - start);
+	    		var width = 100 * left / data;
+	    		$("#progress_bar").width(width + '%');
+	    		var seconds = Math.round((data - left) / 1000) + 1;
+	    		$("#progress_bar").text('Estimated time remaining: ' + seconds + 's');
+	    		if (width >= 100) {
+	    			clearInterval(animInterval);
+	    			$("#progress_bar").width('100%');
+	    			$("#progress_bar").addClass('progress-bar-animated');
+	    			$("#progress_bar").text('Waiting...');
+	    			$.ajax({
+	    			    url: './waitformatchmaker/',
+	    			    type: 'GET',
+	    			    data: o,
+	    			    success: function (data,textStatus, xhr) {
+			    			$.ajax({
+			    			    url: '../../plainSchedule/',
+			    			    type: 'GET',
+			    			    data: o,
+			    			    success: function (data,textStatus, xhr) {
+			    			    	$("#progress_bar").removeClass('progress-bar-animated');
+			    			    	$("#progress_bar").text('');
+			    			    	$("#progress").hide();
+			    			    	$("#previewPanel").html(data);
+			    			    	$("#matchMakerStatus").text('Schedule has been generated, see below');
+			    			    },
+			    			    error: function(xhr, status, error){
+			    			    
+			    			    }
+			    			});
+	    			    },
+	    			    error: function(xhr, status, error){
+	    			    
+	    			    }
+	    			});
+	    		}
+	    		
+	    	}, 100);
+		}
+		$.ajax({
+		    url: './runmatchmaker/',
+		    type: 'POST',
+		    data: o,
+		    success: function (data,textStatus, xhr) {
+		    	$("#matchMakerStatus").text('Estimated time to run MatchMaker: ' + Math.round(data/1000) + 's')
+		    	beginLoadAnimation(data);
+		    },
+		    error: function(xhr, status, error){
+		    	data = parseInt(xhr.responseText);
+		    	if (xhr.status == 409) {
+		    		if (data == 0) {
+		    			if (confirm("A match schedule already exists for this event. Are you sure you want to generate another?")) {
+		    				runMatchMaker(true);
+		    			}
+		    		} else {
+		    			$("#matchMakerStatus").text('MatchMaker was already running. Estimated time to finish MatchMaker: ' + Math.round(-data/1000) + 's')
+		    			beginLoadAnimation(-data);
+		    		}
+		    	} else if (xhr.status == 500) {
+		    		$("#matchMakerStatus").text('Error running MatchMaker. Please check settings and try again.');
+		    	}
+		    }
+		});
+	}
+	
+</script>
+#end

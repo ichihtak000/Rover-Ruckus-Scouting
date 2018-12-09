@@ -1,0 +1,440 @@
+## Copyright (c) 2018 FIRST, Thomas Barnette, George Marchant, and Trey Woodlief. All rights reserved.
+##
+## Redistribution and use in source and binary forms, with or without modification,
+## are permitted (subject to the limitations in the disclaimer below) provided that
+## the following conditions are met:
+##
+## Redistributions of source code must retain the above copyright notice, this list
+## of conditions and the following disclaimer.
+##
+## Redistributions in binary form must reproduce the above copyright notice, this
+## list of conditions and the following disclaimer in the documentation and/or
+## other materials provided with the distribution.
+##
+## Neither the name of FIRST nor the names of its contributors may be used to endorse or
+## promote products derived from this software without specific prior written permission.
+##
+## NO EXPRESS OR IMPLIED LICENSES TO ANY PARTY'S PATENT RIGHTS ARE GRANTED BY THIS
+## LICENSE. THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
+## "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO,
+## THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE
+## ARE DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT OWNER OR CONTRIBUTORS BE LIABLE
+## FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL
+## DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR
+## SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER
+## CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY,
+## OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE
+## OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
+##
+
+#parse("/velocity/layout.vm")
+#@mainLayout()
+<style>
+.noborder {
+	border:none;
+}
+.extraPad {
+	/*	
+	padding-left:1em;
+	padding-right:1em;
+	*/
+}
+.one-em {
+	height: 1em;
+}
+.two-em {
+	height: 2em;
+}
+.uniform {
+	
+}
+table {
+	table-layout: fixed
+}
+tr {
+	width:100%;
+}
+td {
+	padding:2px;
+	border: 2px solid white;
+}
+img {
+    display: block;
+    margin: 0 auto;
+    max-height: 6em;
+}
+.bottomBorder {
+	border-bottom: 3px solid black !important;
+}
+</style>
+<div class="row">
+	<div class="col-12">
+		<a href="../../../results/"><< Back to Match Results</a>
+	</div>
+</div>
+<div class="row">
+<table style="width:100%" class="col-12">
+	<tr> <!-- Header -->
+		<td colspan="2" class="uniform">
+			<img src="/img/logo.png">
+		</td>
+		<td colspan="4" class="uniform">
+			<div style="background:#if($color=="red")#EE1C25#{else}#0268B3#end;color:#F5FEFD;font-size:200%;padding:.5em;" class="text-center font-weight-bold">#if($color=="red")Red#{else}Blue#end Alliance</div>
+			<br>
+			<div class="text-center font-weight-bold h5">Match: $match.getShortName()&nbsp;&nbsp;&nbsp;&nbsp;Field: $match.getField()</div>
+		</td>
+		<td colspan="2" class="uniform">
+			<img id="logo" src="/img/RoverRuckusLogo.png">
+		</td>
+	</tr>
+	<tr>
+		<td colspan="8">
+			<div style="background:#BFBFBF;" class="text-center font-weight-bold h5">Autonomous Period</div>
+		</td>
+	</tr>
+	<tr>
+		<td colspan="3" style="width:37.5%">
+			<table class="text-center" align="center" style="border-style:solid;">
+				<tr>
+					<td colspan="2" class="extraPad">&nbsp;</td><td class="extraPad">&nbsp;</td>
+					<td colspan="2" class="extraPad">&nbsp;</td><td class="extraPad">&nbsp;</td>
+				</tr>
+				<tr>
+					<td colspan="2" class="extraPad">&nbsp;Landed&nbsp;</td><td class="extraPad">&nbsp;#if($scores.getLanded1() > 0)&#x2713;#{else}&#x25A2;#end&nbsp;</td>
+					<td colspan="2" class="extraPad">&nbsp;Landed&nbsp;</td><td class="extraPad">&nbsp;#if($scores.getLanded2() > 0)&#x2713;#{else}&#x25A2;#end&nbsp;</td>
+				</tr>
+				<tr>
+					<td colspan="2" class="extraPad">&nbsp;Claimed&nbsp;</td><td class="extraPad">&nbsp;#if($scores.getClaimed1() > 0)&#x2713;#{else}&#x25A2;#end&nbsp;</td>
+					<td colspan="2" class="extraPad">&nbsp;Claimed&nbsp;</td><td class="extraPad">&nbsp;#if($scores.getClaimed2() > 0)&#x2713;#{else}&#x25A2;#end&nbsp;</td>
+				</tr>
+				<tr>
+					<td colspan="2" class="extraPad">&nbsp;Parked&nbsp;</td><td class="extraPad">&nbsp;#if($scores.getAutoParking1() > 0)&#x2713;#{else}&#x25A2;#end&nbsp;</td>
+					<td colspan="2" class="extraPad">&nbsp;Parked&nbsp;</td><td class="extraPad">&nbsp;#if($scores.getAutoParking2() > 0)&#x2713;#{else}&#x25A2;#end&nbsp;</td>
+				</tr>
+				<tr>
+					<td colspan="3" class="text-center font-weight-bold">Robot #1</td>
+					<td colspan="3" class="text-center font-weight-bold">Robot #2</td>	
+				</tr>
+			</table>
+		</td>
+		<td colspan="5" style="width:62.5%">
+		<table class="text-center" align="center" style="border-style:solid;">
+				<tr>
+					<td></td>
+					<td class="font-weight-bold">On</td>
+					<td class="font-weight-bold">Off</td>
+					<td></td>
+					<td></td>
+					<td class="font-weight-bold">On</td>
+					<td class="font-weight-bold">Off</td>
+				</tr>
+				<tr>
+					<td><img src="/img/block_yellow.png" class="one-em"></td><td>#if($goldOn1 > 0)&#x2713;#{else}&#x25A2;#end</td><td>#if($goldOn1 == 0)&#x2713;#{else}&#x25A2;#end</td>
+					<td></td>
+					<td><img src="/img/block_yellow.png" class="one-em"></td><td>#if($goldOn2 > 0)&#x2713;#{else}&#x25A2;#end</td><td>#if($goldOn2 == 0)&#x2713;#{else}&#x25A2;#end</td>
+				</tr>
+				<tr>
+					<td><img src="/img/ball_white_plain.png" class="one-em"></td><td>#if($silver1On1 > 0)&#x2713;#{else}&#x25A2;#end</td><td>#if($silver1On1 == 0)&#x2713;#{else}&#x25A2;#end</td>
+					<td></td>
+					<td><img src="/img/ball_white_plain.png" class="one-em"></td><td>#if($silver1On2 > 0)&#x2713;#{else}&#x25A2;#end</td><td>#if($silver1On2 == 0)&#x2713;#{else}&#x25A2;#end</td>
+				</tr>
+				<tr>
+					<td><img src="/img/ball_white_plain.png" class="one-em"></td><td>#if($silver2On1 > 0)&#x2713;#{else}&#x25A2;#end</td><td>#if($silver2On1 == 0)&#x2713;#{else}&#x25A2;#end</td>
+					<td></td>
+					<td><img src="/img/ball_white_plain.png" class="one-em"></td><td>#if($silver2On2 > 0)&#x2713;#{else}&#x25A2;#end</td><td>#if($silver2On2 == 0)&#x2713;#{else}&#x25A2;#end</td>
+				</tr>
+				<tr>
+					<td colspan="3" class="text-center font-weight-bold">Left Sample Field</td>
+					<td></td>
+					<td colspan="3" class="text-center font-weight-bold">Right Sample Field</td>	
+				</tr>
+			</table>
+		</td>
+	</tr>
+	<tr>
+		<td colspan="8">
+			<div style="background:#BFBFBF;" class="text-center font-weight-bold h5">Driver-Controlled Period</div>
+		</td>
+	</tr>
+	<tr>
+		<td class="uniform">&nbsp;</td>
+		<td colspan="3" class="uniform text-center font-weight-bold">Cargo Hold</td>
+		<td class="uniform">&nbsp;</td>
+		<td class="uniform">&nbsp;</td>
+		<td class="uniform text-center font-weight-bold">Depot</td>
+		<td class="uniform">&nbsp;</td>
+	</tr>
+	<tr>
+		<td class="uniform">&nbsp;</td>
+		<td class="uniform text-center bottomBorder">$scores.getSilver()</td>
+		<td class="uniform">&nbsp;</td>
+		<td class="uniform text-center bottomBorder">$scores.getGold()</td>
+		<td class="uniform">&nbsp;</td>
+		<td class="uniform">&nbsp;</td>
+		<td class="uniform text-center bottomBorder">$scores.getDepot()</td>
+		<td class="uniform">&nbsp;</td>
+	</tr>
+	<tr>
+		<td class="uniform">&nbsp;</td>
+		<td class="uniform text-center"># Silver</td>
+		<td class="uniform">&nbsp;</td>
+		<td class="uniform text-center"># Gold</td>
+		<td class="uniform">&nbsp;</td>
+		<td class="uniform">&nbsp;</td>
+		<td class="uniform text-center"># Minerals</td>
+		<td class="uniform">&nbsp;</td>
+	</tr>
+	<tr>
+		<td class="uniform">&nbsp;</td>
+		<td class="uniform text-center"><img src="/img/ball_white_plain.png" class="two-em"></td>
+		<td class="uniform">&nbsp;</td>
+		<td class="uniform text-center"><img src="/img/block_yellow.png" class="two-em"></td>
+		<td class="uniform">&nbsp;</td>
+		<td class="uniform">&nbsp;</td>
+		<td class="uniform text-center" style="display:flex"><img src="/img/ball_white_plain.png" class="two-em"><img src="/img/block_yellow.png" class="two-em"></td>
+		<td class="uniform">&nbsp;</td>
+	</tr>
+	<tr>
+		<td colspan="8">
+			<div style="background:#BFBFBF;" class="text-center font-weight-bold h5">End Game Period</div>
+		</td>
+	</tr>
+	<tr>
+		<td colspan="4" style="width:50% !important;">
+			<table style="border-style:solid;width:100%;">
+				<tr>
+					<td colspan="3" style="width:50%;"> <!-- Crater -->
+						<table style="border-style:solid;width:100%;" class="text-center">
+							<tr>
+								<td colspan="3" class="font-weight-bold">
+									Crater
+								</td>
+							</tr>
+							<tr>
+								<td>
+									Out
+								</td>
+								<td>
+									Partial
+								</td>
+								<td>
+									In
+								</td>
+							</tr>
+							<tr>
+								<td>
+									#if($scores.getEndParked1() == 0)&#x2713;#{else}&#x25A2;#end
+								</td>
+								<td>
+									#if($scores.getEndParked1() == 1)&#x2713;#{else}&#x25A2;#end
+								</td>
+								<td>
+									#if($scores.getEndParked1() == 2)&#x2713;#{else}&#x25A2;#end
+								</td>
+							</tr>
+						</table>
+					</td>
+					<td>&nbsp;</td>
+					<td colspan="2" style="width:33.3%"> <!-- Lander -->
+						<table style="border-style:solid;width:100%" class="text-center">
+							<tr>
+								<td class="font-weight-bold">
+									Lander
+								</td>
+							</tr>
+							<tr>
+								<td>
+									Latched
+								</td>
+							</tr>
+							<tr>
+								<td>
+									#if($scores.getLatched1() > 0)&#x2713;#{else}&#x25A2;#end
+								</td>
+							</tr>
+						</table>
+					</td>
+				</tr>
+				<tr>
+					<td colspan="6" class="text-center font-weight-bold">
+						Robot #1
+					</td>
+				</tr>
+			</table>
+		</td>
+		<td colspan="4" style="width:50% !important;">
+			<table style="border-style:solid;width:100%;">
+				<tr>
+					<td colspan="3" style="width:50%;"> <!-- Crater -->
+						<table style="border-style:solid;width:100%;" class="text-center">
+							<tr>
+								<td colspan="3" class="font-weight-bold">
+									Crater
+								</td>
+							</tr>
+							<tr>
+								<td>
+									Out
+								</td>
+								<td>
+									Partial
+								</td>
+								<td>
+									In
+								</td>
+							</tr>
+							<tr>
+								<td>
+									#if($scores.getEndParked2() == 0)&#x2713;#{else}&#x25A2;#end
+								</td>
+								<td>
+									#if($scores.getEndParked2() == 1)&#x2713;#{else}&#x25A2;#end
+								</td>
+								<td>
+									#if($scores.getEndParked2() == 2)&#x2713;#{else}&#x25A2;#end
+								</td>
+							</tr>
+						</table>
+					</td>
+					<td>&nbsp;</td>
+					<td colspan="2" style="width:33.3%"> <!-- Lander -->
+						<table style="border-style:solid;width:100%" class="text-center">
+							<tr>
+								<td class="font-weight-bold">
+									Lander
+								</td>
+							</tr>
+							<tr>
+								<td>
+									Latched
+								</td>
+							</tr>
+							<tr>
+								<td>
+									#if($scores.getLatched2() > 0)&#x2713;#{else}&#x25A2;#end
+								</td>
+							</tr>
+						</table>
+					</td>
+				</tr>
+				<tr>
+					<td colspan="6" class="text-center font-weight-bold">
+						Robot #2
+					</td>
+				</tr>
+			</table>
+		</td>
+	</tr>
+	<tr>
+		<td colspan="8">
+			<div style="background:#BFBFBF;" class="text-center font-weight-bold h5">Penalties</div>
+		</td>
+	</tr>
+	<tr>
+		<td>&nbsp;</td>
+		<td class="text-right font-weight-bold">
+			# Minor
+		</td>
+		<td colspan="2" class="text-center">
+			$scores.getMinor()
+		</td>
+		<td>&nbsp;</td>
+		<td class="text-right font-weight-bold">
+			# Major
+		</td>
+		<td colspan="2" class="text-center">
+			$scores.getMajor()
+		</td>
+	</tr>
+	<tr style="background:#BFBFBF;" class="text-center font-weight-bold h5">
+		<td colspan="2" class="noborder">
+			Team #
+		</td>
+		<td colspan="2" class="noborder">
+			No Show
+		</td>
+		<td colspan="2" class="noborder">
+			Yellow Card
+		</td>
+		<td colspan="2" class="noborder">
+			Red Card
+		</td>
+	</tr>
+	#if($elims)
+	<tr class="text-center">
+		<td colspan="2">
+			$alliance.getTeam1Number()
+		</td>
+		<td colspan="2">
+			#if($scores.getNoShow1() > 0)&#x2713;#{else}&#x25A2;#end
+		</td>
+		<td colspan="2">
+			#if($yellowCard)&#x2713;#{else}&#x25A2;#end
+		</td>
+		<td colspan="2">
+			#if($redCard)&#x2713;#{else}&#x25A2;#end
+		</td>
+	</tr>
+	<tr class="text-center">
+		<td colspan="2">
+			$alliance.getTeam2Number()
+		</td>
+		<td colspan="2">
+			#if($scores.getNoShow2() > 0)&#x2713;#{else}&#x25A2;#end
+		</td>
+		<td colspan="2">
+			#if($yellowCard)&#x2713;#{else}&#x25A2;#end
+		</td>
+		<td colspan="2">
+			#if($redCard)&#x2713;#{else}&#x25A2;#end
+		</td>
+	</tr>
+	#if($alliance.getTeam3Number() > 0)
+	<tr class="text-center">
+		<td colspan="2">
+			$alliance.getTeam3Number()
+		</td>
+		<td colspan="2">
+			#if($scores.getNoShow3() > 0)&#x2713;#{else}&#x25A2;#end
+		</td>
+		<td colspan="2">
+			#if($yellowCard)&#x2713;#{else}&#x25A2;#end
+		</td>
+		<td colspan="2">
+			#if($redCard)&#x2713;#{else}&#x25A2;#end
+		</td>
+	</tr>
+	#end
+	#else
+	<tr class="text-center">
+		<td colspan="2">
+			$alliance.getTeam1Number()
+		</td>
+		<td colspan="2">
+			#if($scores.getNoShow1() > 0)&#x2713;#{else}&#x25A2;#end
+		</td>
+		<td colspan="2">
+			#if($scores.receivedYellow1())&#x2713;#{else}&#x25A2;#end
+		</td>
+		<td colspan="2">
+			#if($scores.receivedRed1())&#x2713;#{else}&#x25A2;#end
+		</td>
+	</tr>
+	<tr class="text-center">
+		<td colspan="2">
+			$alliance.getTeam2Number()
+		</td>
+		<td colspan="2">
+			#if($scores.getNoShow2() > 0)&#x2713;#{else}&#x25A2;#end
+		</td>
+		<td colspan="2">
+			#if($scores.receivedYellow2())&#x2713;#{else}&#x25A2;#end
+		</td>
+		<td colspan="2">
+			#if($scores.receivedRed2())&#x2713;#{else}&#x25A2;#end
+		</td>
+	</tr>
+	#end
+</table>
+</div>
+#end

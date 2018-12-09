@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<meta charset="utf-8">
+	<meta name="description" content="FTC Scouting Tool for 2018-2019" />
+	<meta name="keywords" content="html, css, javascript" />
+	<meta name="author" content="Takumi Ichihashi" />
+
+	<title>Rover-Ruckus-Match</title>
+	
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">	
+	<link rel="icon" href="visuals/icon2.png">
+	
+	<link rel="stylesheet" type="text/css" href="css/match.css">
+</head>
+
+<body>
+	<script src="js/scoringTotal.js"></script>
+	<script src="js/match.js"></script>
+
+	<div class="navbar">
+		<div class="dropdown">
+			<button class="dropbtnLeft" onclick="dropLeft()" >Files
+				<i class="fa fa-caret-down"></i>
+			</button>
+			<div class="dropdown-content" id="left-dropdown">
+				<a href="index.html" target="_blank">Scouting Sheet</a>
+				<a href="analysis.html" target="_blank">Analysis</a>
+			</div>
+		</div> 
+		<button class="navText" style="position:absolute;left:25%;transform: translate(-50%);color:#40e0d0;" onclick="updateTable()">Update</button>
+		<button class="navText" style="position:absolute;left:50%;transform: translate(-50%);" onclick="reload()">Rover-Ruckus-Match</button>
+		<button class="navText" style="position:absolute;right:25%;transform: translate(50%);color:#d74338;" onclick="clearStorage()">ClearStorage</button>
+		<div class="dropdown">
+			<button class="dropbtnRight" onclick="dropRight()">Resources
+				<i class="fa fa-caret-down"></i>
+			</button>
+			<div class="dropdown-content" id="right-dropdown">
+				<a href="https://www.w3schools.com/" target="_blank">W3School</a>
+				<a href="https://gearedreaction.org/" target="_blank">Geared Reaction Website</a>
+				<a href="https://projects.gearedreaction.org" target="_blank">Open Project</a>
+				<a href="https://rover-ruckus-scorer.now.sh/" target="_blank">Rover Ruckus Scorer</a>
+			</div>
+		</div> 
+	</div>	
+
+	<div id="space"></div>
+	<table id="matchTable">
+		<tr> 
+			<th style="width:5%;">Match</th>
+			<th>Alliance</th>
+			<th>Team</th>
+			<th>Total</th>
+			<th>Autonomous</th>
+			<th>TeleOp</th>
+			<th>End Game</th>
+			<th style="width:17%">Comment</th>
+		</tr>
+		
+	</table>
+</body>
+</html>

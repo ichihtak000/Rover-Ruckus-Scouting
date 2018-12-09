@@ -1,0 +1,97 @@
+{
+	"updated":"Oct 10 2018",
+	"awards":[
+		{
+			"id":1,
+			"name":"Judges' Award",
+			"description": "The Judges Award is given at the discretion of the Judges to a Team they have encountered whose unique efforts, performance or dynamics merit recognition, yet the Team does not fit into any of the existing Award categories.",
+			"teamAward":true,
+			"editable":true,
+			"required": false,
+			"awardOrder":10000		
+		}, {
+			"id":2,
+			"name":"Compass Award",
+			"description":"The Compass Award recognizes an adult coach or mentor who provided outstanding guidance and support for a <i>FIRST</i> Tech Challenge team throughout the year. The winner of the Compass Award is determined from candidates nominated by student team members, via a 40-60 second video, highlighting how their mentor has helped them become an outstanding team and has truly demonstrated what it means to be a Gracious Professional.",
+			"teamAward":false,
+			"editable":false,
+			"required":false,
+			"awardOrder":10010
+		}, {
+			"id":3,
+			"name":"Promote Award",
+			"description": "The Promote Award is given to the Team that is most successful in creating a compelling video message for the public designed to change our culture and celebrate science, technology, engineering and math.The video submission was evaluated by the Judges to determine the winner of this award. Teams must present a thoughtful and high-quality video which appeals to the general public and best exhibits this year's topic of \"If every student participated in <i>FIRST</i>, the world would be...\"",
+			"teamAward":true,
+			"editable":false,
+			"required": false,
+			"awardOrder":10020
+		}, {
+			"id":4,
+			"name":"Control Award",
+			"description":"The Control Award is given to the team that demonstrates innovative thinking in the control system to solve Game challenges such as Autonomous Operation, enhancing mechanical systems with intelligent control, or using sensors to achieve better results on the field.",
+			"teamAward":true,
+			"editable":false,
+			"required":true,
+			"awardOrder":10030			
+		}, {
+			"id":5,
+			"name":"Motivate Award",
+			"description":"This award celebrates the team that exemplifies the essence of the <i>FIRST</i> Tech Challenge competition and embraces the culture of <i>FIRST</i> while making a collective effort to make <i>FIRST</i> known throughout their school, and community and sparks others to embrace the culture of <i>FIRST</i>.",
+			"teamAward":true,
+			"editable":false,
+			"required":true,
+			"awardOrder":10040
+			
+		}, {
+			"id":6,
+			"name":"Design Award",
+			"description":"The Design Award expands on this year's challenge, inspiring teams to incorporate industrial design into their robots.  These elements can be shown in the simplicity of the design as it applies to the tasks, the look and feel of the robot in how the design allows us to think of robots in new ways.  The design aspect must serve a function - but they should also differentiate the robot in a unique fashion.",
+			"teamAward":true,
+			"editable":false,
+			"required":true,
+			"awardOrder":10050
+		}, {
+			"id":7,
+			"name":"Rockwell Collins Innovate Award",
+			"description": "The Rockwell Collins Innovate Award celebrates a team that has the ingenuity and inventiveness to make their designs come to life. This award is given to the team that the Judges feel has the most innovative and creative robot design solution to the <i>FIRST</i> Tech Challenge game. Elements of this award include elegant design, robustness and 'out of the box' thinking with regard to design. This award may address the design of the whole robot or some sub-assembly component of the robot.  The creative component needs to work consistently, but a robot does not have to work all of the time during matches to be considered for this award.  The team's engineering notebook showed the design of the component(s) and the team's robot, and clearly explains how the team arrived at their solution.",
+			"teamAward":true,
+			"editable":false,
+			"required":true,
+			"awardOrder":10060
+		}, {
+			"id":8,
+			"name": "Connect Award",
+			"description":"The Connect Award is presented to the team that the Judges' feel most connected with their local community, <i>FIRST</i> and the business world. The best team is more than the sum of its parts, and recognizes that their schools and communities play an essential part to their success.  The recipient of this award is recognized for helping the community understand <i>FIRST</i>, the <i>FIRST</i> Tech Challenge, and the team itself.  In addition, the team that wins this award is aggressively seeking engineers and other STEM professionals and exploring the opportunities available in the world of science and technology.",
+			"teamAward":true,
+			"editable":false,
+			"required":true,
+			"awardOrder":10080
+		}, {
+			"id":9,
+			"name":"Think Award",
+			"description":"The Think Award is given to the team that the Judges feel best reflects the journey of the engineering design process. The engineering notebook is the key reference for Judges to help them identify the most deserving team.  This team's engineering notebook focused on the design and build stages of the team's robot and exemplified their journey as a team and engineers.",
+			"teamAward":true,
+			"editable":false,
+			"required":true,
+			"awardOrder":10090
+		}, {
+			"id":10,
+			"name": "Dean's List Semi-Finalists",
+			"description":"<i>FIRST</i> Dean's List Finalists are outstanding student leaders whose passion for and effectiveness at attaining <i>FIRST</i> ideals is exemplary. These students were nominated by their teams for their direct contributions and impact on others -exemplifying leadership and commitment, on their <i>FIRST</i> Tech Challenge team, in their school, and in their community. <i>FIRST</i> Dean's List Semi-Finalists, recognized here today, will be considered within their state/region for the two spots as Dean's List Finalists.",
+			"teamAward":false,
+			"editable":false,
+			"required":false,
+			"awardOrder":10100
+		}, {
+			"id":11,
+			"name": "Inspire Award",
+			"description":"The Inspire Award is given to the Team that the Judges felt truly embodied the 'challenge' of the <i>FIRST</i> Tech Challenge program. The Team that receives this award is a strong ambassador for <i>FIRST</i> programs and works to promote <i>FIRST</i> and make it loud in their community. The Team that receives this Award has performed well in all Judging categories and was chosen by the Judges as a model <i>FIRST</i> Tech Challenge team both on and off the playing field.  The Judges used Match performance, observations made during interviews and in the pit area, the team's engineering notebook, and performance on the playing field in determining the winner.",
+			"teamAward":true,
+			"editable":false,
+			"required":true,
+			"awardOrder":10110
+		}
+		
+		
+	]
+}

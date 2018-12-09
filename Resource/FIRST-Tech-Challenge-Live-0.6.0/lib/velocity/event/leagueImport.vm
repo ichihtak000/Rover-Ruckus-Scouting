@@ -1,0 +1,341 @@
+## Copyright (c) 2018 FIRST, Thomas Barnette, George Marchant, and Trey Woodlief. All rights reserved.
+##
+## Redistribution and use in source and binary forms, with or without modification,
+## are permitted (subject to the limitations in the disclaimer below) provided that
+## the following conditions are met:
+##
+## Redistributions of source code must retain the above copyright notice, this list
+## of conditions and the following disclaimer.
+##
+## Redistributions in binary form must reproduce the above copyright notice, this
+## list of conditions and the following disclaimer in the documentation and/or
+## other materials provided with the distribution.
+##
+## Neither the name of FIRST nor the names of its contributors may be used to endorse or
+## promote products derived from this software without specific prior written permission.
+##
+## NO EXPRESS OR IMPLIED LICENSES TO ANY PARTY'S PATENT RIGHTS ARE GRANTED BY THIS
+## LICENSE. THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
+## "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO,
+## THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE
+## ARE DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT OWNER OR CONTRIBUTORS BE LIABLE
+## FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL
+## DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR
+## SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER
+## CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY,
+## OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE
+## OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
+##
+
+#macro (conflictingLeagueData $lid)
+	<div class="row justify-content-left">
+		<div class="col-2">Location</div>
+		<div class="col-1">Code</div>
+		<div class="col-3">Name</div>
+		<div class="col-2">Country</div>
+		<div class="col-2">State</div>
+		<div class="col-2">City</div>
+	</div>
+	##TODO color conflicting columns red
+	#set($l = $lid.conflictingData)
+	<div class="row justify-content-left">
+		<div class="col-2">Existing</div>
+		<div class="col-1">$l.code</div>
+		<div class="col-3">$l.name</div>
+		<div class="col-2">$l.country</div>
+		<div class="col-2">$l.state</div>
+		<div class="col-2">$l.city</div>
+	</div>
+	#set($l = $lid.leagueData)
+	<div class="row justify-content-left">
+		<div class="col-2">Import Data</div>
+		<div class="col-1">$l.code</div>
+		<div class="col-3">$l.name</div>
+		<div class="col-2">$l.country</div>
+		<div class="col-2">$l.state</div>
+		<div class="col-2">$l.city</div>
+	</div>
+#end
+
+#parse("/velocity/layout.vm")
+#@mainLayout()
+
+	<style>
+	.uploadForm {
+		
+	}
+	
+	.NO_CONFLICT{
+		background-color:#66ff66;
+		border-color:#66ff66;
+	}
+	.CONFLICT_BOTH, .CONFLICT_TEAMS, .CONFLICT{
+		background-color:#ffff99;
+		border-color:#ffff99;
+	}
+	.CONFLICT_META{
+		background-color:#ffb3b3;
+		border-color:#ffb3b3;
+	}
+	.EXISTS{
+		background-color:#ffb3b3;
+		border-color:#ffb3b3;
+	}
+	.accordian-button{
+		min-height:30px;
+		line-height:30px;
+		margin-top:5px;
+	}
+	.accordian-button:hover{
+		border: 2px solid black;
+		line-height:26px;
+	}
+	.importInfo{
+		background-color:white;
+		border-width: 2px;
+		border-style:solid;
+		border-top:none;
+	}
+	.entry{
+		width:95%;
+		align:center;
+	}
+	.outer{
+		width:100%;
+		text-align:center;
+	}
+	</style>
+
+<script>
+	var meetCodes = [
+		#foreach($mc in $meetCodes)
+			"$mc",
+		#end
+		""
+	]
+	var leagueCodes = [
+		#foreach($mc in $leagueCodes)
+			"$mc",
+		#end
+		""
+	]
+
+	function handleClick(src){
+		console.log(src);
+		console.log("#separate_"+src.name);
+		$("#separate_"+src.name).prop("hidden", src.value != "separate");
+		$("#merge_"+src.name).prop("hidden", src.value != "merge");
+	}
+	function accordian(src){
+		var s = src.id.substring(src.id.indexOf("_")+1);
+		var e = $("#info_"+s);
+		e.prop("hidden", !e.prop("hidden"));
+	}
+	function submit(){
+		//Check that all data is valid
+		var obj = {};
+		var ok = true;
+		$(".leagueEntry.CONFLICT_BOTH,.leagueEntry.CONFLICT_TEAMS").each(function(index){		
+			var rad = $(this).find("input[type='radio']:checked");
+			if(rad.length == 0){
+				//Required field not selected
+				ok = false;
+				return;
+			} 
+			obj[rad.attr("name")] = rad.val();
+			if(rad.val() == "separate"){
+				//get new league code
+				var code = $(this).find("input[type='text']");
+				var val = code.val();
+				if(!val || val.length == 0 || leagueCodes.indexOf(val) > -1){
+					//Required field not entered
+					ok = false;
+					return;
+				}
+				obj[code.attr("name")] = val;
+				
+			}			
+			
+		});
+		$(".meetEntry.CONFLICT").each(function(index){		
+			var rad = $(this).find("input[type='radio']:checked");
+			if(rad.length == 0){
+				//Required field not selected
+				ok = false;
+				return;
+			} 
+			obj[rad.attr("name")] = rad.val();
+			if(rad.val() == "separate"){
+				//get new league code
+				var code = $(this).find("input[type='text']");
+				var val = code.val();
+				if(!val || val.length == 0 || meetCodes.indexOf(val) > -1){
+					//Required field not entered
+					ok = false;
+					return;
+				}
+				obj[code.attr("name")] = val;
+				
+			}			
+			console.log(this);
+		});
+		if(!ok){
+			return;
+		}
+		console.log(obj);
+		$.ajax({
+			url: "./submit/",
+			type: "POST",
+			data: {data:JSON.stringify(obj)},
+			success: function(data){
+				window.location.href = "../";
+			},
+			error: function(xhr, textStatur, error){
+			}	
+		});
+	} 
+	function cancel(){
+		//return to previous page
+		window.location.href="../";
+	}
+</script>
+
+<div class="row justify-content-center">
+	<div class="col-2"></div><div class="col-8 h2 text-center">League Data Import:</div> <div class="col-2"></div>
+</div>
+<div id="outer">
+	#foreach($lid in $import.leagueImports)
+	<div class="entry leagueEntry $lid.state">
+	##TODO combine + and status icon???
+		<div class="row justify-content-left accordian-button $lid.state" id="accordian_leagueConflict_${lid.leagueData.code}" onclick="accordian(this)">
+			<div class="col-1">
+				#if($lid.state == "NO_CONFLICT")
+					<i class="fas fa-check-circle"></i>	
+				#elseif($lid.state == "EXISTS" || $lid.state == "CONFLICT_META")
+					<i class="fas fa-times-circle"></i>	
+				#elseif($lid.state == "CONFLICT_TEAMS" || $lid.state == "CONFLICT_BOTH")
+					<i class="fas fa-exclamation-triangle"></i>
+				#end
+			</div>
+			<div class="col-2">Import League:</div>
+			<div class="col-2">$lid.leagueData.code</div>
+			<div class="col-4">$lid.leagueData.name</div>
+			<div class="col-2">$lid.getAllMembers().size() Teams</div>
+			<div class="col-1">+</div>
+		</div>
+		<div class="importInfo $lid.state" id="info_leagueConflict_${lid.leagueData.code}" #if($lid.state == "NO_CONFLICT")hidden#end>
+			#if($lid.state == "NO_CONFLICT")
+				This league will be imported into the event. It contains $lid.getLeagueMembers().size() teams:
+				<ul>
+					#foreach($team in $lid.getLeagueMembers())
+						<li>
+							$team
+						</li>
+					#end
+				</ul>
+			#elseif($lid.state == "EXISTS")
+				This league has already been imported.
+			#elseif($lid.state == "CONFLICT_META")
+				This league shares a code with another league, but has the same team list. This league will not be imported, 
+				but the league data can be edited later if desired. Conflicting League Data:
+				#conflictingLeagueData($lid)
+			#elseif($lid.state == "CONFLICT_TEAMS" || $lid.state  == "CONFLICT_BOTH")
+				This league conflicts with an existing league and has a different team list. You can either merge the $lid.leagueMembers.size()
+				new teams into the existing league, import this league as a new league with $lid.allMembers.size() teams, or skip this league. 
+				If you add as a new league, the two leagues can still be combined later.
+				<br>
+				<input type="radio" name="leagueConflict_${lid.leagueData.code}" id="lc_${lid.leagueData.code}_merge" value="merge" onclick="handleClick(this)"></input>
+				<label for="lc_${lid.leagueData.code}_merge">Merge</label>
+				<input type="radio" name="leagueConflict_${lid.leagueData.code}" id="lc_${lid.leagueData.code}_separate" value="separate" onclick="handleClick(this)"></input>
+				<label for="lc_${lid.leagueData.code}_separate">New League</label>
+				<input type="radio" name="leagueConflict_${lid.leagueData.code}" id="lc_${lid.leagueData.code}_skip" value="skip" onclick="handleClick(this)"></input>
+				<label for="lc_${lid.leagueData.code}_skip">Skip</label>
+				
+				<br>
+				<div id="merge_leagueConflict_${lid.leagueData.code}" hidden>
+					The following teams will be added to the existing league:
+					<ul>
+					#foreach($team in $lid.getLeagueMembers())
+						<li>
+							$team
+						</li>
+					#end
+				</ul>
+				</div>
+				<div id="separate_leagueConflict_${lid.leagueData.code}" hidden>
+					New League Code: <input type="text" id="leagueConflict_${lid.leagueData.code}" name="leagueConflict_${lid.leagueData.code}_newcode" ></input><br>
+					The new league will contain the following teams:
+					<ul>
+					#foreach($team in $lid.getAllMembers())
+						<li>
+							$team
+						</li>
+					#end
+				</ul>
+				</div>
+				
+			#end
+		</div>
+	</div>
+		
+	#end 
+	
+	#foreach($mid in $import.meetImports)
+		<div class="entry meetEntry $mid.state">
+		<div class="row justify-content-left accordian-button $mid.state" id="accordian_meetConflict_${mid.meetData.code}" onclick="accordian(this)">
+			<div class="col-1">
+				#if($mid.state == "NO_CONFLICT")
+					<i class="fas fa-check-circle"></i>	
+				#elseif($mid.state == "EXISTS")
+					<i class="fas fa-times-circle"></i>	
+				#elseif($mid.state == "CONFLICT")
+					<i class="fas fa-exclamation-triangle"></i>
+				#end
+			</div>
+			<div class="col-2">Import Meet:</div>
+			<div class="col-1">$mid.meetData.code</div>
+			<div class="col-3">$mid.meetData.name</div>
+			<div class="col-2">$mid.matchCount Matches</div>
+			<div class="col-3">$mid.meetData.startEndString</div>
+		</div>
+		<div class="importInfo $mid.state" id="info_meetConflict_${mid.meetData.code}" #if($mid.state == "NO_CONFLICT")hidden#end>
+			#if($mid.state == "NO_CONFLICT")
+				This meet will be imported into the event. It contains $mid.matchCount matches.
+			#elseif($mid.state == "EXISTS")
+				This meet has already been imported.
+			#elseif($mid.state == "CONFLICT")
+				This meet conflicts with an existing meet and has a different result set. You can either import this meet as a new meet or skip this meet.
+				<br>
+				<input type="radio" name="meetConflict_${mid.meetData.code}" id="mc_${mid.meetData.code}_separate" value="separate" onclick="handleClick(this)"></input>
+				<label for="mc_${mid.meetData.code}_separate">New Meet</label>
+				<input type="radio" name="meetConflict_${mid.meetData.code}" id="mc_${mid.meetData.code}_skip" value="skip" onclick="handleClick(this)"></input>
+				<label for="mc_${mid.meetData.code}_skip">Skip</label>
+				
+				<br>
+				<div id="separate_meetConflict_${mid.meetData.code}" hidden>
+					New Meet Code: <input type="text" id="meetConflict_${mid.meetData.code}_newcode" name="meetConflict_${mid.meetData.code}_newcode" ></input><br>
+				
+				</div>
+				
+			#end
+		</div>
+		</div>
+	#end
+	<br>
+	<div class="row justify-content-center">
+		<div class="col-4"></div>
+		<button class="col-1" onclick="submit()">Import</button>
+		<div class="col-1"></div>
+		<button class="col-1" onclick="cancel()">Cancel</button> 
+		<div class="col-4"></div>
+	</div>
+	
+	
+</div>
+ 	##<form method='post' enctype='multipart/form-data' action="./import/" class="uploadForm">
+	##	<input type='file' name='uploaded_file' onchange="document.getElementById('importLeagueButton').disabled = (this.value.length == 0)"></input>
+	##	<button id="importLeagueButton" disabled>Import League Data</button>
+	##</form>
+	
+	
+#end

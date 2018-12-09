@@ -1,0 +1,164 @@
+## Copyright (c) 2018 FIRST, Thomas Barnette, George Marchant, and Trey Woodlief. All rights reserved.
+##
+## Redistribution and use in source and binary forms, with or without modification,
+## are permitted (subject to the limitations in the disclaimer below) provided that
+## the following conditions are met:
+##
+## Redistributions of source code must retain the above copyright notice, this list
+## of conditions and the following disclaimer.
+##
+## Redistributions in binary form must reproduce the above copyright notice, this
+## list of conditions and the following disclaimer in the documentation and/or
+## other materials provided with the distribution.
+##
+## Neither the name of FIRST nor the names of its contributors may be used to endorse or
+## promote products derived from this software without specific prior written permission.
+##
+## NO EXPRESS OR IMPLIED LICENSES TO ANY PARTY'S PATENT RIGHTS ARE GRANTED BY THIS
+## LICENSE. THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
+## "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO,
+## THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE
+## ARE DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT OWNER OR CONTRIBUTORS BE LIABLE
+## FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL
+## DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR
+## SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER
+## CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY,
+## OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE
+## OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
+##
+
+#parse("/velocity/layout.vm")
+#@mainLayout()
+<style>
+
+	fieldset{
+	    display: block;
+	    margin-inline-start: 2px;
+	    margin-inline-end: 2px;
+	    padding-block-start: 0.35em;
+	    padding-inline-start: 0.75em;
+	    padding-inline-end: 0.75em;
+	    padding-block-end: 0.625em;
+	    min-width: -webkit-min-content;
+	    border-width: 2px;
+	    border-style: groove;
+	    border-color: threedface;
+	    border-image: initial;
+	}
+	legend{
+		width:fit-content;
+	}
+	#verifyErr{
+		color:red;
+	}
+</style>
+
+<script>
+	function onSelectHide(){
+		$("#hideVerify").prop("hidden", false);
+		$("#hideMsg").prop("hidden", true);
+	}
+	function hide(){
+		var selected = $("#hideList").val();
+		var ver = $("#hideInput").val();
+		if(ver == selected){
+			//perform the hide
+			$.ajax({type:"POST",
+				url:"hide/"+ver+"/",
+				data:{},
+				success:function(data){
+					$("#hideMsg").prop("hidden", false);
+					$("#hideMsg").text("Hid event "+ ver);
+					$("#hideVerify").prop("hidden", false);
+					$("#hideInput").val("");
+					//TODO remove hidden event from dropdown.
+				}
+			});			
+			
+		} else{
+			//display error message
+			$("#verifyErr").prop("hidden", false);
+			$("#verifyErr").text("Verification Failed: Event code does not match");
+		}
+	}
+	
+	function uploadArchive(){
+		var files = document.getElementById("archiveFile").files;
+		var formData = new FormData();
+		formData.append("file",files[0], files[0].name);
+		
+		$.ajax({
+	       url : 'import/',
+	       type : 'POST',
+	       data : formData,
+	       processData: false,  // tell jQuery not to process the data
+	       contentType: false,  // tell jQuery not to set contentType
+	       success : function(data) {
+	          // preview the logo using the name we got back
+	          var stat = $("#importEventStatus");
+	          stat.text("Event added!");
+	          stat.removeClass("verifyErr");	          
+	       },
+	       fail : function(xhr, textStatus, error){
+			  var stat = $("#importEventStatus");
+			  stat.text("Import Failed.");
+			  stat.addClass("verifyErr");	
+			}
+		});
+	}
+	
+	function refreshIP() {
+		$("#refreshIPStatus").text("Refreshing IP Address... Page will refresh when done.")
+		$.ajax({
+		       url : 'refreship/',
+		       type : 'POST',
+		       processData: false,  // tell jQuery not to process the data
+		       contentType: false,  // tell jQuery not to set contentType
+		       success : function(data) {
+		          window.location.reload();	          
+		       },
+		       fail : function(xhr, textStatus, error){
+				  	
+				}
+			});
+	}
+</script>
+
+<fieldset>
+	<legend>Event Hiding</legend>
+	Hiding an event removes it from the event list. Pages for that event will become unavailable.<br>
+	Select event to hide:
+	<select id="hideList" onchange="onSelectHide()">
+		<option value="0" disabled selected value> -- select an event -- </option>
+		#foreach($e in $events)
+			<option value=$e.code>$e.code - $e.name</option>
+		#end
+	</select>
+	<div id="hideVerify" hidden>
+		Please enter the event code to verify:<input id="hideInput"></input><button onclick="hide()">Hide</button>
+		<br><div id="verifyErr" hidden></div>
+	</div>
+	<div id="hideMsg" hidden>
+	</div>
+</fieldset>
+
+<fieldset>
+	<legend>Data Import</legend>
+	<div class="form-group">
+		<label for="archiveFile">Event Archive File:</label>
+		<br>
+		<input id="archiveFile" type="file" name="file" accept=".db"/>
+		<button id="uploadArchive" onclick="uploadArchive()">Import Event</button><br>
+		<div id="importEventStatus"></div>
+	</div>
+</fieldset>
+
+<fieldset>
+	<legend>Refresh IP Address</legend>
+	The Server caches the IP address shown at the top of every page.<br> If you believe the IP address has changed, you can force an update using the button below.
+	<div class="form-group">
+		<button id="uploadArchive" onclick="refreshIP()">Refresh IP Address</button><br>
+		<div id="refreshIPStatus"></div>
+	</div>
+</fieldset>
+#end

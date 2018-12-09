@@ -1,3 +1,4 @@
+var pairTable = [];
 var teamTable = [];
 var totalTable = [];
 var autoTable = [];
@@ -5,6 +6,14 @@ var teleTable = [];
 var endTable = [];
 
 var color;
+var tempPair = [];
+var tempTeam = [];
+var tempTotal = [];
+var tempAuto = [];
+var tempTele = [];
+var tempEnd = [];
+
+window.onload = function(){updateTable()};
 
 function updateTable(){
 	var table = document.getElementById("matchTable");
@@ -17,14 +26,20 @@ function updateTable(){
 	
 	var tLength = localStorage.getItem("tableLength");
 	for(var i=0; i<tLength;i++){
+		if(i%2 == 0){
+			pairTable[i/2] = localStorage.getItem("pair"+i);
+		}
 		teamTable[i] = localStorage.getItem("team" +i);
-		totalTable[i] = localStorage.getItem("totalScore" +i);
 		autoTable[i] = localStorage.getItem("autoScore" +i);
 		teleTable[i] = localStorage.getItem("teleScore" +i);
 		endTable[i] = localStorage.getItem("endScore" +i);
 	}
+	
+	
+		
 	for(var i=0; i<tLength; i++){
-        var row = table.insertRow(i+1);
+		var footer = table.createTFoot();
+        var row = footer.insertRow(i);
         var match = row.insertCell(0);
 		var winner = row.insertCell(1);
 		var team = row.insertCell(2);
@@ -33,12 +48,14 @@ function updateTable(){
         var tele = row.insertCell(5);
         var end = row.insertCell(6);
 		var comment = row.insertCell(7);
-		winner.className = "class";
-		team.className = "class";
+		
+		totalTable[i] = +autoTable[i] + +teleTable[i] + +endTable[i];
+		
 		if(i%4==0){
 			matchNum++;
 			color = getRandomColor();
 			match.innerHTML = matchNum;
+			match.onclick = function () {changeTable(this);};
 		}else if(i%4==3){
 			var blueSum = (parseInt(totalTable[i-3], 10) + parseInt(totalTable[i-2], 10));
 			var redSum = (parseInt(totalTable[i-1], 10) + parseInt(totalTable[i], 10));
@@ -58,19 +75,33 @@ function updateTable(){
 				table.rows[i].style.backgroundColor = "#F08080";
 				table.rows[i+1].style.backgroundColor = "#F08080";
 			}	
-			match.innerHTML = matchNum;
+			
+			var tableIndex = (matchNum-1)*2;
+			pairTable[tableIndex] = blueSum;
+			pairTable[tableIndex+1] = redSum;			
+			
 			table.rows[i-2].cells[0].rowSpan = "4";
 			table.rows[i-1].deleteCell(0);
 			table.rows[i].deleteCell(0);
 			table.rows[i+1].deleteCell(0);
-			table.rows[i-2].cells[1].innerHTML = blueSum;
-			table.rows[i].cells[0].innerHTML = redSum;
+			
+			table.rows[i-2].cells[1].innerHTML = pairTable[tableIndex];
+			table.rows[i].cells[0].innerHTML = pairTable[tableIndex+1];
+			
+			table.rows[i-2].cells[1].id = tableIndex*10 + 1;
+			table.rows[i].cells[0].id = (tableIndex+1)*10 + 1;
+			
+			tempPair[tableIndex] = pairTable[tableIndex];
+			tempPair[tableIndex+1] = pairTable[tableIndex+1];
+			
+			
+			table.rows[i-2].cells[1].onclick = function () {changeTable(this);};
+			table.rows[i].cells[0].onclick = function () {changeTable(this);};
+			
 			table.rows[i-2].cells[1].rowSpan = "2";
 			table.rows[i-1].deleteCell(0);
 			table.rows[i].cells[0].rowSpan = "2";
 			table.rows[i+1].deleteCell(0);
-		}else{
-			
 		}
 		
 		match.style.backgroundColor = color;
@@ -80,6 +111,26 @@ function updateTable(){
 		tele.innerHTML = teleTable[i];
 		end.innerHTML = endTable[i];
 		comment.innerHTML = "hello";
+		
+		team.id = i*10 + 2;
+		total.id = i*10 + 3;
+		auto.id = i*10 + 4;
+		tele.id = i*10 + 5;
+		end.id = i*10 + 6;
+		comment.id = i*10 + 7;
+		
+		tempTeam[i] = teamTable[i];
+		tempTotal[i] = totalTable[i];
+		tempAuto[i] = autoTable[i];
+		tempTele[i] = teleTable[i];
+		tempEnd [i] = endTable[i];
+		
+		team.onclick = function () {changeTable(this);};
+		total.onclick = function () {changeTable(this);};
+		auto.onclick = function () {changeTable(this);};
+		tele.onclick = function () {changeTable(this);};
+		end.onclick = function () {changeTable(this);};
+		comment.onclick = function () {changeTable(this);};
 	}
 }
 
@@ -93,7 +144,7 @@ function getRandomColor() {
 }
 
 function clearStorage(){
-	var check = confirm("Clear localStorage?");
+	var check = confirm("Clear localStorage?\n If yes, make sure to reload the Scouting Sheet as well. \n Lost data will not be recovered");
 	if(check){
 		localStorage.clear();
 		updateTable();
@@ -126,4 +177,59 @@ window.onclick = function(e) {
 
 function reload(){
 	location.reload();
+}
+
+function changeTable(tableCell) {
+    var change = prompt("Change the value if needed", tableCell.innerHTML);
+    if (change != null) {
+        tableCell.innerHTML = change + ".";
+		var id = tableCell.id;
+		var cell = (+id)%10;
+		var index = ((+id) - cell)/10;
+		if(cell = 1){
+			alert(id + " " + cell + " " + index);
+			alert(tempPair[index]);
+			tempPair[index] = change + ".";
+			alert(tempPair[index]);
+		}else if(cell == 2){
+			tempTeam[index] = change + ".";
+		}else if(cell == 3){
+			tempTotal[index] = change + ".";
+		}else if(cell == 4){
+			tempAuto[index] = change + ".";
+		}else if(cell == 5){
+			tempTele[index] = change + ".";
+		}else if(cell == 6){
+			tempEnd[index] = change + ".";
+		}
+	}
+}
+
+function saveTable(){
+	var check = confirm("Save Changes?");
+	if(check){
+		var tLength = localStorage.getItem("tableLength");
+		
+		for(var i=0; i<tLength; i++){
+			if(i%2 == 0){
+				var index = i / 2;
+				pairTable[index] = tempPair[index];
+				localStorage.setItem("pair"+i,pairTable[index]);
+			}	
+			
+			teamTable[i] = tempTeam[i];
+			totalTable[i] = tempTotal[i];
+			autoTable[i] = tempAuto[i];
+			teleTable[i] = tempTele[i];
+			endTable[i] = tempEnd[i];
+			
+			localStorage.setItem("team" + i, teamTable[i]);
+			localStorage.setItem("totalScore" + i, totalTable[i]);
+			localStorage.setItem("autoScore" + i, autoTable[i]);
+			localStorage.setItem("teleScore" + i, teleTable[i]);
+			localStorage.setItem("endScore" + i, endTable[i]);
+			
+		}
+	}
+	updateTable();
 }

@@ -1,5 +1,5 @@
 function clearAll(){
-	var check = confirm("Clear?");
+	var check = confirm("Clear the sheet?");
 	if(check){
 		landR1 = false;
 		sampleR1 = false;
@@ -17,6 +17,8 @@ function clearAll(){
 
 		depotR1 = 0;
 		cargoR1 = 0;
+		
+		document.getElementById("teamNameR1").value = "";
 		
 		document.getElementById("landingR1").className = "button-off-score";
 		document.getElementById("samplingR1").className = "button-off-score";
@@ -55,6 +57,8 @@ function clearAll(){
 		depotR2 = 0;
 		cargoR2 = 0;
 		
+		document.getElementById("teamNameR2").value = "";
+		
 		document.getElementById("landingR2").className = "button-off-score";
 		document.getElementById("samplingR2").className = "button-off-score";
 		document.getElementById("claimingR2").className = "button-off-score";
@@ -91,6 +95,8 @@ function clearAll(){
 
 		depotB1 = 0;
 		cargoB1 = 0;
+		
+		document.getElementById("teamNameB1").value = "";
 		
 		document.getElementById("landingB1").className = "button-off-score";
 		document.getElementById("samplingB1").className = "button-off-score";
@@ -129,6 +135,8 @@ function clearAll(){
 		depotB2 = 0;
 		cargoB2 = 0;
 		
+		document.getElementById("teamNameB2").value = "";
+		
 		document.getElementById("landingB2").className = "button-off-score";
 		document.getElementById("samplingB2").className = "button-off-score";
 		document.getElementById("claimingB2").className = "button-off-score";
@@ -148,5 +156,14 @@ function clearAll(){
 		document.getElementById("latchedB2").className = "button-off-score";
 		document.getElementById("endScoreB2").innerHTML = 0;
 		updateTotalB2();
+		
 	}
+}
+
+function mouseDownButton(object){
+	object.className = "button-on-top";
+}
+
+function mouseUpButton(object){
+	object.className = "button-off-score";
 }

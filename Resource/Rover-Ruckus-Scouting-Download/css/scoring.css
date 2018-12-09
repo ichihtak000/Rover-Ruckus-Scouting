@@ -1,0 +1,245 @@
+.blue1Div {
+	background-color:#2E86C1;
+	height:80%;
+	position:relative;
+	opacity: 1;
+	top:20%;
+	width:25%;
+	float:left;
+	z-index:0;
+}
+
+.blue2Div {
+	background-color:blue;
+	height:80%;
+	position:relative;
+	opacity: 1;
+	top:20%;
+	width:25%;
+	float:left;
+	z-index:0;
+}
+
+.red1Div {
+	background-color:red;
+	height:80%;
+	position:relative;
+	opacity: 1;
+	top:20%;
+	width:25%;
+	float:left;
+	z-index:0;
+}
+
+.red2Div {
+	background-color:#B22222;
+	height:80%;
+	position:relative;
+	opacity: 1;
+	top:20%;
+	width:25%;
+	float:left;
+	z-index:0;
+}
+
+.teamName {
+	height:7.5%;
+	width:100%;
+	text-align:center;
+	float:left;
+	border: 0.5px solid black;	
+}
+
+.teamName input[type="text"] {
+	text-align:center;
+    
+}
+
+.totalDiv {
+	width:100%;
+	height:7.5%;
+	text-align:center;
+	float:left;
+	border: 0.5px solid black;	
+}
+
+.totalDiv .spanDiv {
+	background-color:#D3D3D3;
+	position:relative;
+	left:50%;
+	transform: translate(-50%);
+	width:25%;
+	height:100%;   
+    border: none;
+    outline: none;
+    font-family: inherit;
+    margin: 0;
+}
+
+.autoDiv {
+	width:100%;
+	height:25%;
+	text-align:center;
+	float:left;
+	border: 0.5px solid black;	
+}
+
+.autoButton {
+	height:35%;
+	width:25%;
+	float:left;
+}
+
+
+.autoButton .autoLabel{
+	position:relative;
+	top:50%;
+	color:	#90EE90;
+	transform:translate(0%,-50%);
+}
+
+.autoButton input{
+	top:0%;
+	transform: translate(0%,0%);
+}
+
+.teleDiv {
+	width:100%;
+	height:35%;
+	text-align:center;
+	float:left;
+	border: 0.5px solid black;	
+}
+
+.teleInputs{
+	height:35%;
+	width:100%;
+	float:left;
+}
+
+.teleInputs input[type="button"]{ 
+	top:25%;
+}
+
+.teleInputs input[type="text"] {
+	text-align:center;
+    height:50%;
+}
+
+.teleInputs span{ 
+	font-size:100%;
+	color:	#90EE90;
+}
+
+.endDiv {
+	width:100%;
+	height:25%;
+	text-align:center;
+	float:left;
+	border: 0.5px solid black;	
+}
+
+.endButton {
+	height:35%;
+	width:33.33%;
+	float:left;
+}
+
+.endButton .endLabel{
+	position:relative;
+	top:50%;
+	color:	#90EE90;
+	transform:translate(0%,-50%);
+}
+
+.score-container {
+	height:30%;
+	width:100%;
+	text-align:center;
+	float:left;
+	font-size: 100%;
+	padding:0;
+	position:relative;
+}
+
+.score-container span {
+	font-size:1.2vm;
+	position:relative;
+	top:30%;
+	padding:3px;
+}
+
+.button-on-score {
+ 	background-color:#00FF00;
+    border: 5px;
+    color: blue;
+    padding: 5px 16px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+	position:relative;
+	top:50%;
+	transform: translate(0%,-50%);
+}
+
+.button-off-score { 
+	background-color:green;
+    border: 5px;
+    color: white;
+    padding: 5px 16px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+	position:relative;
+	top:50%;
+	transform: translate(0%,-50%);
+}
+
+
+@media only screen and (max-width: 1000px) {
+
+	.blue1Div {
+		background-color:#2E86C1;
+		border: 0.5px solid black;	
+		height:80%;
+		width:100%;
+		float:left;
+		top:20%;
+		z-index:0;
+	}
+
+	.blue2Div {
+		background-color:blue;
+		border: 0.5px solid black;
+		height:80%;
+		width:100%;
+		float:left;
+		top:20%;
+		z-index:0;
+	}
+	
+	.red1Div {
+		background-color:red;
+		border: 0.5px solid black;	
+		height:80%;
+		width:100%;
+		float:left;
+		top:20%;
+		z-index:0;
+	}
+
+	.red2Div {
+		background-color:#B22222;
+		border: 0.5px solid black;
+		height:80%;
+		width:100%;	
+		float:left;
+		top:20%;
+		z-index:0;
+	}
+	
+	.button-off-score,.button-on-score {
+		font-size: 20px;
+		padding:5px 15px;
+	}
+}

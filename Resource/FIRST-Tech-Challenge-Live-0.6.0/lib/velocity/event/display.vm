@@ -1,0 +1,443 @@
+## Copyright (c) 2018 FIRST, Thomas Barnette, George Marchant, and Trey Woodlief. All rights reserved.
+##
+## Redistribution and use in source and binary forms, with or without modification,
+## are permitted (subject to the limitations in the disclaimer below) provided that
+## the following conditions are met:
+##
+## Redistributions of source code must retain the above copyright notice, this list
+## of conditions and the following disclaimer.
+##
+## Redistributions in binary form must reproduce the above copyright notice, this
+## list of conditions and the following disclaimer in the documentation and/or
+## other materials provided with the distribution.
+##
+## Neither the name of FIRST nor the names of its contributors may be used to endorse or
+## promote products derived from this software without specific prior written permission.
+##
+## NO EXPRESS OR IMPLIED LICENSES TO ANY PARTY'S PATENT RIGHTS ARE GRANTED BY THIS
+## LICENSE. THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
+## "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO,
+## THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE
+## ARE DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT OWNER OR CONTRIBUTORS BE LIABLE
+## FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL
+## DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR
+## SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER
+## CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY,
+## OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE
+## OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
+##
+
+#macro (previewBar $alliance $index)
+	<div id="previewBar_${alliance}_${index}" class="previewBar previewBar_${alliance} previewBar_${index}">
+		<div class="previewTeamNumber previewItem"></div>
+		##Longest last year
+		##T.E.S.L.A.S (Tomorrow's Engineers & Scientists Learning About STEM)
+		##Longest that isnt a full acronym 
+		##SCHS Robotic Team -Springbank Community High School - SRT 3
+		##Actual Longest Name with no acronym at all (52) 
+		##The Substantial Monocephalic BrainSTEM Robotics Team
+		<div class="previewTeamName previewItem long why"></div>
+		<div class="previewTeamRank previewItem"></div>
+	</div>
+#end
+#macro (previewSet $alliance)
+	<div id="previewSet_${alliance}" class="previewSet">
+		#previewBar($alliance, 1)
+		#previewBar($alliance, 2)
+		#previewBar($alliance, 3)
+	</div>
+#end
+
+#macro (resultBar $alliance $index)
+	<div id="resultBar_${alliance}_${index}" class="resultBar resultBar_${alliance} resultBar_${index}">
+		<div class="resultItem resultTeamNumber"></div>
+		<div class="resultItem resultCard"></div>
+		<div class="resultItem resultRank"></div>
+		<div class="resultItem resultSeed"></div>
+	</div>
+#end
+
+#macro (resultBreakdownRow $alliance $index $key)
+	<div id = "resultBreakdownRow_${alliance}_${index}" class="resultBreakdownRow resultBreakdownRow_${alliance} resultBreakdownRow_${index}">
+		<div class="resultBreakdownItem resultBreakdownKey">$key</div>
+		<div class="resultBreakdownItem resultBreakdownScore">0</div>
+	</div>
+#end
+
+#macro (resultSet $alliance)
+	#if($alliance == "red")
+		#set($other = "Blue")
+	#else
+		#set($other = "Red")
+	#end
+	<div id="resultSet_${alliance}" class="resultSet">
+		#resultBar($alliance 1)
+		#resultBar($alliance 2)
+		
+		<div id="resultBar_${alliance}_elims" class="resultBar resultBar_${alliance} resultBar_elims">
+			<div class="resultItem resultSeed"></div>
+			<div class="resultItem resultTeamNumber resultTeam1"></div>
+			<div class="resultItem resultTeamNumber resultTeam2"></div>
+			<div class="resultItem resultTeamNumber resultTeam3"></div>
+			<div class="resultItem resultCard card3"></div>
+		</div>
+		
+		#resultBreakdownRow($alliance 1 "Autonomous")
+		#resultBreakdownRow($alliance 2 "Mineral")
+		#resultBreakdownRow($alliance 3 "End Game")
+		#resultBreakdownRow($alliance 4 "$other Penalty")
+		<div id="resultScore_${alliance}" class="resultScore"></div>
+		<div id="resultWinner_${alliance}" class="resultWinner resultWinner_${alliance}" hidden>Winner!</div>
+		<div id="resultTie_${alliance}" class="resultWinner resultWinner_${alliance} resultTie" hidden>Tie!</div>
+	</div>
+#end
+
+#macro (bracketBar $series $alliance $index)
+	<div id="bracketBar_${series}_${alliance}_${index}" class="bracketBar bracketBar_${alliance} bracketBar_${series} bracketBar_${index}">
+		<div class="bracketItem bracketSeed"></div>
+		<div class="bracketItem bracketTeam1"></div>
+		<div class="bracketItem bracketTeam2"></div>
+		<div class="bracketItem bracketTeam3"></div>
+		<div class="bracketItem bracketWins"></div>
+	</div>
+#end
+
+#macro (scores $alliance)
+	<div id="${alliance}Scores" class="scores">
+		<div id="${alliance}Lander" class="lander">
+			<!-- Lander images here -->
+			<div class="autoLanderLabel landerLabel phaseLabel">A:</div>
+			<div class="endLanderLabel landerLabel phaseLabel">E:</div>
+			<img src="/img/lander_${alliance}_small.png" id="${alliance}AutoLander" class="autoLander lander">
+			<img src="/img/lander_${alliance}_small.png" id="${alliance}EndLander" class="endLander lander">
+			<img src="/img/robot_small.png" id="${alliance}AutoRobot1" class="autoRobot1 landerRobot">
+			<img src="/img/robot_small.png" id="${alliance}AutoRobot2" class="autoRobot2 landerRobot">
+			<img src="/img/robot_small.png" id="${alliance}EndRobot1" class="endRobot1 landerRobot">
+			<img src="/img/robot_small.png" id="${alliance}EndRobot2" class="endRobot2 landerRobot">
+		</div>
+		<div id="${alliance}SF" class="sf">
+			<div id="${alliance}SF1" class="sf1">
+				<img src="/img/block_yellow.png" id="${alliance}SF_1,1">
+				<img src="/img/ball_white.png" id="${alliance}SF_1,2">
+				<img src="/img/ball_white.png" id="${alliance}SF_1,3">
+			</div>
+			<div id="${alliance}SF2" class="sf2">
+				<img src="/img/block_yellow.png" id="${alliance}SF_2,1">
+				<img src="/img/ball_white.png" id="${alliance}SF_2,2">
+				<img src="/img/ball_white.png" id="${alliance}SF_2,3">
+			</div>
+		</div>
+		<div id="${alliance}Claimed" class="claimed">
+			<img src="/img/flag_pole.png" id="${alliance}FlagPole1" class="flagPole1">
+			<div id="${alliance}Flag1" class="flag1 ${alliance}Flag flag">&nbsp;</div>
+			<img src="/img/flag_pole.png" id="${alliance}FlagPole2" class="flagPole2">
+			<div id="${alliance}Flag2" class="flag2 ${alliance}Flag flag">&nbsp;</div>
+		</div>
+		<div id="${alliance}Crater" class="crater">
+			<img src="/img/base_crater.png" id="${alliance}Crater1Image" class="crater1Image">
+			<div id="${alliance}Crater1Label" class="crater1Label craterLabel"></div>
+			<div class="phaseLabel craterPhaseLabel craterPhaseLabelAuto">A</div>
+			<img src="/img/base_crater.png" id="${alliance}Crater2Image" class="crater2Image">
+			<div id="${alliance}Crater2Label" class="crater2Label craterLabel"></div>
+			
+			<img src="/img/base_crater.png" id="${alliance}Crater3Image" class="crater3Image">
+			<div id="${alliance}Crater3Label" class="crater3Label craterLabel"></div>
+			<div class="phaseLabel craterPhaseLabel craterPhaseLabelEnd">E</div>
+			<img src="/img/base_crater.png" id="${alliance}Crater4Image" class="crater4Image">
+			<div id="${alliance}Crater4Label" class="crater4Label craterLabel"></div>
+		</div>
+		<div id="${alliance}Minerals" class="minerals">
+			<img src="/img/ball_white_plain.png" id="${alliance}SilverImage" class="silverImage">
+			<div id="${alliance}Silver" class="silver mineralAmount">:&nbsp;0</div>
+			<img src="/img/block_yellow.png" id="${alliance}GoldImage" class="goldImage">
+			<div id="${alliance}Gold" class="gold mineralAmount">:&nbsp;0</div>
+			<img src="/img/block_ball.png" id="${alliance}DepotImage" class="depotImage">
+			<div id="${alliance}Depot" class="depot mineralAmount">:&nbsp;0</div>
+		</div>
+	
+	</div>
+#end
+
+#macro (selectionAlliance $alliance)
+	<div id="selectionAlliance${alliance}" class="selectionAlliance">
+		#set($n = 9311 + $alliance)
+		<div class="selectionItem selectionSeed">&#$n;</div>
+		<div id="selection_${alliance}_1" class="selectionItem selection1"></div>
+		<div id="selection_${alliance}_2" class="selectionItem selection2"></div>
+		<div id="selection_${alliance}_3" class="selectionItem selection3"></div>
+	</div>
+#end
+
+<html>
+<script src="/js/jquery-1.12.4.js"></script>
+<script src="/js/jquery-ui.js"></script>
+<script src="/js/general.js"></script>
+<script src="/js/timer.js"></script>
+<script src="/js/display.js"></script>
+	
+<head>
+  <link rel="stylesheet" type="text/css" href="/css/fonts.css?random=$random">
+  <link rel="stylesheet" type="text/css" href="/css/display.css?random=$random">
+  ## Use velocity and JS to replace the stylesheet based on display type. displayOverlay is blank (default)--> 
+  <link rel="stylesheet" type="text/css" href="/css/displayOverlay.css" id="typeSpecificCSS">
+
+</head>
+<style>
+	#parse("/velocity/event/displayCSS.vm")
+</style>
+<script>
+	#parse("/velocity/event/displayJS.vm")
+</script>
+
+
+
+
+##ONLY HTML in this file. For pages that get complex, such as match control and gameDisplay, 
+##we need to separate structure (HTML), function (JS), and appearance (CSS). No inline styling!
+
+<body>
+  	<audio preload="auto" id="charge">
+  	<source src="/audio/charge.wav" type="audio/wav">
+  	</audio>
+  	<audio preload="auto" id="endauto">
+  	<source src="/audio/endauto_with_warning.wav" type="audio/wav">
+  	</audio>
+  	<audio preload="auto" id="teleop321">
+  	<source src="/audio/3-2-1.wav" type="audio/wav">
+  	</audio>
+  	<audio preload="auto" id="firebell">
+  	<source src="/audio/firebell.wav" type="audio/wav">
+  	</audio>
+  	<audio preload="auto" id="factwhistle">
+  	<source src="/audio/factwhistle.wav" type="audio/wav">
+  	</audio>
+  	<audio preload="auto" id="endmatch">
+  	<source src="/audio/endmatch.wav" type="audio/wav">
+  	</audio>
+  	<audio preload="auto" id="fogblast">
+  	<source src="/audio/fogblast.wav" type="audio/wav">
+  	</audio>
+	<div id="body" class="bg3">
+		##Elements are grouped based on visibility. IE all items within 
+		##a div should be hidden if the div is hidden.
+		<div id="glassPane"></div>
+		<div id="chroma" hidden></div>
+		<div id="titleBar">Title Bar</div>
+		<div id="previews" class="bottom2" hidden>
+			<div id="previewHeader">
+				<div id="previewHeaderNumber" class="previewTeamNumber previewHeader">Team #</div>
+				<div id="previewHeaderName" class="previewTeamName previewHeader">Nickname</div>
+				<div id="previewHeaderRank" class="previewTeamRank previewHeader">#if($finals)Division#else Rank #end</div>
+			</div>
+			#previewSet("red")
+			#previewSet("blue")
+			<div id="previewSeries" class="seriesStatus" hidden>
+			</div>
+		
+		</div>
+		<div id="randomization" class="bottom2" hidden>
+				<div id="randomizationDie"></div>
+				<div id="randomSF">
+					<img src="/img/block_yellow.png" id="randomSF_1">
+					<img src="/img/ball_white.png" id="randomSF_2">
+					<img src="/img/ball_white.png" id="randomSF_3">
+				</div>
+		</div>
+		<div id="award" class="bottom2" hidden>
+				<div id="winner"></div>
+				<div id="second"></div>
+				<div id="third"></div>
+		</div>
+		<div id="results" class="center" hidden>
+		<!--
+			<div id="resultHeader">
+				<div id="resultHeaderNumber" class="resultTeamNumber resultHeader">Team #</div>
+				<div id="resultHeaderName" class="resultTeamName resultHeader">Nickname</div>
+				<div id="resultHeaderRank" class="resultTeamRank resultHeader">Rank</div>
+			</div>
+			-->
+			#resultSet("blue")
+			#resultSet("red")
+			<div id="resultSeries" class="seriesStatus" hidden>
+			</div>
+		</div>
+		<div id="sponsor" class="center" hidden>
+			<div id="sponsorName"></div>
+			<div id="sponsorImageContainer">
+				<img id="sponsorImage"/>
+			</div>
+		</div>
+		<div id="digits" class="center" hidden >
+			<img class="timerImage" id="minDigit" src="/digits/W2.png">
+			<img class="timerImage" id="colon" src="/digits/Wcolon.png">
+			<img class="timerImage" id="tensDigit" src="/digits/W3.png">
+			<img class="timerImage" id="onesDigit" src="/digits/W0.png">
+			
+		</div>
+		<div id="overlayBar" hidden>		
+			<div id="matchName" class="overlayBarItem">Test Match</div>
+			<div id="eventName" class="overlayBarItem">$eventName</div>
+		</div>
+		<div id="scores" hidden>
+			#scores("blue")
+			#scores("red")
+		</div>
+		<div id="overlayBody" hidden>
+		
+			<div id="blueNumbers" class="teamNumbers">
+				<div id="blue1" class="teamNumber team1 blueNumber">17777</div>
+				<div id="blue2" class="teamNumber team2 blueNumber"></div>
+				<div id="blue3" class="teamNumber team3 blueNumber"></div>
+			</div>			
+			<div id="progressBar" hidden>
+				<div id="progress" style="width:0%"></div>
+				<div id="progressTime">
+					150
+				</div>
+				<div id="underReview" visible="false"> 
+					Match Under Review
+				</div>
+				<div id="progressHighlight" visible="true">
+				</div>
+			</div>
+			<div id="blueTotal" class="scoreTotal">0</div>
+			<div id="redTotal" class="scoreTotal">0</div>
+			<div id="redNumbers" class="teamNumbers">
+				<div id="red1" class="teamNumber team1 redNumber"></div>
+				<div id="red2" class="teamNumber team2 redNumber"></div>
+				<div id="red3" class="teamNumber team3 redNumber">88888</div>
+			</div>
+		</div>
+		<div id="selection" class="bottom2" hidden>
+			<div id="selectionAlliances">
+				<div id="selectionAllianceHead" class="selectionAlliance selectionHead">
+					<div class="selectionItem selectionSeed">Seed</div>
+					<div class="selectionItem selection1 selectionHead">Captain</div>
+					<div class="selectionItem selection2 selectionHead">1<sup>st</sup> Pick</div>
+					<div class="selectionItem selection3 selectionHead">2<sup>nd</sup> Pick</div>
+				</div>
+				#selectionAlliance(1)
+				#selectionAlliance(2)
+				#selectionAlliance(3)
+				#selectionAlliance(4)
+			</div>
+			<div id="selectionAvailable">
+				<table><tbody id="availableTable">
+				
+				</tbody>
+				</table>
+			</div>
+		</div>
+		
+		<div id="bracket" class="bottom2" hidden>
+			#bracketBar( "sf", "red", 1)
+			#bracketBar( "sf", "blue", 1)
+			#bracketBar( "sf", "red", 2)
+			#bracketBar( "sf", "blue", 2)
+			#bracketBar( "f", "red", 1)
+			#bracketBar( "f", "blue", 1)
+			<div id="sf1_connection1" class="connection connection1"></div>
+			<div id="sf1_connection2" class="connection connection2"></div>
+			<div id="sf1_connection3" class="connection connection3"></div>
+			<div id="sf2_connection1" class="connection connection1"></div>
+			<div id="sf2_connection2" class="connection connection2"></div>
+			<div id="sf2_connection3" class="connection connection3"></div>
+			<div id="sf1Label" class="bracketLabel">Semifinals 1</div>
+			<div id="sf2Label" class="bracketLabel">Semifinals 2</div>
+			<div id="fLabel" class="bracketLabel">Finals</div>
+		</div>
+		
+		<div id="settings" #if(!$default)hidden#end>
+		<h2 id="settingsHeader">Display Options</h2>
+			<fieldset>
+				<legend>Audio Testing</legend>
+				<button onclick="testSound('start')">Test Start Match</button>
+				<button onclick="testSound('end')">Test End Match</button>
+				<button onclick="testSound('abort')">Test Abort Match</button>
+			</fieldset>
+		##Mode: AD/FD/Overlay
+		##Advanced:
+		##Appearance: AD/FD/Overlay
+		##Behavior: AD/FD/Permanent Overlay
+		<br>
+			<fieldset>
+				<legend>Display Settings</legend>
+							
+				
+				<input type="checkbox" id="enableAdvanced" #if($advanced)checked#end>Enable Advanced Settings</input><br>
+				Display Mode:
+				<select id="modeSelect" #if($advanced)disabled#end>
+					<option value="ad" #if($mode == "ad")selected#end>Audience Display</option>
+					<option value="field" #if($mode == "field")selected#end>Field Display</option>
+					<option value="overlay" #if($mode == "overlay")selected#end>Overlay</option>
+				</select><br>
+				
+				<fieldset id="advancedSettings" #if(!$advanced)disabled#end >
+					<legend>Advanced</legend>
+					Appearance: 
+					<select id="appearanceSelect">
+						<option value="ad" #if($appearance == "ad")selected#end>Audience Display</option>
+						<option value="field" #if($appearance == "field")selected#end>Field Display</option>
+						<option value="overlay" #if($appearance == "overlay")selected#end>Overlay</option>
+					</select><br>
+					Behavior:
+					<select id="behaviorSelect" >
+						<option value="ad" #if($behavior == "ad")selected#end>Audience Display</option>
+						<option value="field" #if($behavior == "field")selected#end>Field Display</option>
+						<option value="perm" #if($behavior == "perm")selected#end>Permanent Match</option>
+					</select><br>
+				</fieldset>
+				
+				Overlay Color:#<input id="overlayInput" value="$chroma" maxlength=6></input><div id="chromaBox"></div><br>
+				<input type="checkbox" id="bindInput" #if($bind)checked#end>Bind To Field</input><br>
+				&emsp;&emsp;Field: 
+				<select id="fieldSelect">
+					#foreach ($number in [1..$fields])    					
+						<option value="$number" #if($field == $number)selected#end>Field $number</option>
+					#end
+				</select><br>
+				##select for field
+				##If event live scoring is off, this is disabled. Have tooltip instructing to change it on the control
+				##page and then refresh the display
+				<input type="checkbox" id="liveInput" #if($live)checked#end>Show Live Scores</input><br>
+				<input type="checkbox" id="muteInput" #if($mute)checked#end>Mute</input><br>
+				
+			</fieldset>
+			<br>
+			<button onclick="save()">Save</button>
+			<button onclick="cancel()">Cancel</button>
+		</div>
+		<div id="bottomBar"></div>
+	
+	</div>
+	
+	<div id="preload" >   
+	   <img src="/digits/Wdigitoff.png" width="1" height="1" alt="Image 01" />
+	   <img src="/digits/Wcolon.png" width="1" height="1" alt="Image 02" />
+	   <img src="/digits/Rcolon.png" width="1" height="1" alt="Image 02" />
+	   <img src="/digits/Ycolon.png" width="1" height="1" alt="Image 02" />
+	   <img src="/digits/W0.png" width="1" height="1" alt="Image 03" />
+	   <img src="/digits/W1.png" width="1" height="1" alt="Image 03" />
+	   <img src="/digits/W2.png" width="1" height="1" alt="Image 03" />
+	   <img src="/digits/W3.png" width="1" height="1" alt="Image 03" />
+	   <img src="/digits/W4.png" width="1" height="1" alt="Image 03" />
+	   <img src="/digits/W5.png" width="1" height="1" alt="Image 03" />
+	   <img src="/digits/W6.png" width="1" height="1" alt="Image 03" />
+	   <img src="/digits/W7.png" width="1" height="1" alt="Image 03" />
+	   <img src="/digits/W8.png" width="1" height="1" alt="Image 03" />
+	   <img src="/digits/W9.png" width="1" height="1" alt="Image 03" />
+	   <img src="/digits/Y0.png" width="1" height="1" alt="Image 03" />
+	   <img src="/digits/Y8.png" width="1" height="1" alt="Image 03" />
+	   <img src="/digits/Y7.png" width="1" height="1" alt="Image 03" />
+	   <img src="/digits/Y6.png" width="1" height="1" alt="Image 03" />
+	   <img src="/digits/Y4.png" width="1" height="1" alt="Image 03" />
+	   <img src="/digits/Y5.png" width="1" height="1" alt="Image 03" />   
+	   <img src="/digits/R0.png" width="1" height="1" alt="Image 03" />   
+	   <img src="/digits/R1.png" width="1" height="1" alt="Image 03" />   
+	   <img src="/digits/R2.png" width="1" height="1" alt="Image 03" />   
+	   <img src="/digits/R3.png" width="1" height="1" alt="Image 03" /> 
+	</div>
+	
+	
+</body>
+</html>

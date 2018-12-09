@@ -45,11 +45,13 @@
 				<i class="fa fa-caret-down"></i>
 			</button>
 			<div class="dropdown-content" id="right-dropdown">
-				<a href="Rover-Ruckus-Scouting-Download.zip" download>Download</a>
-				<a href="https://www.w3schools.com/" target="_blank">W3School</a>
-				<a href="https://gearedreaction.org/" target="_blank">Geared Reaction</a>
+				<a href="Resource/Rover-Ruckus-Scouting-Download.zip" download>Download</a>
+				<a href="https://github.com/FIRST-Tech-Challenge/scorekeeper/releases">Download Live Scoring System</a>
+				<a href="Resource/DraftScoreSheetBoth_v03.AudiencePerspective.pdf" target="_blank">Paper Scoring Sheet</a>
+				<a href="https://gearedreaction.org/" target="_blank">Geared Reaction Website</a>
 				<a href="https://projects.gearedreaction.org" target="_blank">Open Project</a>
 				<a href="https://rover-ruckus-scorer.now.sh/" target="_blank">Rover Ruckus Scorer</a>
+				<a href="https://www.w3schools.com/" target="_blank">W3School</a>
 			</div>
 		</div> 
 	</div>	
@@ -60,16 +62,16 @@
 			<input type="submit" name="newFile" id="newFile" value="New File">
 		</div>
 		<div class="topDiv">
-			<input type="button" class="button-off-top" style="background-color:green" value="Submit" onclick="store()">
+			<input type="button" class="button-off-top" style="background-color:green" value="Submit" onmousedown="store();mouseDownButton(this);" onmouseup="mouseUpButton(this)">
 		</div>
 		<div class="topDiv">
-			<input type="button" class="button-off-top" style="background-color:red" value="Clear" onclick="clearAll()"></input>
+			<input type="button" class="button-off-top" style="background-color:red" value="Clear" onmousedown="clearAll();mouseDownButton(this);" onmouseup="mouseUpButton(this)"></input>
 		</div>
 	</div>
 	
 	<div class="blue1Div">
 		<div class="teamName">
-			<input name="blue1" type="text" id="teamNameB1" placeholder="blue 1" maxlength="5" size="10">
+			<input name="blue1" type="text" id="teamNameB1" onchange="updateTotalB1()" placeholder="blue 1" maxlength="5" size="10">
 		</div>
 		<div class="totalDiv">
 			<div class="score-container" style="height:100%;">
@@ -151,7 +153,7 @@
 	
 	<div class="blue2Div">
 		<div class="teamName">
-			<input name="blue2" type="text" id="teamNameB2" placeholder="blue 2" maxlength="5" size="10">
+			<input name="blue2" type="text" id="teamNameB2" onchange="updateTotalB2()" placeholder="blue 2" maxlength="5" size="10">
 		</div>
 		<div class="totalDiv">
 			<div class="score-container" style="height:100%;">
@@ -233,7 +235,7 @@
 	
 	<div class="red1Div">
 		<div class="teamName">
-			<input name="red1" type="text" id="teamNameR1" placeholder="red 1" maxlength="5" size="10">	
+			<input name="red1" type="text" id="teamNameR1" onchange="updateTotalR1()" placeholder="red 1" maxlength="5" size="10">	
 		</div>
 		<div class="totalDiv">
 			<div class="score-container" style="height:100%;">
@@ -315,12 +317,12 @@
 	
 	<div class="red2Div">
 		<div class="teamName">
-			<input name="red2" type="text" id="teamNameR2" placeholder="red 2" maxlength="5" size="10">
+			<input name="red2" type="text" id="teamNameR2" onchange="updateTotalR2()" placeholder="red 2" maxlength="5" size="10">
 		</div>
 		<div class="totalDiv">
 			<div class="score-container" style="height:100%;">
 				<div class="spanDiv">
-					<span>Total: </span><span id="totalScoreR2">0</span>
+					<span>Total:</span><span id="totalScoreR2">0</span>
 				</div>
 			</div>
 		</div>

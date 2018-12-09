@@ -1,0 +1,19 @@
+html, body{
+	height:100%;
+	margin:0;
+}
+* {
+    box-sizing: border-box;
+	font-size:18px;
+}
+
+@media only screen and (max-width: 1000px) {
+	* {
+		font-size:15px;
+	}
+}
+
+input[type="text"]:focus {
+    background-color:gray;
+}
+

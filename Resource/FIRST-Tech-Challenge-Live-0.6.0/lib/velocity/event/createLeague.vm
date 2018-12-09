@@ -1,0 +1,162 @@
+## Copyright (c) 2018 FIRST, Thomas Barnette, George Marchant, and Trey Woodlief. All rights reserved.
+##
+## Redistribution and use in source and binary forms, with or without modification,
+## are permitted (subject to the limitations in the disclaimer below) provided that
+## the following conditions are met:
+##
+## Redistributions of source code must retain the above copyright notice, this list
+## of conditions and the following disclaimer.
+##
+## Redistributions in binary form must reproduce the above copyright notice, this
+## list of conditions and the following disclaimer in the documentation and/or
+## other materials provided with the distribution.
+##
+## Neither the name of FIRST nor the names of its contributors may be used to endorse or
+## promote products derived from this software without specific prior written permission.
+##
+## NO EXPRESS OR IMPLIED LICENSES TO ANY PARTY'S PATENT RIGHTS ARE GRANTED BY THIS
+## LICENSE. THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
+## "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO,
+## THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE
+## ARE DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT OWNER OR CONTRIBUTORS BE LIABLE
+## FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL
+## DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR
+## SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER
+## CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY,
+## OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE
+## OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
+##
+
+#parse("/velocity/layout.vm")
+#@mainLayout()
+<script>
+function updateStateList() {
+	o = {country: $("#countrySelect").val()};
+	$.ajax({
+	    url: '$GET_STATES_LIST',
+	    type: 'GET',
+	    data: o,
+	    success: function (data,textStatus, xhr) {
+	    	list = JSON.parse(data);
+	    	$("#stateSelect").empty(); // remove old options
+	    	$.each(list, function(key, value) {
+	    		$("#stateSelect").append($("<option></option>").attr("value", value).text(value));
+	    		console.log('Added state: ' + value);
+	    	});		   
+	    	#if($curState)
+	    		if (list.indexOf("$curState") >= 0) {
+			    	$("#stateSelect").val("$curState");
+			    }
+	    	#end
+	    },
+	    error: function(xhr, status, error){
+	    
+	    }
+	});
+}
+function createLeague() {
+	o = {
+			code: $("#leagueCodeInput").val(),
+			name: $("#leagueNameInput").val(),
+			country: $("#countrySelect").val(),
+			state: $("#stateSelect").val(),
+			city: $("#leagueCityInput").val(),
+	};
+	#if($curCode)
+		$("#status").text("Updating League...");
+		$.ajax({
+		    url: '.',
+		    type: 'PUT',
+		    data: o,
+		    success: function (data,textStatus, xhr) {
+		    	$("#status").text("League info updated!");
+		    },
+		    error: function(xhr, status, error){
+		    	$("#status").text("Error updating league info.");
+		    }
+		});
+	#else
+	$.ajax({
+	    url: '.',
+	    type: 'POST',
+	    data: o,
+	    success: function (data,textStatus, xhr) {
+	    	window.location.href = '../edit/' + o.code + '/';
+	    },
+	    error: function(xhr, status, error){
+	    
+	    }
+	});
+	#end
+}
+$(document).ready(function(){
+     
+		$.ajax({
+		    url: '$GET_COUNTRIES_LIST',
+		    type: 'GET',
+		    success: function (data,textStatus, xhr) {
+		    	list = JSON.parse(data);
+		    	$("#countrySelect").empty(); // remove old options
+		    	$.each(list, function(key, value) {
+		    		$("#countrySelect").append($("<option></option>").attr("value", value).text(value));
+		    	});
+		    	#if($curCountry)
+		    	if (list.indexOf("$curCountry") >= 0) {
+			    	$("#countrySelect").val("$curCountry");
+			    } else {
+			    	if (list.indexOf("USA") >= 0) {
+			    		$("#countrySelect").val("USA");
+			    	}	
+			    }
+		    	#else
+		    	if (list.indexOf("USA") >= 0) {
+		    		$("#countrySelect").val("USA");
+		    	}
+		    	#end
+		    	updateStateList();
+		    	
+		    },
+		    error: function(xhr, status, error){
+		    
+		    }
+		});
+	$("#countrySelect").change(updateStateList);
+});
+</script>
+	<div class="col-12">
+		<a href="/event/$eventCode/dashboard/leagues/"><< Back to League List</a>
+	</div>
+<div class="row">
+	<div class="col-md-6 offset-md-3">
+    <form action="$!CREATE_LEAGUE_POST" method="POST">
+    	<div class="form-group">
+    		<label for="leagueCodeInput">League Code:</label>
+			<input id="leagueCodeInput" type="text" name="leagueCode" class="form-control" placeholder="League Code" #if($curCode)value="$curCode" disabled#end/>
+		</div>
+		<div class="form-group">
+    		<label for="leagueNameInput">League Name:</label>
+			<input id="leagueNameInput" type="text" name="leagueName" class="form-control" placeholder="League Name" #if($curName)value="$curName"#end/>
+		</div>
+		<div class="form-group">
+			<label for="countrySelect">Country:</label>
+			<select class="custom-select" name="countrySelect" id="countrySelect"></select>
+		</div>
+		<div class="form-group">
+			<label for="stateSelect">State:</label>
+			<select class="custom-select" name="stateSelect" id="stateSelect"></select>
+		</div>
+		<div class="form-group">
+    		<label for="leagueCityInput">City:</label>
+			<input id="leagueCityInput" type="text" name="leagueCity" class="form-control" placeholder="League City" #if($curCity)value="$curCity"#end/>
+		</div>
+		<input type="button"  style="float:left;" onclick="createLeague()" name="submit" class="btn btn-primary" #if($curCode) value="Save League" #else value="Create League"#end />
+		<div id="status" style="line-height:36px;height:36px;"></div>
+		<input type="hidden" name="client_name" value="FormClient">
+	</form>
+	#if($curTeams)
+	<br>
+	<div>Currently $curTeams teams in League: <a href="teams/" class="btn btn-secondary">Add/Remove Teams</a></div>
+	#end
+	</div>
+	</div>
+#end
