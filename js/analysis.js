@@ -6,6 +6,8 @@ var endTable = [];
 
 var color;
 
+window.onload = function(){updateTable()};
+
 function updateTable(){
 	var table = document.getElementById("analysisTable");
 	
@@ -17,11 +19,43 @@ function updateTable(){
 	var tLength = localStorage.getItem("tableLength");
 	for(var i=0; i<tLength;i++){
 		teamTable[i] = localStorage.getItem("team" +i);
-		totalTable[i] = localStorage.getItem("totalScore" +i);
 		autoTable[i] = localStorage.getItem("autoScore" +i);
 		teleTable[i] = localStorage.getItem("teleScore" +i);
 		endTable[i] = localStorage.getItem("endScore" +i);
+		
+		totalTable[i] = +autoTable[i] + +teleTable[i] + +endTable[i];
 	}
+	
+	var done = false;
+	while (!done) {
+		done = true;
+		var array = teamTable;
+		for (var i = 1; i < array.length; i ++) {
+			if (+array[i - 1] > +array[i]) {
+				done = false;
+				var tmpTeam = array[i - 1];
+				teamTable[i - 1] = array[i];
+				teamTable[i] = tmpTeam;
+
+				var tmpTotal = totalTable[i - 1];
+				totalTable[i - 1] = totalTable[i];
+				totalTable[i] = tmpTotal;
+
+				var tmpAuto = autoTable[i - 1];
+				autoTable[i - 1] = autoTable[i];
+				autoTable[i] = tmpAuto;
+
+				var tmpTele = teleTable[i - 1];
+				teleTable[i - 1] = teleTable[i];
+				teleTable[i] = tmpTele;
+
+				var tmpEnd = endTable[i - 1];
+				endTable[i - 1] = endTable[i];
+				endTable[i] = tmpEnd;
+			}
+		}
+	}
+
 	for(var i=0; i<tLength; i++){
         var row = table.insertRow(i+1);
 		var team = row.insertCell(0);
@@ -35,6 +69,8 @@ function updateTable(){
 		auto.innerHTML = autoTable[i];
 		tele.innerHTML = teleTable[i];
 		end.innerHTML = endTable[i];
+		
+		team.style.backgroundColor = getRandomColor();
 	}
 }
 
@@ -47,11 +83,41 @@ function getRandomColor() {
   return color;
 }
 
+
 function clearStorage(){
-	var check = confirm("Clear localStorage?");
+	var check = confirm("Clear localStorage?\n If yes, make sure to reload the Scouting Sheet as well. \n Lost data will not be recovered");
 	if(check){
 		localStorage.clear();
+		updateTable();
 	}
+}
+
+function dropLeft() {
+    document.getElementById("left-dropdown").classList.toggle("show");
+}
+
+function dropRight() {
+    document.getElementById("right-dropdown").classList.toggle("show");
+}
+
+// Close the dropdown if the user clicks outside of it
+window.onclick = function(e) {
+	if (!e.target.matches('.dropbtnLeft')) {
+		var leftDropdown = document.getElementById("left-dropdown");
+		if (leftDropdown.classList.contains('show')) {
+			leftDropdown.classList.remove('show');
+		}
+	}
+	if (!e.target.matches('.dropbtnRight')) {
+		var rightDropdown = document.getElementById("right-dropdown");
+		if (rightDropdown.classList.contains('show')) {
+			rightDropdown.classList.remove('show');
+		}
+	}
+}
+
+function reload(){
+	location.reload();
 }
 
 function sortTable(n) {

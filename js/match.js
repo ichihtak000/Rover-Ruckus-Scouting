@@ -187,10 +187,7 @@ function changeTable(tableCell) {
 		var cell = (+id)%10;
 		var index = ((+id) - cell)/10;
 		if(cell = 1){
-			alert(id + " " + cell + " " + index);
-			alert(tempPair[index]);
 			tempPair[index] = change + ".";
-			alert(tempPair[index]);
 		}else if(cell == 2){
 			tempTeam[index] = change + ".";
 		}else if(cell == 3){
