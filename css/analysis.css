@@ -34,10 +34,13 @@ td,th {
 .table{
 	font-family: "Trebuchet MS", Arial, Helvetica, sans-serif;
 	border-collapse: collapse;
-	width: calc(50% - 5px);
-
 	float:left;
 }
+
+#analysisTable {
+	width: calc(30% - 5px);
+}	
+
 #analysisTable2 {
 	margin-left:10px;
 }
@@ -47,7 +50,6 @@ td,th {
 }
 
 .table th {
-	width:19%;
 	padding-top: 12px;
 	padding-bottom: 12px;
 	text-align: center;

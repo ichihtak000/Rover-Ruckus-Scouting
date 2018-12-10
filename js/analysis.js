@@ -63,14 +63,21 @@ function updateTable(){
         var auto = row.insertCell(2);
         var tele = row.insertCell(3);
         var end = row.insertCell(4);
-
+		
 		team.innerHTML = teamTable[i];
 	    total.innerHTML = totalTable[i];
 		auto.innerHTML = autoTable[i];
 		tele.innerHTML = teleTable[i];
 		end.innerHTML = endTable[i];
 		
-		team.style.backgroundColor = getRandomColor();
+		if(!(+teamTable[i -1] == +teamTable[i])){
+			color = getRandomColor();
+		}
+		team.style.backgroundColor = color;
+		total.style.backgroundColor = color;
+		auto.style.backgroundColor = color;
+		tele.style.backgroundColor = color;
+		end.style.backgroundColor = color;
 	}
 }
 
