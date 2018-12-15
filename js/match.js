@@ -162,7 +162,6 @@ function updateTable(){
 	for(var x=0; x<tLength; x++){
 		localStorage.setItem("rankingPoint" + x, rankingPoint[x]);
 		localStorage.setItem("tiePoint"+x,tiePoint[x]);
-		alert(tiePoint[x]);
 	}	
 }
 
