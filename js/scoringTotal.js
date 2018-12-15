@@ -91,6 +91,7 @@ function getPreviousDatas(){
 function store() {
 	var check = confirm("Submit?");
 	if(check){
+		getPreviousDatas();
 		teams[teams.length] = teamB1;
 		teams[teams.length] = teamB2;
 		teams[teams.length] = teamR1
