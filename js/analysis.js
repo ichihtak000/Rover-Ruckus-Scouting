@@ -164,22 +164,121 @@ function updateTable2(){
 			var t = teamTable[i];
 			if(t == 5446){
 				totalRanking += 20;
-			}else if(t == 5604 || t == 5961 || t == 9876){
+				totalTie = 783;
+			}else if(t == 5604){
 				totalRanking += 16;
-			}else if(t == 11865 || t == 4054 || t == 11121 || t == 12217 || t == 13485 || t == 10244){
+				totalTie += 928;
+			}else if(t == 5961){
+				totalRanking +=16;
+				totalTie += 691;
+			}else if(t == 9876){
+				totalRanking +=16;
+				totalTie += 350;
+			}else if(t == 11865){
 				totalRanking += 14;
-			}else if(t == 6559 || t == 15460 || t == 7742 || t == 7732 || t == 8548 || t == 8563){
+				totalTie += 989;
+			}else if(t == 4054){
+				totalRanking += 14;
+				totalTie += 649;
+			}else if(t == 11121){
+				totalRanking += 14;
+				totalTie += 479;
+			}else if(t == 12217){
+				totalRanking += 14;
+				totalTie += 423;
+			}else if(t == 13485){
+				totalRanking += 14;
+				totalTie += 357;
+			}else if(t == 10244){
+				totalRanking += 14;
+				totalTie += 356;
+			}else if(t == 6559){
 				totalRanking +=12;
-			}else if(t == 5971 || t == 13601 || t == 3861 || t == 4213){
+				totalTie += 944;
+			}else if(t == 15460){
+				totalRanking +=12;
+				totalTie += 637;
+			}else if(t == 7732){
+				totalRanking +=12;
+				totalTie += 581;
+			}else if(t == 7742){
+				totalRanking +=12;
+				totalTie += 522;
+			}else if(t == 8548){
+				totalRanking +=12;
+				totalTie += 455;
+			}else if(t == 8563){
+				totalRanking +=12;
+				totalTie += 406;
+			}else if(t == 5971){
 				totalRanking +=10;
-			}else if(t == 11477 || t == 9387 || t == 6424 || t == 8030 || t == 10548){
+				totalTie += 881;
+			}else if(t == 13601){
+				totalRanking +=10;
+				totalTie += 867;
+			}else if(t == 3861){
+				totalRanking +=10;
+				totalTie += 759;
+			}else if(t == 4213){
+				totalRanking +=10;
+				totalTie += 632;
+			}else if(t == 11477){
 				totalRanking += 8;
-			}else if(t == 11186 || t == 7766 || t == 6046 || t == 5447 || t == 7830 || t == 7299){
+				totalTie += 769;
+			}else if(t == 9387){
+				totalRanking +=8;
+				totalTie += 746;
+			}else if(t == 6424){
+				totalRanking +=8;
+				totalTie += 452;
+			}else if(t == 8030){
+				totalRanking +=8;
+				totalTie += 424;
+			}else if(t == 10548){
+				totalRanking +=8
+				totalTie += 339;
+			}else if(t == 11186){
 				totalRanking +=6;
-			}else if(t == 4053 || t == 6395 || t == 13480 || t == 15462 || t == 13707 || t == 13481){
+				totalTie += 939;
+			}else if(t == 7766){
+				totalRanking +=6;
+				totalTie += 788;
+			}else if(t == 6046){
+				totalRanking +=6;
+				totalTie += 784;
+			}else if(t == 5447){
+				totalRanking +=6;
+				totalTie += 564;
+			}else if(t == 7830){
+				totalRanking +=6;
+				totalTie += 562;
+			}else if(t == 7299){
+				totalRanking +=6;
+				totalTie += 370;
+			}else if(t == 4053){
 				totalRanking +=4;
-			}else if(t == 13484 || t == 15495){
+				totalTie += 561;
+			}else if(t == 6395){
+				totalRanking +=4;
+				totalTie += 557;
+			}else if(t == 13480){
+				totalRanking +=4;
+				totalTie += 429;
+			}else if(t == 15462){
+				totalRanking +=4;
+				totalTie += 289;
+			}else if(t == 13707){
+				totalRanking +=4;
+				totalTie += 248;
+			}else if(t == 13481){
+				totalRanking +=4;
+				totalTie += 147;
+			}else if(t == 13484){
 				totalRanking +=2;
+				totalTie += 296;
+			}else if(t == 15495){
+				totalRanking +=2;
+				totalTie += 191; 
 			}
 			
 			rank.innerHTML = totalRanking;
