@@ -286,7 +286,7 @@ function updateTable2(){
 			totalAve.innerHTML = Math.round(totalAveScore/numTeamEach);
 			totalHigh.innerHTML = highestTotal;
 			totalLow.innerHTML = lowestTotal;
-			standardDiv.innerHTML = endTable[i];
+			standardDiv.innerHTML = "Ignore this";
 			autoAve.innerHTML = Math.round(autoAveScore/numTeamEach);
 			teleAve.innerHTML = Math.round(teleAveScore/numTeamEach);
 			endAve.innerHTML = Math.round(endAveScore/numTeamEach);
