@@ -4,6 +4,8 @@ var totalTable = [];
 var autoTable = [];
 var teleTable = [];
 var endTable = [];
+var rankingPoint = [];
+var tiePoint = [];
 
 var color;
 var tempPair = [];
@@ -64,16 +66,40 @@ function updateTable(){
 				table.rows[i-2].style.backgroundColor = "#1F45FC";
 				table.rows[i].style.backgroundColor = "#F08080";
 				table.rows[i+1].style.backgroundColor = "#F08080";
+				rankingPoint[i-3] = 2;
+				rankingPoint[i-2] = 2;
+				rankingPoint[i-1] = 0;
+				rankingPoint[i] = 0;
+				tiePoint[i-3] = redSum;
+				tiePoint[i-2] = redSum;
+				tiePoint[i-1] = redSum;
+				tiePoint[i] = redSum;
 			}else if(blueSum < redSum){
 				table.rows[i-1].style.backgroundColor = "#ADD8E6";
 				table.rows[i-2].style.backgroundColor = "#ADD8E6";
 				table.rows[i].style.backgroundColor = "red";
 				table.rows[i+1].style.backgroundColor = "red";
+				rankingPoint[i-3] = 0;
+				rankingPoint[i-2] = 0;
+				rankingPoint[i-1] = 2;
+				rankingPoint[i] = 2;
+				tiePoint[i-3] = blueSum;
+				tiePoint[i-2] = blueSum;
+				tiePoint[i-1] = blueSum;
+				tiePoint[i] = blueSum;
 			}else{
 				table.rows[i-1].style.backgroundColor = "#ADD8E6";
 				table.rows[i-2].style.backgroundColor = "#ADD8E6";
 				table.rows[i].style.backgroundColor = "#F08080";
 				table.rows[i+1].style.backgroundColor = "#F08080";
+				rankingPoint[i-3] = 1;
+				rankingPoint[i-2] = 1;
+				rankingPoint[i-1] = 1;
+				rankingPoint[i] = 1;
+				tiePoint[i-3] = blueSum;
+				tiePoint[i-2] = blueSum;
+				tiePoint[i-1] = blueSum;
+				tiePoint[i] = blueSum;
 			}	
 			
 			var tableIndex = (matchNum-1)*2;
@@ -132,6 +158,12 @@ function updateTable(){
 		end.onclick = function () {changeTable(this);};
 		comment.onclick = function () {changeTable(this);};
 	}
+	
+	for(var x=0; x<tLength; x++){
+		localStorage.setItem("rankingPoint" + x, rankingPoint[x]);
+		localStorage.setItem("tiePoint"+x,tiePoint[x]);
+		alert(tiePoint[x]);
+	}	
 }
 
 function getRandomColor() {

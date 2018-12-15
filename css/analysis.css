@@ -38,11 +38,12 @@ td,th {
 }
 
 #analysisTable {
-	width: calc(30% - 5px);
+	width: calc(25% - 5px);
 }	
 
 #analysisTable2 {
 	margin-left:10px;
+	width:15%;
 }
 
 #analysisTable2 th{

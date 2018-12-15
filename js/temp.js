@@ -3,8 +3,6 @@ var totalTable = [];
 var autoTable = [];
 var teleTable = [];
 var endTable = [];
-var rankingTable = [];
-var tieTable = [];
 
 var color;
 
@@ -24,8 +22,6 @@ function updateTable(){
 		autoTable[i] = localStorage.getItem("autoScore" +i);
 		teleTable[i] = localStorage.getItem("teleScore" +i);
 		endTable[i] = localStorage.getItem("endScore" +i);
-		rankingTable[i] = localStorage.getItem("rankingPoint" + i);
-		tieTable[i] = localStorage.getItem("tiePoint" + i);
 		
 		totalTable[i] = +autoTable[i] + +teleTable[i] + +endTable[i];
 	}
@@ -56,14 +52,6 @@ function updateTable(){
 				var tmpEnd = endTable[i - 1];
 				endTable[i - 1] = endTable[i];
 				endTable[i] = tmpEnd;
-				
-				var tmpRank = rankingTable[i-1];
-				rankingTable[i-1] = rankingTable[i];
-				rankingTable[i] = tmpRank;
-				
-				var tmpTie = tieTable[i-1];
-				tieTable[i-1] = tieTable[i];
-				tieTable[i] = tmpTie;
 			}
 		}
 	}
@@ -75,14 +63,12 @@ function updateTable(){
         var auto = row.insertCell(2);
         var tele = row.insertCell(3);
         var end = row.insertCell(4);
-		var rank = row.insertCell(5);
 		
 		team.innerHTML = teamTable[i];
 	    total.innerHTML = totalTable[i];
 		auto.innerHTML = autoTable[i];
 		tele.innerHTML = teleTable[i];
 		end.innerHTML = endTable[i];
-		rank.innerHTML = rankingTable[i];
 		if(!(+teamTable[i -1] == +teamTable[i])){
 			color = getRandomColor();
 		}
@@ -91,7 +77,6 @@ function updateTable(){
 		auto.style.backgroundColor = color;
 		tele.style.backgroundColor = color;
 		end.style.backgroundColor = color;
-		rank.style.backgroundColor = color;
 	}
 }
 
@@ -107,8 +92,6 @@ function updateTable2(){
 	
 	var row;
 	var team;
-	var rank;
-	var tie;
 	var totalAve;
 	var totalHigh;
 	var totalLow;
@@ -116,67 +99,39 @@ function updateTable2(){
 	
 	var numTeam = 0;
 	var numTeamEach = 0;
-	var totalRanking = 0;
-	var totalTie = 0;
 	var totalAveScore = 0;
-	var highestTotal = 0;
-	var lowestTotal = Number.MAX_SAFE_INTEGER;
-	
 	
 	for(var i=0; i<tLength; i++){
-		totalAveScore+= totalTable[i];
-		totalRanking += +rankingTable[i]; 
-		totalTie += +tieTable[i];
+		totalAveScore+=totalTable[i];
 		numTeamEach++;
-		if(highestTotal < totalTable[i]){
-			highestTotal = totalTable[i];
-		}
-		if(lowestTotal > totalTable[i]){
-			lowestTotal = totalTable[i];
-		}
-		
 		if(!(+teamTable[i -1] == +teamTable[i])){
 			color = getRandomColor();
 			row = table2.insertRow(numTeam+1);
 			team = row.insertCell(0);
-			rank = row.insertCell(1);
-			tie = row.insertCell(2);
-			totalAve = row.insertCell(3);
-			totalHigh = row.insertCell(4);
-			totalLow = row.insertCell(5);
-			standardDiv = row.insertCell(6);
+			totalAve = row.insertCell(1);
+			totalHigh = row.insertCell(2);
+			totalLow = row.insertCell(3);
+			standardDiv = row.insertCell(4);
 		}
 		if(!(+teamTable[i] == +teamTable[i+1])){
 			team.innerHTML = teamTable[i];
 			
-			rank.innerHTML = totalRanking;
-			tie.innerHTML = totalTie;
-			
 			totalAve.innerHTML = Math.round(totalAveScore/numTeamEach);
-			totalHigh.innerHTML = highestTotal;
-			totalLow.innerHTML = lowestTotal;
+			totalHigh.innerHTML = autoTable[i];
+			totalLow.innerHTML = teleTable[i];
 			standardDiv.innerHTML = endTable[i];
 			
 			team.style.backgroundColor = color;
-			rank.style.backgroundColor = color;
-			tie.style.backgroundColor = color;
 			totalAve.style.backgroundColor = color;
 			totalHigh.style.backgroundColor = color;
 			totalLow.style.backgroundColor = color;
 			standardDiv.style.backgroundColor = color;
 			
 			numTeam++;
-			totalRanking = 0;
-			totalTie = 0;
 			totalAveScore = 0;
 			numTeamEach = 0;
-			highestTotal = 0;
-			lowestTotal = Number.MAX_SAFE_INTEGER;;
 		}
 	}
-}
-
-function getStandardDiv(){
 }
 
 function getRandomColor() {
@@ -187,6 +142,8 @@ function getRandomColor() {
   }
   return color;
 }
+
+
 
 function sortTable(n) {
   var table, rows, switching, i, x, y, shouldSwitch, dir, switchcount = 0;
@@ -262,4 +219,5 @@ function sortTable2(n) {
     }
   }
 }
+
 
