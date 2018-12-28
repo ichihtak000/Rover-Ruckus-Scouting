@@ -25,6 +25,8 @@ var autoScores=[];
 var teleScores=[];
 var endScores=[];
 
+window.onload = function(){getPreviousDatas()};
+
 function updateTotalR1(){
 	teamR1 = document.getElementById("teamNameR1").value;
 	if(teamR1 == ""){
@@ -96,23 +98,23 @@ function store() {
 		teams[teams.length] = teamB2;
 		teams[teams.length] = teamR1
 		teams[teams.length] = teamR2;
-		
+
 		autoScores[autoScores.length] = autoB1;
 		autoScores[autoScores.length] = autoB2;
 		autoScores[autoScores.length] = autoR1;
 		autoScores[autoScores.length] = autoR2;
-		
+
 		teleScores[teleScores.length] = teleB1;
 		teleScores[teleScores.length] = teleB2;
 		teleScores[teleScores.length] = teleR1;
 		teleScores[teleScores.length] = teleR2;
-		
+
 		endScores[endScores.length] = endB1;
 		endScores[endScores.length] = endB2;
 		endScores[endScores.length] = endR1;
 		endScores[endScores.length] = endR2;
-		
-		
+
+
 		if (typeof(Storage) !== "undefined") {
 			for(var i=0; i<autoScores.length; i++){
 				localStorage.setItem("team" + i, teams[i]);

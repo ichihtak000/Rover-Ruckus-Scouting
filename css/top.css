@@ -1,44 +1,31 @@
-.top{
+.top {
 	width:100%;
 	height:12%;
 	background-color:gray;
 	position:fixed;
 	top:8%;
 	z-index:1;
-}
-
-.topDiv{
-	height:50%;
-	position:relative;
-	transform: translate(0%,50%);
-	width:33.33%;
 	text-align:center;
-	float:left;
 }
 
-.button-off-top {
-    border: 5px;
-    color: white;
-    padding: 7px 16px;
-    text-align: center;
-    text-decoration: none;
-    display: inline-block;
-    font-size: 16px;
+.topDiv {
+	height:50%;
+	transform: translate(0%,50%);
+	text-align:center;
 }
 
-.button-on-top {
-	border: 5px;
-    color: white;
-    padding: 7px 16px;
-    text-align: center;
-    text-decoration: none;
-    display: inline-block;
-    font-size: 16px;
+.button{
+  border: 5px;
+  color: white;
+  padding: 7px 16px;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 16px;
 }
 
 @media only screen and (max-width: 1000px) {
-	
-	.button-off-top{
+	.button-off-top {
 		font-size: 20px;
 		padding:5px 15px;
 	}

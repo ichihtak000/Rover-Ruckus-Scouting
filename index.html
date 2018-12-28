@@ -1,24 +1,29 @@
 <!DOCTYPE html>
 <html>
 <head>
+	<!-- Define metadata -->
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
 	<meta charset="utf-8">
 	<meta name="description" content="FTC Scouting Tool for 2018-2019" />
 	<meta name="keywords" content="html, css, javascript" />
-	<meta name="author" content="Takumi Ichihahsi" />
+	<meta name="author" content="Takumi Ichihashi" />
 
+	<!-- page title -->
 	<title>Rover-Ruckus-Scouting</title>
-	
+
+	<!-- external css -->
+	<link rel="stylesheet" type="text/css" href="css/styling.css">
 	<link rel="stylesheet" type="text/css" href="css/navigation.css">
 	<link rel="stylesheet" type="text/css" href="css/top.css">
 	<link rel="stylesheet" type="text/css" href="css/scoring.css">
-	<link rel="stylesheet" type="text/css" href="css/styling.css">
-	
 	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+
+	<!-- page icon -->
 	<link rel="icon" href="visuals/icon2.png">
 </head>
 
-<body onload="getPreviousDatas()">
+<body>
+	<!-- exernal js -->
 	<script src="js/navigation.js"></script>
 	<script src="js/top.js"></script>
 	<script src="js/scoringR1.js"></script>
@@ -27,49 +32,49 @@
 	<script src="js/scoringB2.js"></script>
 	<script src="js/scoringTotal.js"></script>
 
+	<!-- navigation bar -->
 	<div class="navbar">
+
+		<!-- left dropdown -->
 		<div class="dropdown" style="float:left">
-			<button class="dropbtnLeft" onclick="dropLeft()" >Files
+			<button class="dropbtn" style="left:0" onclick="dropLeft()" >Files
 				<i class="fa fa-caret-down"></i>
 			</button>
-			<div class="dropdown-content" id="left-dropdown">
+			<div class="dropdown-content" id="left-dropdown" style="left:0">
 				<a href="match.html" target="_blank">Match</a>
 				<a href="analysis.html" target="_blank">Analysis</a>
 			</div>
-		</div> 
-	  
+		</div>
+
+		<!-- center text with reload function -->
 		<button class="navText" onclick="reload()">Rover-Ruckus-Scouting</button>
-		
+
+		<!-- right dropdown -->
 		<div class="dropdown" style="float:right">
-			<button class="dropbtnRight" onclick="dropRight()">Resources
+			<button class="dropbtn" style="right:0" onclick="dropRight()">Resources
 				<i class="fa fa-caret-down"></i>
 			</button>
-			<div class="dropdown-content" id="right-dropdown">
-				<a href="Resource/Rover-Ruckus-Scouting-Download.zip" download>Download</a>
-				<a href="https://github.com/FIRST-Tech-Challenge/scorekeeper/releases">Download Live Scoring System</a>
+			<div class="dropdown-content" id="right-dropdown" style="right:0">
+				<a href="https://github.com/ichihtak000/Rover-Ruckus-Scouting" download>GitHub</a>
+				<a href="https://github.com/FIRST-Tech-Challenge/scorekeeper/releases">Download FTC Live Scoring System</a>
 				<a href="Resource/DraftScoreSheetBoth_v03.AudiencePerspective.pdf" target="_blank">Paper Scoring Sheet</a>
 				<a href="https://gearedreaction.org/" target="_blank">Geared Reaction Website</a>
 				<a href="https://projects.gearedreaction.org" target="_blank">Open Project</a>
 				<a href="https://rover-ruckus-scorer.now.sh/" target="_blank">Rover Ruckus Scorer</a>
-				<a href="https://www.w3schools.com/" target="_blank">W3School</a>
 			</div>
-		</div> 
-	</div>	
-
-	<div class="top">
-		<div class="topDiv">
-			<input type="text" name="fileName" id="fileName" placeholder="file name">
-			<input type="submit" name="newFile" id="newFile" value="New File">
-		</div>
-		<div class="topDiv">
-			<input type="button" class="button-off-top" style="background-color:green" value="Submit" onmousedown="store();mouseDownButton(this);" onmouseup="mouseUpButton(this)">
-		</div>
-		<div class="topDiv">
-			<input type="button" class="button-off-top" style="background-color:red" value="Clear" onmousedown="clearAll();mouseDownButton(this);" onmouseup="mouseUpButton(this)"></input>
 		</div>
 	</div>
-	
-	<div class="blue1Div">
+
+	<!-- top container -->
+	<div class="top">
+		<div class="topDiv">
+			<input type="button" class="button" style="background-color:green" value="Submit" onclick="store()">
+			<input type="button" class="button" style="background-color:red;margin-left:10em" value="Clear" onclick="reload('Clear?')"></input>
+		</div>
+	</div>
+
+	<!-- left blue container -->
+	<div class="scoreDiv" style="background-color:#2E86C1">
 		<div class="teamName">
 			<input name="blue1" type="text" id="teamNameB1" onchange="updateTotalB1()" placeholder="blue 1" maxlength="5" size="10">
 		</div>
@@ -98,7 +103,7 @@
 			</div>
 			<div class="autoButton">
 				<input class="button-off-score" type="button" id="landingB1" name="landingB1" value="30" onclick="chooseAutoB1(this);updateTotalB1();">
-			</div>	
+			</div>
 			<div class="autoButton">
 				<input class="button-off-score" type="button" id="samplingB1" name="samplingB1" value="25" onclick="chooseAutoB1(this);updateTotalB1();">
 			</div>
@@ -118,7 +123,7 @@
 				<input type="text" id="depotB1Num" maxlength="2" size="4" onchange="updateTeleB1();updateTotalB1();"></input>
 				<input type="button" class="button-off-score" id="depotB1+" value="+1" onmousedown="countTeleB1(this);updateTotalB1();" onmouseup="colorBack(this)"></input>
 				<input type="button" class="button-off-score" id="depotB1-" value="-1" onmousedown="countTeleB1(this);updateTotalB1();" onmouseup="colorBack(this)"></input>
-			</div>	
+			</div>
 			<div class="teleInputs">
 				<span>Cargo Hold</span><br>
 				<input type="text" id="cargoB1Num" maxlength="2" size="4" onchange="updateTeleB1();updateTotalB1();"></input>
@@ -141,7 +146,7 @@
 			</div>
 			<div class="endButton">
 				<input class="button-off-score" type="button" id="partialB1" name="partialB1" value="15" onclick="chooseEndB1(this);updateTotalB1();">
-			</div>	
+			</div>
 			<div class="endButton">
 				<input class="button-off-score" type="button" id="fullyB1" name="fullyB1" value="25" onclick="chooseEndB1(this);updateTotalB1();">
 			</div>
@@ -150,8 +155,9 @@
 			</div>
 		</div>
 	</div>
-	
-	<div class="blue2Div">
+
+	<!-- right blue container -->
+	<div class="scoreDiv" style="background-color:blue">
 		<div class="teamName">
 			<input name="blue2" type="text" id="teamNameB2" onchange="updateTotalB2()" placeholder="blue 2" maxlength="5" size="10">
 		</div>
@@ -180,7 +186,7 @@
 			</div>
 			<div class="autoButton">
 				<input class="button-off-score" type="button" id="landingB2" name="landingB2" value="30" onclick="chooseAutoB2(this);updateTotalB2();">
-			</div>	
+			</div>
 			<div class="autoButton">
 				<input class="button-off-score" type="button" id="samplingB2" name="samplingB2" value="25" onclick="chooseAutoB2(this);updateTotalB2();">
 			</div>
@@ -200,7 +206,7 @@
 				<input type="text" id="depotB2Num" maxlength="2" size="4" onchange="updateTeleB2();updateTotalB2();"></input>
 				<input type="button" class="button-off-score" id="depotB2+" value="+1" onmousedown="countTeleB2(this);updateTotalB2();" onmouseup="colorBack(this)"></input>
 				<input type="button" class="button-off-score" id="depotB2-" value="-1" onmousedown="countTeleB2(this);updateTotalB2();" onmouseup="colorBack(this)"></input>
-			</div>	
+			</div>
 			<div class="teleInputs">
 				<span>Cargo Hold</span><br>
 				<input type="text" id="cargoB2Num" maxlength="2" size="4" onchange="updateTeleB2();updateTotalB2();"></input>
@@ -223,7 +229,7 @@
 			</div>
 			<div class="endButton">
 				<input class="button-off-score" type="button" id="partialB2" name="partialB2" value="15" onclick="chooseEndB2(this);updateTotalB2();">
-			</div>	
+			</div>
 			<div class="endButton">
 				<input class="button-off-score" type="button" id="fullyB2" name="fullyB2" value="25" onclick="chooseEndB2(this);updateTotalB2();">
 			</div>
@@ -232,10 +238,11 @@
 			</div>
 		</div>
 	</div>
-	
-	<div class="red1Div">
+
+	<!-- left red container -->
+	<div class="scoreDiv" style="background-color:red;">
 		<div class="teamName">
-			<input name="red1" type="text" id="teamNameR1" onchange="updateTotalR1()" placeholder="red 1" maxlength="5" size="10">	
+			<input name="red1" type="text" id="teamNameR1" onchange="updateTotalR1()" placeholder="red 1" maxlength="5" size="10">
 		</div>
 		<div class="totalDiv">
 			<div class="score-container" style="height:100%;">
@@ -262,7 +269,7 @@
 			</div>
 			<div class="autoButton">
 				<input class="button-off-score" type="button" id="landingR1" name="landingR1" value="30" onclick="chooseAutoR1(this);updateTotalR1();">
-			</div>	
+			</div>
 			<div class="autoButton">
 				<input class="button-off-score" type="button" id="samplingR1" name="samplingR1" value="25" onclick="chooseAutoR1(this);updateTotalR1();">
 			</div>
@@ -282,7 +289,7 @@
 				<input type="text" id="depotR1Num" maxlength="2" size="4" onchange="updateTeleR1();updateTotalR1();"></input>
 				<input type="button" class="button-off-score" id="depotR1+" value="+1" onmousedown="countTeleR1(this);updateTotalR1();" onmouseup="colorBack(this)"></input>
 				<input type="button" class="button-off-score" id="depotR1-" value="-1" onmousedown="countTeleR1(this);updateTotalR1();" onmouseup="colorBack(this)"></input>
-			</div>	
+			</div>
 			<div class="teleInputs">
 				<span>Cargo Hold</span><br>
 				<input type="text" id="cargoR1Num" maxlength="2" size="4" onchange="updateTeleR1();updateTotalR1();"></input>
@@ -305,7 +312,7 @@
 			</div>
 			<div class="endButton">
 				<input class="button-off-score" type="button" id="partialR1" name="partialR1" value="15" onclick="chooseEndR1(this);updateTotalR1();">
-			</div>	
+			</div>
 			<div class="endButton">
 				<input class="button-off-score" type="button" id="fullyR1" name="fullyR1" value="25" onclick="chooseEndR1(this);updateTotalR1();">
 			</div>
@@ -314,8 +321,9 @@
 			</div>
 		</div>
 	</div>
-	
-	<div class="red2Div">
+
+	<!-- right red container -->
+	<div class="scoreDiv" style="background-color:#B22222;">
 		<div class="teamName">
 			<input name="red2" type="text" id="teamNameR2" onchange="updateTotalR2()" placeholder="red 2" maxlength="5" size="10">
 		</div>
@@ -344,7 +352,7 @@
 			</div>
 			<div class="autoButton">
 				<input class="button-off-score" type="button" id="landingR2" name="landingR2" value="30" onclick="chooseAutoR2(this);updateTotalR2();">
-			</div>	
+			</div>
 			<div class="autoButton">
 				<input class="button-off-score" type="button" id="samplingR2" name="samplingR2" value="25" onclick="chooseAutoR2(this);updateTotalR2();">
 			</div>
@@ -364,7 +372,7 @@
 				<input type="text" id="depotR2Num" maxlength="2" size="4" onchange="updateTeleR2();updateTotalR2();"></input>
 				<input type="button" class="button-off-score" id="depotR2+" value="+1" onmousedown="countTeleR2(this);updateTotalR2();" onmouseup="colorBack(this)"></input>
 				<input type="button" class="button-off-score" id="depotR2-" value="-1" onmousedown="countTeleR2(this);updateTotalR2();" onmouseup="colorBack(this)"></input>
-			</div>	
+			</div>
 			<div class="teleInputs">
 				<span>Cargo Hold</span><br>
 				<input type="text" id="cargoR2Num" maxlength="2" size="4" onchange="updateTeleR2();updateTotalR2();"></input>
@@ -387,7 +395,7 @@
 			</div>
 			<div class="endButton">
 				<input class="button-off-score" type="button" id="partialR2" name="partialR2" value="15" onclick="chooseEndR2(this);updateTotalR2();">
-			</div>	
+			</div>
 			<div class="endButton">
 				<input class="button-off-score" type="button" id="fullyR2" name="fullyR2" value="25" onclick="chooseEndR2(this);updateTotalR2();">
 			</div>
